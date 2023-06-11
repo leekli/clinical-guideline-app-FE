@@ -35,7 +35,7 @@ function handleClick(event) {
 if (isLoading) return (
     <div className="loading-section">
         <BeatLoader color="blue" size={16} />
-        <p>Loading...</p>
+        <p><strong>Loading...</strong></p>
     </div>
 
 )

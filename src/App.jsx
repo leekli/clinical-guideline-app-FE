@@ -5,6 +5,7 @@ import { Footer } from './components/Footer';
 import { Login } from './components/Login';
 import { Homepage } from './components/Homepage';
 import { SingleGuideline } from './components/SingleGuideline';
+import { NavBar } from './components/NavBar';
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
     <>
       <div className="App">
         <Header />
+        <NavBar />
         <Routes>
           <Route path="/" element={<Login />}/>
           <Route path="/guidelines" element={<Homepage />}/>
