@@ -13,6 +13,7 @@ export const SingleGuideline = () => {
   const { guideline_id } = useParams()
   const [guideline, setGuideline] = useState("")
   const [isLoading, setIsLoading] = useState(true)
+  const [searchInput, setSearchInput] = useState("")
 
   useEffect(() => {
     getGuidelineById(guideline_id).then((data) => {
@@ -34,8 +35,16 @@ function handleClick(event) {
   }
 }
 
-const onSearch = (value) => {
-  console.log(value)
+const onChange = (event) => {
+  setSearchInput(event.target.value)
+
+  // set up logic for highlighting found text
+  // need be able check every element and look within it
+  // if found... highlight yellow (if within a closed box then open it maybe? or have a better way of listing found text results?)
+}
+
+const onSearch = (event) => {
+  // logic for onSearch submit here
 }
 
 if (isLoading) return (
@@ -54,6 +63,8 @@ return (
         allowClear
         enterButton="Search"
         size="large"
+        value={searchInput}
+        onChange={onChange}
         onSearch={onSearch}
       />
   </Space>
