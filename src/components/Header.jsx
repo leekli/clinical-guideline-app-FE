@@ -5,7 +5,7 @@ export const Header = () => {
         <>
         <header>
             <center>
-            <h1>Clinical Guideline Authoring App</h1>
+            <h1>🏥 Clinical Guideline Authoring App</h1>
             </center>
         </header>
         </>

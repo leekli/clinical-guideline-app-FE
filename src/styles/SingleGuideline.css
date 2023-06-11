@@ -63,3 +63,9 @@
 #single_guideline_search_bar {
   width: 80%;
 }
+
+@media only screen and (max-width: 425px) {
+  #single_guideline_search_bar {
+    width: 100%;
+  }
+}
