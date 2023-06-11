@@ -10,7 +10,7 @@ export const NavBar = () => {
         {
             label: <Link to="/guidelines">Home</Link>,
             key: 'home',
-            icon: <HomeOutlined />,
+            icon: <HomeOutlined />
         },
         {
             label: "Contact Us",
@@ -25,7 +25,7 @@ export const NavBar = () => {
     
       return (
         <nav>
-            <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
+            <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} theme="dark" />
             <br /> 
         </nav>
       )

@@ -1,0 +1,21 @@
+.footer_main_container {
+    background-color: rgb(64, 126, 147);
+    color: white;
+    padding: 5px;
+}
+
+.footer_nice_acknowledgement {
+    font-size: xx-small;
+    text-align: right;
+}
+
+#footer_nice_logo {
+    float: left;
+    margin: 5px;
+    width: 150px;
+}
+
+#footer_nice_copyright_label {
+    text-align: right;
+    font-size: xx-small;
+}

@@ -5,9 +5,11 @@ import parse from "html-react-parser"
 import { getGuidelineById } from "../utils/api-calls";
 import { convertUnixTime } from "../utils/convertUnixTime";
 import { BeatLoader } from "react-spinners";
+import { Input, Space } from 'antd';
 
 
 export const SingleGuideline = () => {
+  const { Search } = Input;
   const { guideline_id } = useParams()
   const [guideline, setGuideline] = useState("")
   const [isLoading, setIsLoading] = useState(true)
@@ -32,9 +34,13 @@ function handleClick(event) {
   }
 }
 
+const onSearch = (value) => {
+  console.log(value)
+}
+
 if (isLoading) return (
     <div className="loading-section">
-        <BeatLoader color="blue" size={16} />
+        <BeatLoader color="rgb(4,2,39)" size={16} />
         <p><strong>Loading...</strong></p>
     </div>
 
@@ -42,18 +48,29 @@ if (isLoading) return (
 
 return (
   <>
+    <Space direction="vertical" id="single_guideline_search_bar">
+      <Search
+        placeholder="Search this guideline..."
+        allowClear
+        enterButton="Search"
+        size="large"
+        onSearch={onSearch}
+      />
+  </Space>
+
   <h2>{guideline.LongTitle}</h2>
   <p><strong>Date Issued: </strong>{convertUnixTime(guideline.MetadataApplicationProfile.Issued)}</p>
   {guideline.Chapters.map((chapter) => {
       return (
           <>
-          <button type="button" className="collapsible_chapter" onClick={handleClick}>{chapter.Title}</button>
+          <button type="button" className="collapsible_chapter" onClick={handleClick}><strong>{chapter.Title}</strong></button>
           <div className="content">
               {parse(chapter.Content)}
               {chapter.Sections.map((section) => {
                   return (
                       <>
-                          <button type="button" className="collapsible_section" onClick={handleClick}>{section.Title}</button>
+                          <h3 align="left">Sub-section (Click to view):</h3>
+                          <button type="button" className="collapsible_section" onClick={handleClick}><strong>{section.Title}</strong></button>
                           <div className="content">
                             {parse(section.Content)}
                           </div>

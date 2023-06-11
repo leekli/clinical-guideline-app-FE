@@ -1,9 +1,11 @@
+import "../styles/Header.css"
+
 export const Header = () => {
     return (
         <>
         <header>
             <center>
-            <h1>Clinical Guideline App (Temp Header)</h1>
+            <h1>Clinical Guideline Authoring App</h1>
             </center>
         </header>
         </>
