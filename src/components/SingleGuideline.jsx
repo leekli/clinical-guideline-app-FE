@@ -1,97 +1,119 @@
-import "../styles/SingleGuideline.css"
-import { useEffect, useState } from "react"
-import { useParams } from 'react-router-dom';
-import parse from "html-react-parser"
+import "../styles/SingleGuideline.css";
+import { useEffect, useState, useContext } from "react";
+import { useParams } from "react-router-dom";
+import parse from "html-react-parser";
 import { getGuidelineById } from "../utils/api-calls";
 import { convertUnixTime } from "../utils/convertUnixTime";
 import { BeatLoader } from "react-spinners";
-import { Input, Space } from 'antd';
-
+import { Input, Space } from "antd";
+import { UserContext } from "../contexts/User";
+import NotLoggedInError from "./NotLoggedIn";
 
 export const SingleGuideline = () => {
+  const { isLoggedIn } = useContext(UserContext);
+  const LoggedInCheck = JSON.parse(localStorage.getItem("isLoggedIn"));
   const { Search } = Input;
-  const { guideline_id } = useParams()
-  const [guideline, setGuideline] = useState("")
-  const [isLoading, setIsLoading] = useState(true)
-  const [searchInput, setSearchInput] = useState("")
+  const { guideline_id } = useParams();
+  const [guideline, setGuideline] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
     getGuidelineById(guideline_id).then((data) => {
-      setIsLoading(true)
-      setGuideline(data.guideline)
-      setIsLoading(false)
-    })
-}, [])
+      setIsLoading(true);
+      setGuideline(data.guideline);
+      setIsLoading(false);
+    });
+  }, []);
 
-function handleClick(event) {
-  event.target.classList.toggle("active")
-  let content = event.target.nextElementSibling
+  function handleClick(event) {
+    event.target.classList.toggle("active");
+    let content = event.target.nextElementSibling;
 
-  if (content.style.display === "block") {
-    content.style.display = "none"
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
   }
-  else {
-    content.style.display = "block"
-  }
-}
 
-const onChange = (event) => {
-  setSearchInput(event.target.value)
+  const onChange = (event) => {
+    setSearchInput(event.target.value);
 
-  // set up logic for highlighting found text
-  // need be able check every element and look within it
-  // if found... highlight yellow (if within a closed box then open it maybe? or have a better way of listing found text results?)
-}
+    // set up logic for highlighting found text
+    // need be able check every element and look within it
+    // if found... highlight yellow (if within a closed box then open it maybe? or have a better way of listing found text results?)
+  };
 
-const onSearch = (event) => {
-  // logic for onSearch submit here
-}
+  const onSearch = (event) => {
+    // logic for onSearch submit here
+  };
 
-if (isLoading) return (
-    <div className="loading-section">
+  if (isLoggedIn === true || LoggedInCheck === true) {
+    return isLoading ? (
+      <div className="loading-section">
         <BeatLoader color="rgb(4,2,39)" size={16} />
-        <p><strong>Loading...</strong></p>
-    </div>
+        <p>
+          <strong>Loading...</strong>
+        </p>
+      </div>
+    ) : (
+      <>
+        <Space direction="vertical" id="single_guideline_search_bar">
+          <Search
+            placeholder="Search this guideline..."
+            allowClear
+            enterButton="Search"
+            size="large"
+            value={searchInput}
+            onChange={onChange}
+            onSearch={onSearch}
+          />
+        </Space>
 
-)
-
-return (
-  <>
-    <Space direction="vertical" id="single_guideline_search_bar">
-      <Search
-        placeholder="Search this guideline..."
-        allowClear
-        enterButton="Search"
-        size="large"
-        value={searchInput}
-        onChange={onChange}
-        onSearch={onSearch}
-      />
-  </Space>
-
-  <h2>{guideline.LongTitle}</h2>
-  <p><strong>Date Issued: </strong>{convertUnixTime(guideline.MetadataApplicationProfile.Issued)}</p>
-  {guideline.Chapters.map((chapter) => {
-      return (
-          <>
-          <button type="button" className="collapsible_chapter" onClick={handleClick}><strong>{chapter.Title}</strong></button>
-          <div className="content">
-              {parse(chapter.Content)}
-              {chapter.Sections.map((section) => {
+        <h2>{guideline.LongTitle}</h2>
+        <p>
+          <strong>Date Issued: </strong>
+          {convertUnixTime(guideline.MetadataApplicationProfile.Issued)}
+        </p>
+        {guideline.Chapters.map((chapter) => {
+          return (
+            <>
+              <button
+                type="button"
+                className="collapsible_chapter"
+                onClick={handleClick}
+              >
+                <strong>{chapter.Title}</strong>
+              </button>
+              <div className="content">
+                {parse(chapter.Content)}
+                {chapter.Sections.map((section) => {
                   return (
-                      <>
-                          <h3 align="left">Sub-section (Click to view):</h3>
-                          <button type="button" className="collapsible_section" onClick={handleClick}><strong>{section.Title}</strong></button>
-                          <div className="content">
-                            {parse(section.Content)}
-                          </div>
-                      </>
-                  )
-              })}
-          </div>
-          </>
-      )
-  })}
-  </>
-)
+                    <>
+                      <h3 align="left">Sub-section (Click to view):</h3>
+                      <button
+                        type="button"
+                        className="collapsible_section"
+                        onClick={handleClick}
+                      >
+                        <strong>{section.Title}</strong>
+                      </button>
+                      <div className="content">{parse(section.Content)}</div>
+                    </>
+                  );
+                })}
+              </div>
+            </>
+          );
+        })}
+      </>
+    );
+  } else {
+    return (
+      <>
+        <NotLoggedInError />
+      </>
+    );
+  }
 };

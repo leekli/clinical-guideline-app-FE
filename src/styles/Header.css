@@ -1,23 +1,23 @@
 header {
-    background-color: rgb(64, 126, 147);
-    color: white;
-    padding: 5px;
+  background-color: rgb(64, 126, 147);
+  color: white;
+  padding: 5px;
 }
 
 @media only screen and (max-width: 600px) {
-    h1 {
-      font-size: x-large;
-    }
+  h1 {
+    font-size: x-large;
+  }
 }
 
 @media only screen and (max-width: 425px) {
-    h1 {
-      font-size: large;
-    }
+  h1 {
+    font-size: large;
+  }
 }
 
 @media only screen and (max-width: 320px) {
-    h1 {
-      font-size: medium;
-    }
+  h1 {
+    font-size: medium;
+  }
 }

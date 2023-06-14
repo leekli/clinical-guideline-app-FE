@@ -1,15 +1,17 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import { UserContext } from "../contexts/User";
 import { Alert, Button, Input, Tooltip } from "antd";
 import { InfoCircleOutlined, UserOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const [newUsername, setNewUsername] = useState("");
-  let navigate = useNavigate();
+  const { setLoggedInUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  const routeChange = (path) => {
+  function routeChange(path) {
     navigate(path);
-  };
+  }
 
   const handleUsernameChange = (event) => {
     setNewUsername(event.target.value);
@@ -19,6 +21,9 @@ export const Login = () => {
     event.preventDefault();
 
     if (newUsername === "joe.bloggs") {
+      setLoggedInUser({ username: newUsername });
+      localStorage.setItem("username", JSON.stringify(newUsername));
+      localStorage.setItem("isLoggedIn", true);
       setNewUsername("");
       routeChange(`/guidelines`);
     }
