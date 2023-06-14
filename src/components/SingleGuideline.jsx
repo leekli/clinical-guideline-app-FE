@@ -8,6 +8,7 @@ import { BeatLoader } from "react-spinners";
 import { Input, Space } from "antd";
 import { UserContext } from "../contexts/User";
 import NotLoggedInError from "./NotLoggedIn";
+import ErrorPage from "./ErrorPage";
 
 export const SingleGuideline = () => {
   const { isLoggedIn } = useContext(UserContext);
@@ -16,14 +17,20 @@ export const SingleGuideline = () => {
   const { guideline_id } = useParams();
   const [guideline, setGuideline] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
   const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
-    getGuidelineById(guideline_id).then((data) => {
-      setIsLoading(true);
-      setGuideline(data.guideline);
-      setIsLoading(false);
-    });
+    setIsLoading(true);
+    setIsError(false);
+    getGuidelineById(guideline_id)
+      .then((data) => {
+        setGuideline(data.guideline);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsError({ err });
+      });
   }, []);
 
   function handleClick(event) {
@@ -48,6 +55,10 @@ export const SingleGuideline = () => {
   const onSearch = (event) => {
     // logic for onSearch submit here
   };
+
+  if (isError) {
+    return <ErrorPage />;
+  }
 
   if (isLoggedIn === true || LoggedInCheck === true) {
     return isLoading ? (

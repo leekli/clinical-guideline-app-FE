@@ -9,7 +9,9 @@ export const getGuidelines = () => {
     .then((res) => {
       return res.data.guidelines;
     })
-    .catch((err) => err);
+    .catch((err) => {
+      throw err;
+    });
 };
 
 export const getGuidelineById = (guideline_id) => {
@@ -18,5 +20,7 @@ export const getGuidelineById = (guideline_id) => {
     .then((res) => {
       return res.data;
     })
-    .catch((err) => err);
+    .catch((err) => {
+      throw err;
+    });
 };
