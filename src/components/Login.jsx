@@ -9,9 +9,9 @@ export const Login = () => {
   const { setLoggedInUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  function routeChange(path) {
+  const routeChange = (path) => {
     navigate(path);
-  }
+  };
 
   const handleUsernameChange = (event) => {
     setNewUsername(event.target.value);

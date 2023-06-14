@@ -4,14 +4,14 @@ import { Alert } from "antd";
 const NotLoggedInError = () => {
   return (
     <>
-      <br></br>
+      <br />
       <Alert
         message="Error"
         description="You must be logged in to access this page."
         type="error"
         showIcon
       />
-      <br></br>
+      <br />
       <Link to="/">Click here to go to the Login page</Link>
     </>
   );

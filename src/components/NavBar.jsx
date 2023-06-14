@@ -16,9 +16,9 @@ export const NavBar = () => {
   const LoggedInCheck = JSON.parse(localStorage.getItem("isLoggedIn"));
   const navigate = useNavigate();
 
-  function routeChange(path) {
+  const routeChange = (path) => {
     navigate(path);
-  }
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("username");

@@ -10,28 +10,26 @@ const ErrorPage = () => {
   if (isLoggedIn === true || LoggedInCheck === true) {
     return (
       <>
-        <br></br>
         <Alert
           message="Error"
           description="Error: The page does not exist"
           type="error"
           showIcon
         />
-        <br></br>
+        <br />
         <Link to="/guidelines">Click here to go back to the Homepage</Link>
       </>
     );
   } else {
     return (
       <>
-        <br></br>
         <Alert
           message="Error"
           description="Error: The page does not exist."
           type="error"
           showIcon
         />
-        <br></br>
+        <br />
         <Link to="/">Click here to go back to the Login page</Link>
       </>
     );
