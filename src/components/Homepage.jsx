@@ -50,8 +50,6 @@ export const Homepage = () => {
       </div>
     ) : (
       <>
-        <h2>Homepage Text</h2>
-
         <Space direction="vertical" id="guidelines_search_bar">
           <Search
             placeholder="Search Guidelines..."
@@ -66,7 +64,7 @@ export const Homepage = () => {
 
         <br />
         <br />
-        <strong>Guidelines:</strong>
+        <strong>All Clinical Guidelines:</strong>
         <ul>
           {guidelines.map((guideline) => {
             const guidelinLink = `/guidelines/${guideline.GuidanceNumber}`;

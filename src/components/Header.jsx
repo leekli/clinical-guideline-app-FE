@@ -13,7 +13,14 @@ export const Header = () => {
         <header>
           <center>
             <h1>🏥 Clinical Guideline Authoring App</h1>
-            <p>You are logged in as: {username}</p>
+            <p>
+              <img
+                src="./images/avatar_icon.png"
+                alt="a black outline of a unisex avatar icon"
+                width="20"
+              />
+              &nbsp; You are logged in as: {username}
+            </p>
           </center>
         </header>
       </>
