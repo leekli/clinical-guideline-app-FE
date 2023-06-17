@@ -24,3 +24,14 @@ export const getGuidelineById = (guideline_id) => {
       throw err;
     });
 };
+
+export const getAllUsers = () => {
+  return axios
+    .get(`${apiUrl}/users`)
+    .then((res) => {
+      return res.data.users;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
