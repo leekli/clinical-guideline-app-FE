@@ -35,7 +35,7 @@ export const NavBar = () => {
       icon: <HomeOutlined />,
     },
     {
-      label: "Contact Us",
+      label: <Link to="/contact">Contact</Link>,
       key: "contact",
       icon: <MailOutlined />,
     },
@@ -54,7 +54,7 @@ export const NavBar = () => {
       icon: <LoginOutlined />,
     },
     {
-      label: "Contact Us",
+      label: <Link to="/contact">Contact</Link>,
       key: "contact",
       icon: <MailOutlined />,
     },

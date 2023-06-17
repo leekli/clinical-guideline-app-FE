@@ -7,6 +7,7 @@ import { Homepage } from "./components/Homepage";
 import { SingleGuideline } from "./components/SingleGuideline";
 import { NavBar } from "./components/NavBar";
 import ErrorPage from "./components/ErrorPage";
+import { Contact } from "./components/Contact";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             path="/guidelines/:guideline_id"
             element={<SingleGuideline />}
           />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/error" element={<ErrorPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
