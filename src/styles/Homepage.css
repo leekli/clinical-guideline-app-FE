@@ -1,0 +1,9 @@
+#guidelines_search_bar {
+  width: 80%;
+}
+
+@media only screen and (max-width: 425px) {
+  #guidelines_search_bar {
+    width: 100%;
+  }
+}

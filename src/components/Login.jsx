@@ -52,7 +52,7 @@ export const Login = () => {
           <label htmlFor="Login__textbox">
             <Alert
               message="Login"
-              description={`For Demo purposes - Please log in as: joebloggs`}
+              description={`For Demo purposes - Please log in as any of the following: joebloggs (Admin), janedoe (Nurse), katedillon (GP), kelvinball (Approver)`}
               type="info"
               showIcon
             />

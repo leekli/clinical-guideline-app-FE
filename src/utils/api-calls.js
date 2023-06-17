@@ -3,9 +3,9 @@ import baseUrl from "../../secrets/apiURL";
 
 const apiUrl = baseUrl;
 
-export const getGuidelines = () => {
+export const getGuidelines = (searchParam) => {
   return axios
-    .get(`${apiUrl}/guidelines`)
+    .get(`${apiUrl}/guidelines?search=${searchParam}`)
     .then((res) => {
       return res.data.guidelines;
     })
