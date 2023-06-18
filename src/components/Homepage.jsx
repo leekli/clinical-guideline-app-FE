@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import { UserContext } from "../contexts/User";
 import NotLoggedInError from "./NotLoggedIn";
-import { Input, Space } from "antd";
+import { Typography, Input, Space, Card } from "antd";
+import { EyeOutlined } from "@ant-design/icons";
+const { Title } = Typography;
 
 export const Homepage = () => {
   const { isLoggedIn } = useContext(UserContext);
@@ -64,17 +66,37 @@ export const Homepage = () => {
 
         <br />
         <br />
-        <strong>All Clinical Guidelines:</strong>
-        <ul>
+        <Space direction="vertical" size={16}>
           {guidelines.map((guideline) => {
-            const guidelinLink = `/guidelines/${guideline.GuidanceNumber}`;
+            const guidelineLink = `/guidelines/${guideline.GuidanceNumber}`;
             return (
-              <Link to={guidelinLink} key={guideline.GuidanceNumber}>
-                <li key={guideline.GuidanceNumber}>{guideline.LongTitle}</li>
-              </Link>
+              <>
+                <Card
+                  type="inner"
+                  title={
+                    <Title level={5} underline>
+                      {guideline.Title}
+                    </Title>
+                  }
+                  extra={
+                    <Link to={guidelineLink} key={guideline.GuidanceNumber}>
+                      <EyeOutlined key="view-guideline" />
+                      &nbsp;View Guideline {guideline.GuidanceNumber}
+                    </Link>
+                  }
+                  style={{ width: "80vw" }}
+                  hoverable
+                  id="guideline_card"
+                >
+                  <strong>
+                    <p>Guideline Number: {guideline.GuidanceNumber}</p>
+                  </strong>
+                  <p>{guideline.LongTitle}</p>
+                </Card>
+              </>
             );
           })}
-        </ul>
+        </Space>
       </>
     );
   } else {
