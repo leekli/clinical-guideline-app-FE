@@ -3,8 +3,7 @@ import { useContext } from "react";
 import { UserContext } from "../contexts/User";
 
 export const Header = () => {
-  const { isLoggedIn } = useContext(UserContext);
-  const username = JSON.parse(localStorage.getItem("username"));
+  const { loggedInUser, isLoggedIn } = useContext(UserContext);
   const LoggedInCheck = JSON.parse(localStorage.getItem("isLoggedIn"));
 
   if (isLoggedIn === true || JSON.parse(LoggedInCheck) === true) {
@@ -19,7 +18,7 @@ export const Header = () => {
                 alt="a black outline of a unisex avatar icon"
                 width="20"
               />
-              &nbsp; You are logged in as: {username}
+              &nbsp; You are logged in as: {loggedInUser.username}
             </p>
           </center>
         </header>

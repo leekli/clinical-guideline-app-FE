@@ -20,7 +20,7 @@ export const Footer = () => {
             <p id="footer_nice_copyright_label">
               © National Institute for Health and Care Excellence 2018
             </p>
-            <p>
+            <p id="nice_full_acknowledgement_text">
               This content is made available by NICE (National Institute for
               Health and Care Excellence) but distributed by a third-party
               distributor. NICE takes no responsibility for the format in which
