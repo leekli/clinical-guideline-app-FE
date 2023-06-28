@@ -3,6 +3,8 @@ import {
   MailOutlined,
   LoginOutlined,
   LogoutOutlined,
+  ReadOutlined,
+  PlusCircleOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import { Link } from "react-router-dom";
@@ -33,6 +35,16 @@ export const NavBar = () => {
       label: <Link to="/guidelines">Home</Link>,
       key: "home",
       icon: <HomeOutlined />,
+    },
+    {
+      label: <Link to="/myguidelines">My Guidelines</Link>,
+      key: "myguidelines",
+      icon: <ReadOutlined />,
+    },
+    {
+      label: <Link to="/myapprovals">My Approvals</Link>,
+      key: "myapprovals",
+      icon: <PlusCircleOutlined />,
     },
     {
       label: <Link to="/contact">Contact</Link>,

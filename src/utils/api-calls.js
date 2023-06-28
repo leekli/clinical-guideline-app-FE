@@ -35,3 +35,14 @@ export const getAllUsers = () => {
       throw err;
     });
 };
+
+export const getAllBranches = () => {
+  return axios
+    .get(`${apiUrl}/branches`)
+    .then((res) => {
+      return res.data.branches;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};

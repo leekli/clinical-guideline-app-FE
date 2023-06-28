@@ -8,6 +8,8 @@ import { SingleGuideline } from "./components/SingleGuideline";
 import { NavBar } from "./components/NavBar";
 import ErrorPage from "./components/ErrorPage";
 import { Contact } from "./components/Contact";
+import { MyGuidelinesHome } from "./components/MyGuidelinesHome";
+import { MyApprovalsHome } from "./components/MyApprovalsHome";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
             element={<SingleGuideline />}
           />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/myguidelines" element={<MyGuidelinesHome />} />
+          <Route path="/myapprovals" element={<MyApprovalsHome />} />
           <Route path="/error" element={<ErrorPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
