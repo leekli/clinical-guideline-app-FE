@@ -6,6 +6,8 @@ export const UserProvider = (props) => {
   const [loggedInUser, setLoggedInUser] = useState(
     {
       username: undefined,
+      primaryAccessLevel: undefined,
+      secondaryAccessLevel: undefined,
     },
     []
   );

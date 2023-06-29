@@ -33,7 +33,11 @@ export const Login = () => {
     if (userList.some(checkUsername) === true) {
       userList.forEach((eachUser) => {
         if (eachUser.userName === newUsername) {
-          setLoggedInUser({ username: newUsername });
+          setLoggedInUser({
+            username: newUsername,
+            primaryAccessLevel: eachUser.primaryAccessLevel,
+            secondaryAccessLevel: eachUser.secondaryAccessLevel,
+          });
           localStorage.setItem("username", JSON.stringify(newUsername));
           localStorage.setItem("isLoggedIn", true);
           setNewUsername("");

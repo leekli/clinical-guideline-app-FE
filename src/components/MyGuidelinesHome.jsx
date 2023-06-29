@@ -3,6 +3,7 @@ import { getAllBranches } from "../utils/api-calls";
 import { UserContext } from "../contexts/User";
 import { BeatLoader } from "react-spinners";
 import NotLoggedInError from "./NotLoggedIn";
+import ErrorPage from "./ErrorPage";
 
 export const MyGuidelinesHome = () => {
   const { isLoggedIn } = useContext(UserContext);
@@ -21,6 +22,10 @@ export const MyGuidelinesHome = () => {
         setIsError({ err });
       });
   }, []);
+
+  if (isError) {
+    return <ErrorPage />;
+  }
 
   if (isLoggedIn === true || LoggedInCheck === true) {
     return isLoading ? (

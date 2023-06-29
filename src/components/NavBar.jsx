@@ -14,8 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 export const NavBar = () => {
   const [current, setCurrent] = useState("");
-  const { setLoggedInUser, isLoggedIn } = useContext(UserContext);
-  const LoggedInCheck = JSON.parse(localStorage.getItem("isLoggedIn"));
+  const { setLoggedInUser, isLoggedIn, loggedInUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const routeChange = (path) => {
@@ -25,12 +24,16 @@ export const NavBar = () => {
   const handleLogout = () => {
     localStorage.removeItem("username");
     localStorage.removeItem("isLoggedIn");
-    setLoggedInUser({ username: undefined });
+    setLoggedInUser({
+      username: undefined,
+      primaryAccessLevel: undefined,
+      secondaryAccessLevel: undefined,
+    });
     alert("You are now logged out.");
     routeChange("/");
   };
 
-  const itemsLoggedIn = [
+  const itemsLoggedInAdminOnly = [
     {
       label: <Link to="/guidelines">Home</Link>,
       key: "home",
@@ -45,6 +48,54 @@ export const NavBar = () => {
       label: <Link to="/myapprovals">My Approvals</Link>,
       key: "myapprovals",
       icon: <PlusCircleOutlined />,
+    },
+    {
+      label: <Link to="/contact">Contact</Link>,
+      key: "contact",
+      icon: <MailOutlined />,
+    },
+    {
+      label: `Log out`,
+      key: "log-out",
+      icon: <LogoutOutlined />,
+      onClick: handleLogout,
+    },
+  ];
+
+  const itemsLoggedInApproverOnly = [
+    {
+      label: <Link to="/guidelines">Home</Link>,
+      key: "home",
+      icon: <HomeOutlined />,
+    },
+    {
+      label: <Link to="/myapprovals">My Approvals</Link>,
+      key: "myapprovals",
+      icon: <PlusCircleOutlined />,
+    },
+    {
+      label: <Link to="/contact">Contact</Link>,
+      key: "contact",
+      icon: <MailOutlined />,
+    },
+    {
+      label: `Log out`,
+      key: "log-out",
+      icon: <LogoutOutlined />,
+      onClick: handleLogout,
+    },
+  ];
+
+  const itemsLoggedInAuthorEditorOnly = [
+    {
+      label: <Link to="/guidelines">Home</Link>,
+      key: "home",
+      icon: <HomeOutlined />,
+    },
+    {
+      label: <Link to="/myguidelines">My Guidelines</Link>,
+      key: "myguidelines",
+      icon: <ReadOutlined />,
     },
     {
       label: <Link to="/contact">Contact</Link>,
@@ -76,19 +127,70 @@ export const NavBar = () => {
     setCurrent(event.key);
   };
 
-  if (isLoggedIn === true || JSON.parse(LoggedInCheck) === true) {
-    return (
-      <nav>
-        <Menu
-          onClick={onClick}
-          selectedKeys={[current]}
-          mode="horizontal"
-          items={itemsLoggedIn}
-          theme="dark"
-        />
-        <br />
-      </nav>
-    );
+  if (isLoggedIn === true) {
+    if (loggedInUser.primaryAccessLevel.includes("Admin")) {
+      return (
+        <nav>
+          <Menu
+            onClick={onClick}
+            selectedKeys={[current]}
+            mode="horizontal"
+            items={itemsLoggedInAdminOnly}
+            theme="dark"
+          />
+          <br />
+        </nav>
+      );
+    } else if (
+      loggedInUser.secondaryAccessLevel.includes("Approver") &&
+      loggedInUser.secondaryAccessLevel.length === 1
+    ) {
+      return (
+        <nav>
+          <Menu
+            onClick={onClick}
+            selectedKeys={[current]}
+            mode="horizontal"
+            items={itemsLoggedInApproverOnly}
+            theme="dark"
+          />
+          <br />
+        </nav>
+      );
+    } else if (
+      loggedInUser.secondaryAccessLevel.includes("Approver") &&
+      loggedInUser.secondaryAccessLevel.includes("Editor")
+    ) {
+      return (
+        <nav>
+          <Menu
+            onClick={onClick}
+            selectedKeys={[current]}
+            mode="horizontal"
+            items={itemsLoggedInAdminOnly}
+            theme="dark"
+          />
+          <br />
+        </nav>
+      );
+    } else if (
+      loggedInUser.secondaryAccessLevel.includes("Author") ||
+      loggedInUser.secondaryAccessLevel.includes("Editor") ||
+      loggedInUser.secondaryAccessLevel.includes("Q.C")
+    ) {
+      return (
+        <nav>
+          <Menu
+            onClick={onClick}
+            selectedKeys={[current]}
+            mode="horizontal"
+            items={itemsLoggedInAuthorEditorOnly}
+            theme="dark"
+          />
+          <br />
+        </nav>
+      );
+    }
   } else {
     return (
       <nav>
