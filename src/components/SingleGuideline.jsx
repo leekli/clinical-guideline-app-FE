@@ -87,88 +87,148 @@ export const SingleGuideline = () => {
   }
 
   if (isLoggedIn === true || LoggedInCheck === true) {
-    return isLoading ? (
-      <div className="loading-section">
-        <BeatLoader color="rgb(4,2,39)" size={16} />
-        <p>
-          <strong>Loading...</strong>
-        </p>
-      </div>
-    ) : (
-      <>
-        <h2>{guideline.LongTitle}</h2>
-        <p>
-          <strong>Date Issued: </strong>
-          {convertUnixTime(guideline.MetadataApplicationProfile.Issued)}
-        </p>
-
-        <Space wrap>
-          <Button
-            type="primary"
-            size="large"
-            icon={<EditOutlined />}
-            style={{ background: "seagreen", borderColor: "black" }}
-            onClick={showModal}
-          >
-            Submit this Guideline for Editing...
-          </Button>
-
-          <Modal
-            title="Enter an Edit Workspace Title"
-            open={isModalOpen}
-            onOk={form.submit}
-            onCancel={handleModalCancel}
-            closable
-          >
+    if (isLoading) {
+      return (
+        <>
+          <div className="loading-section">
+            <BeatLoader color="rgb(4,2,39)" size={16} />
             <p>
-              Before submitting, please specify what you want to call your 'Edit
-              Workspace' for this Guideline:
+              <strong>Loading...</strong>
             </p>
-            <Form form={form} onFinish={onEditButtonClick}>
-              <Input
-                placeholder="Enter Title here..."
-                onChange={onEditModalTextChange}
-              />
-            </Form>
-          </Modal>
-        </Space>
+          </div>
+        </>
+      );
+    } else {
+      if (
+        loggedInUser.primaryAccessLevel.includes("Author") ||
+        loggedInUser.secondaryAccessLevel.includes("Author") ||
+        loggedInUser.secondaryAccessLevel.includes("Editor")
+      ) {
+        return (
+          <>
+            <h2>{guideline.LongTitle}</h2>
+            <p>
+              <strong>Date Issued: </strong>
+              {convertUnixTime(guideline.MetadataApplicationProfile.Issued)}
+            </p>
 
-        <br />
-        <br />
-
-        {guideline.Chapters.map((chapter) => {
-          return (
-            <>
-              <button
-                type="button"
-                className="collapsible_chapter"
-                onClick={handleClick}
+            <Space wrap>
+              <Button
+                type="primary"
+                size="large"
+                icon={<EditOutlined />}
+                style={{ background: "seagreen", borderColor: "black" }}
+                onClick={showModal}
               >
-                <strong>{chapter.Title}</strong>
-              </button>
-              <div className="content">
-                {parse(chapter.Content)}
-                {chapter.Sections.map((section) => {
-                  return (
-                    <>
-                      <h3 align="left">Sub-section (Click to view):</h3>
-                      <button
-                        type="button"
-                        className="collapsible_section"
-                        onClick={handleClick}
-                      >
-                        <strong>{section.Title}</strong>
-                      </button>
-                      <div className="content">{parse(section.Content)}</div>
-                    </>
-                  );
-                })}
-              </div>
-            </>
-          );
-        })}
-      </>
-    );
+                Submit this Guideline for Editing...
+              </Button>
+
+              <Modal
+                title="Enter an Edit Workspace Title"
+                open={isModalOpen}
+                onOk={form.submit}
+                onCancel={handleModalCancel}
+                closable
+              >
+                <p>
+                  Before submitting, please specify what you want to call your
+                  'Edit Workspace' for this Guideline:
+                </p>
+                <Form form={form} onFinish={onEditButtonClick}>
+                  <Input
+                    placeholder="Enter Title here..."
+                    onChange={onEditModalTextChange}
+                  />
+                </Form>
+              </Modal>
+            </Space>
+
+            <br />
+            <br />
+
+            {guideline.Chapters.map((chapter) => {
+              return (
+                <>
+                  <button
+                    type="button"
+                    className="collapsible_chapter"
+                    onClick={handleClick}
+                  >
+                    <strong>{chapter.Title}</strong>
+                  </button>
+                  <div className="content">
+                    {parse(chapter.Content)}
+                    {chapter.Sections.map((section) => {
+                      return (
+                        <>
+                          <h3 align="left">Sub-section (Click to view):</h3>
+                          <button
+                            type="button"
+                            className="collapsible_section"
+                            onClick={handleClick}
+                          >
+                            <strong>{section.Title}</strong>
+                          </button>
+                          <div className="content">
+                            {parse(section.Content)}
+                          </div>
+                        </>
+                      );
+                    })}
+                  </div>
+                </>
+              );
+            })}
+          </>
+        );
+      } else {
+        return (
+          <>
+            <h2>{guideline.LongTitle}</h2>
+            <p>
+              <strong>Date Issued: </strong>
+              {convertUnixTime(guideline.MetadataApplicationProfile.Issued)}
+            </p>
+
+            <br />
+
+            {guideline.Chapters.map((chapter) => {
+              return (
+                <>
+                  <button
+                    type="button"
+                    className="collapsible_chapter"
+                    onClick={handleClick}
+                  >
+                    <strong>{chapter.Title}</strong>
+                  </button>
+                  <div className="content">
+                    {parse(chapter.Content)}
+                    {chapter.Sections.map((section) => {
+                      return (
+                        <>
+                          <h3 align="left">Sub-section (Click to view):</h3>
+                          <button
+                            type="button"
+                            className="collapsible_section"
+                            onClick={handleClick}
+                          >
+                            <strong>{section.Title}</strong>
+                          </button>
+                          <div className="content">
+                            {parse(section.Content)}
+                          </div>
+                        </>
+                      );
+                    })}
+                  </div>
+                </>
+              );
+            })}
+          </>
+        );
+      }
+    }
   } else {
     return (
       <>
