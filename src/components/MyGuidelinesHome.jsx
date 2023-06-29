@@ -4,6 +4,8 @@ import { UserContext } from "../contexts/User";
 import { BeatLoader } from "react-spinners";
 import NotLoggedInError from "./NotLoggedIn";
 import ErrorPage from "./ErrorPage";
+import { Typography, Space, Card } from "antd";
+const { Title } = Typography;
 
 export const MyGuidelinesHome = () => {
   const { isLoggedIn } = useContext(UserContext);
@@ -38,20 +40,36 @@ export const MyGuidelinesHome = () => {
     ) : (
       <>
         <h2>Live Guidelines In Progress</h2>
-        {guidelineBranches.map((guideline) => {
-          return (
-            <>
-              <p>Branch Name: {guideline.branchName}</p>
-              <p>Branch Type: {guideline.type}</p>
-              <p>Branch Owner: {guideline.branchOwner}</p>
-              <p>
-                Branch Guideline Being Edited:&nbsp;
-                {guideline.guideline.GuidanceNumber}&nbsp;
-                {guideline.guideline.LongTitle}
-              </p>
-            </>
-          );
-        })}
+
+        <Space direction="vertical" size={16}>
+          {guidelineBranches.map((guideline) => {
+            return (
+              <>
+                <Card
+                  type="inner"
+                  title={
+                    <Title level={5} underline>
+                      Edit Workspace: {guideline.branchName}
+                    </Title>
+                  }
+                  style={{ width: "80vw" }}
+                  hoverable
+                  id="branch_card"
+                >
+                  <strong>
+                    <p>Branch Owner: {guideline.branchOwner}</p>
+                  </strong>
+                  <p>
+                    <strong>Branch Guideline Being Edited:</strong>
+                    <br />
+                    {guideline.guideline.GuidanceNumber}&nbsp;
+                    {guideline.guideline.LongTitle}
+                  </p>
+                </Card>
+              </>
+            );
+          })}
+        </Space>
       </>
     );
   } else {
