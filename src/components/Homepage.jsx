@@ -74,9 +74,11 @@ export const Homepage = () => {
                 <Card
                   type="inner"
                   title={
-                    <Title level={5} underline>
-                      {guideline.Title}
-                    </Title>
+                    <Link to={guidelineLink} key={guideline.GuidanceNumber}>
+                      <Title level={5} underline>
+                        {guideline.Title}
+                      </Title>
+                    </Link>
                   }
                   extra={
                     <Link to={guidelineLink} key={guideline.GuidanceNumber}>
