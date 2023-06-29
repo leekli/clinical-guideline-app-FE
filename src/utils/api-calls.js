@@ -46,3 +46,14 @@ export const getAllBranches = () => {
       throw err;
     });
 };
+
+export const postNewBranch = (branchToSetup) => {
+  return axios
+    .post(`${apiUrl}/branches?type=edit`, branchToSetup)
+    .then((res) => {
+      return res.data.branch;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};

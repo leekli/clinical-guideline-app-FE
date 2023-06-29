@@ -2,23 +2,25 @@ import "../styles/SingleGuideline.css";
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import parse from "html-react-parser";
-import { getGuidelineById } from "../utils/api-calls";
+import { getGuidelineById, postNewBranch } from "../utils/api-calls";
 import { convertUnixTime } from "../utils/convertUnixTime";
 import { BeatLoader } from "react-spinners";
-import { Input, Space } from "antd";
+import { Space, Button, Modal, Input, Form } from "antd";
+import { EditOutlined } from "@ant-design/icons";
 import { UserContext } from "../contexts/User";
 import NotLoggedInError from "./NotLoggedIn";
 import ErrorPage from "./ErrorPage";
 
 export const SingleGuideline = () => {
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, loggedInUser } = useContext(UserContext);
   const LoggedInCheck = JSON.parse(localStorage.getItem("isLoggedIn"));
-  const { Search } = Input;
   const { guideline_id } = useParams();
   const [guideline, setGuideline] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-  const [searchInput, setSearchInput] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editBranchName, setIsEditBranchName] = useState("");
+  const [form] = Form.useForm();
 
   useEffect(() => {
     setIsLoading(true);
@@ -31,7 +33,15 @@ export const SingleGuideline = () => {
       .catch((err) => {
         setIsError({ err });
       });
-  }, []);
+  }, [isError]);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalCancel = () => {
+    setIsModalOpen(false);
+  };
 
   function handleClick(event) {
     event.target.classList.toggle("active");
@@ -44,16 +54,32 @@ export const SingleGuideline = () => {
     }
   }
 
-  const onChange = (event) => {
-    setSearchInput(event.target.value);
-
-    // set up logic for highlighting found text
-    // need be able check every element and look within it
-    // if found... highlight yellow (if within a closed box then open it maybe? or have a better way of listing found text results?)
+  const onEditModalTextChange = (event) => {
+    setIsEditBranchName(event.target.value);
   };
 
-  const onSearch = (event) => {
-    // logic for onSearch submit here
+  const onEditButtonClick = () => {
+    const branchEditTitleCopy = editBranchName;
+    const branchEditTitleFormatted = branchEditTitleCopy.split(" ").join("-");
+
+    const currentDateTime = String(Date.now());
+
+    const branchToSetup = {
+      type: "edit",
+      branchName: branchEditTitleFormatted,
+      branchSetupDateTime: currentDateTime,
+      branchOwner: loggedInUser.username,
+      guideline: guideline,
+    };
+
+    return postNewBranch(branchToSetup)
+      .then(() => {
+        setIsModalOpen(false);
+        alert("New Branch Successfully submitted!");
+      })
+      .catch((err) => {
+        setIsError({ err });
+      });
   };
 
   if (isError) {
@@ -70,23 +96,46 @@ export const SingleGuideline = () => {
       </div>
     ) : (
       <>
-        <Space direction="vertical" id="single_guideline_search_bar">
-          <Search
-            placeholder="Search this guideline..."
-            allowClear
-            enterButton="Search"
-            size="large"
-            value={searchInput}
-            onChange={onChange}
-            onSearch={onSearch}
-          />
-        </Space>
-
         <h2>{guideline.LongTitle}</h2>
         <p>
           <strong>Date Issued: </strong>
           {convertUnixTime(guideline.MetadataApplicationProfile.Issued)}
         </p>
+
+        <Space wrap>
+          <Button
+            type="primary"
+            size="large"
+            icon={<EditOutlined />}
+            style={{ background: "seagreen", borderColor: "black" }}
+            onClick={showModal}
+          >
+            Submit this Guideline for Editing...
+          </Button>
+
+          <Modal
+            title="Enter an Edit Workspace Title"
+            open={isModalOpen}
+            onOk={form.submit}
+            onCancel={handleModalCancel}
+            closable
+          >
+            <p>
+              Before submitting, please specify what you want to call your 'Edit
+              Workspace' for this Guideline:
+            </p>
+            <Form form={form} onFinish={onEditButtonClick}>
+              <Input
+                placeholder="Enter Title here..."
+                onChange={onEditModalTextChange}
+              />
+            </Form>
+          </Modal>
+        </Space>
+
+        <br />
+        <br />
+
         {guideline.Chapters.map((chapter) => {
           return (
             <>
