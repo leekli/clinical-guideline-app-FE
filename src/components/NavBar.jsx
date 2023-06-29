@@ -110,6 +110,25 @@ export const NavBar = () => {
     },
   ];
 
+  const itemsLoggedInViewerOnly = [
+    {
+      label: <Link to="/guidelines">Home</Link>,
+      key: "home",
+      icon: <HomeOutlined />,
+    },
+    {
+      label: <Link to="/contact">Contact</Link>,
+      key: "contact",
+      icon: <MailOutlined />,
+    },
+    {
+      label: `Log out`,
+      key: "log-out",
+      icon: <LogoutOutlined />,
+      onClick: handleLogout,
+    },
+  ];
+
   const itemsLoggedOut = [
     {
       label: <Link to="/">Please Login</Link>,
@@ -152,6 +171,22 @@ export const NavBar = () => {
             selectedKeys={[current]}
             mode="horizontal"
             items={itemsLoggedInApproverOnly}
+            theme="dark"
+          />
+          <br />
+        </nav>
+      );
+    } else if (
+      loggedInUser.secondaryAccessLevel.includes("Viewer") &&
+      loggedInUser.secondaryAccessLevel.length === 1
+    ) {
+      return (
+        <nav>
+          <Menu
+            onClick={onClick}
+            selectedKeys={[current]}
+            mode="horizontal"
+            items={itemsLoggedInViewerOnly}
             theme="dark"
           />
           <br />
