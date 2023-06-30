@@ -112,6 +112,11 @@ export const SingleGuideline = () => {
               {convertUnixTime(guideline.MetadataApplicationProfile.Issued)}
             </p>
 
+            <p>
+              <strong>Current Guideline Version: </strong>
+              {guideline.GuidelineCurrentVersion + ".0"}
+            </p>
+
             <Space wrap>
               <Button
                 type="primary"
@@ -179,6 +184,29 @@ export const SingleGuideline = () => {
                 </>
               );
             })}
+
+            <br />
+
+            <button
+              type="button"
+              className="collapsible_section"
+              onClick={handleClick}
+            >
+              <strong>Guideline Change History Tracker</strong>
+            </button>
+            <div className="content">
+              <p>Each change listed below - TO RE-STYLE:</p>
+              {guideline.GuidelineChangeHistoryDescriptions.map((change) => {
+                return (
+                  <>
+                    <p>Change Number: {change.ChangeNumber}</p>
+                    <p>Change Description: {change.ChangeDescription}</p>
+                    <p>Change Owner: {change.ChangeOwner}</p>
+                    <p>Change Date Published: {change.ChangeDatePublished}</p>
+                  </>
+                );
+              })}
+            </div>
           </>
         );
       } else {
@@ -188,6 +216,11 @@ export const SingleGuideline = () => {
             <p>
               <strong>Date Issued: </strong>
               {convertUnixTime(guideline.MetadataApplicationProfile.Issued)}
+            </p>
+
+            <p>
+              <strong>Current Guideline Version: </strong>
+              {guideline.GuidelineCurrentVersion + ".0"}
             </p>
 
             <br />
@@ -225,6 +258,29 @@ export const SingleGuideline = () => {
                 </>
               );
             })}
+
+            <br />
+
+            <button
+              type="button"
+              className="collapsible_section"
+              onClick={handleClick}
+            >
+              <strong>Guideline Change History Tracker</strong>
+            </button>
+            <div className="content">
+              <p>Each change listed below - TO RE-STYLE:</p>
+              {guideline.GuidelineChangeHistoryDescriptions.map((change) => {
+                return (
+                  <>
+                    <p>Change Number: {change.ChangeNumber}</p>
+                    <p>Change Description: {change.ChangeDescription}</p>
+                    <p>Change Owner: {change.ChangeOwner}</p>
+                    <p>Change Date Published: {change.ChangeDatePublished}</p>
+                  </>
+                );
+              })}
+            </div>
           </>
         );
       }
