@@ -35,17 +35,17 @@ export const NavBar = () => {
 
   const itemsLoggedInAdminOnly = [
     {
-      label: <Link to="/guidelines">Home</Link>,
+      label: <Link to="/guidelines">Home: All Guidelines</Link>,
       key: "home",
       icon: <HomeOutlined />,
     },
     {
-      label: <Link to="/myguidelines">My Guidelines</Link>,
+      label: <Link to="/myguidelines">My Guidelines Workspace</Link>,
       key: "myguidelines",
       icon: <ReadOutlined />,
     },
     {
-      label: <Link to="/myapprovals">My Approvals</Link>,
+      label: <Link to="/myapprovals">My Approvals Workspace</Link>,
       key: "myapprovals",
       icon: <PlusCircleOutlined />,
     },
@@ -64,12 +64,12 @@ export const NavBar = () => {
 
   const itemsLoggedInApproverOnly = [
     {
-      label: <Link to="/guidelines">Home</Link>,
+      label: <Link to="/guidelines">Home: All Guidelines</Link>,
       key: "home",
       icon: <HomeOutlined />,
     },
     {
-      label: <Link to="/myapprovals">My Approvals</Link>,
+      label: <Link to="/myapprovals">My Approvals Workspace</Link>,
       key: "myapprovals",
       icon: <PlusCircleOutlined />,
     },
@@ -88,12 +88,12 @@ export const NavBar = () => {
 
   const itemsLoggedInAuthorEditorOnly = [
     {
-      label: <Link to="/guidelines">Home</Link>,
+      label: <Link to="/guidelines">Home: All Guidelines</Link>,
       key: "home",
       icon: <HomeOutlined />,
     },
     {
-      label: <Link to="/myguidelines">My Guidelines</Link>,
+      label: <Link to="/myguidelines">My Guidelines Workspace</Link>,
       key: "myguidelines",
       icon: <ReadOutlined />,
     },
@@ -112,7 +112,7 @@ export const NavBar = () => {
 
   const itemsLoggedInViewerOnly = [
     {
-      label: <Link to="/guidelines">Home</Link>,
+      label: <Link to="/guidelines">Home: All Guidelines</Link>,
       key: "home",
       icon: <HomeOutlined />,
     },
