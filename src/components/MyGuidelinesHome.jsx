@@ -8,7 +8,7 @@ import { Typography, Space, Card } from "antd";
 const { Title } = Typography;
 
 export const MyGuidelinesHome = () => {
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, loggedInUser } = useContext(UserContext);
   const LoggedInCheck = JSON.parse(localStorage.getItem("isLoggedIn"));
   const [guidelineBranches, setGuidelineBranches] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -17,7 +17,17 @@ export const MyGuidelinesHome = () => {
   useEffect(() => {
     getAllBranches()
       .then((data) => {
-        setGuidelineBranches(data);
+        const filteredBranches = data.filter((branch) => {
+          if (branch.branchOwner === loggedInUser.username) {
+            return branch;
+          } else if (
+            branch.branchAllowedUsers.includes(loggedInUser.username)
+          ) {
+            return branch;
+          }
+        });
+
+        setGuidelineBranches(filteredBranches);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -30,48 +40,64 @@ export const MyGuidelinesHome = () => {
   }
 
   if (isLoggedIn === true || LoggedInCheck === true) {
-    return isLoading ? (
-      <div className="loading-section">
-        <BeatLoader color="rgb(4,2,39)" size={16} />
-        <p>
-          <strong>Loading...</strong>
-        </p>
-      </div>
-    ) : (
-      <>
-        <h2>Live Guidelines In Progress</h2>
+    if (isLoading) {
+      return (
+        <>
+          <div className="loading-section">
+            <BeatLoader color="rgb(4,2,39)" size={16} />
+            <p>
+              <strong>Loading...</strong>
+            </p>
+          </div>
+        </>
+      );
+    } else {
+      if (guidelineBranches.length === 0) {
+        return (
+          <>
+            <h2>Your Guidelines Workspace</h2>
+            <h3>You currently have no Guidelines in progress to work on.</h3>
+          </>
+        );
+      } else {
+        return (
+          <>
+            <h2>Your Guidelines Workspace</h2>
+            <h3>Live Guidelines which you are currently working on:</h3>
 
-        <Space direction="vertical" size={16}>
-          {guidelineBranches.map((guideline) => {
-            return (
-              <>
-                <Card
-                  type="inner"
-                  title={
-                    <Title level={5} underline>
-                      Edit Workspace: {guideline.branchName}
-                    </Title>
-                  }
-                  style={{ width: "80vw" }}
-                  hoverable
-                  id="branch_card"
-                >
-                  <strong>
-                    <p>Branch Owner: {guideline.branchOwner}</p>
-                  </strong>
-                  <p>
-                    <strong>Branch Guideline Being Edited:</strong>
-                    <br />
-                    {guideline.guideline.GuidanceNumber}&nbsp;
-                    {guideline.guideline.LongTitle}
-                  </p>
-                </Card>
-              </>
-            );
-          })}
-        </Space>
-      </>
-    );
+            <Space direction="vertical" size={16}>
+              {guidelineBranches.map((guideline) => {
+                return (
+                  <>
+                    <Card
+                      type="inner"
+                      title={
+                        <Title level={5} underline>
+                          Edit Workspace: {guideline.branchName}
+                        </Title>
+                      }
+                      style={{ width: "80vw" }}
+                      hoverable
+                      id="branch_card"
+                    >
+                      <strong>
+                        <p>Branch Owner: {guideline.branchOwner}</p>
+                      </strong>
+                      <p>
+                        <strong>Branch Guideline Being Edited:</strong>
+                        <br />
+                        {guideline.guideline.GuidanceNumber}&nbsp;
+                        {guideline.guideline.LongTitle}
+                      </p>
+                    </Card>
+                  </>
+                );
+              })}
+            </Space>
+          </>
+        );
+      }
+    }
   } else {
     return (
       <>

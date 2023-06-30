@@ -100,7 +100,7 @@ export const SingleGuideline = () => {
       );
     } else {
       if (
-        loggedInUser.primaryAccessLevel.includes("Author") ||
+        loggedInUser.primaryAccessLevel.includes("Admin") ||
         loggedInUser.secondaryAccessLevel.includes("Author") ||
         loggedInUser.secondaryAccessLevel.includes("Editor")
       ) {
