@@ -33,114 +33,72 @@ export const NavBar = () => {
     routeChange("/");
   };
 
+  const menuItemAllGuidelines = {
+    label: <Link to="/guidelines">Home: All Guidelines</Link>,
+    key: "home",
+    icon: <HomeOutlined />,
+  };
+
+  const menuItemMyGuidelinesWorkspace = {
+    label: <Link to="/myguidelines">My Guidelines Workspace</Link>,
+    key: "myguidelines",
+    icon: <ReadOutlined />,
+  };
+
+  const menuItemMyApprovalsWorkspace = {
+    label: <Link to="/myapprovals">My Approvals Workspace</Link>,
+    key: "myapprovals",
+    icon: <PlusCircleOutlined />,
+  };
+
+  const menuItemContact = {
+    label: <Link to="/contact">Contact</Link>,
+    key: "contact",
+    icon: <MailOutlined />,
+  };
+
+  const menuItemLogoutButton = {
+    label: `Log out`,
+    key: "log-out",
+    icon: <LogoutOutlined />,
+    onClick: handleLogout,
+  };
+
+  const menuItemPleaseLoginButton = {
+    label: <Link to="/">Please Login</Link>,
+    key: "login",
+    icon: <LoginOutlined />,
+  };
+
   const itemsLoggedInAdminOnly = [
-    {
-      label: <Link to="/guidelines">Home: All Guidelines</Link>,
-      key: "home",
-      icon: <HomeOutlined />,
-    },
-    {
-      label: <Link to="/myguidelines">My Guidelines Workspace</Link>,
-      key: "myguidelines",
-      icon: <ReadOutlined />,
-    },
-    {
-      label: <Link to="/myapprovals">My Approvals Workspace</Link>,
-      key: "myapprovals",
-      icon: <PlusCircleOutlined />,
-    },
-    {
-      label: <Link to="/contact">Contact</Link>,
-      key: "contact",
-      icon: <MailOutlined />,
-    },
-    {
-      label: `Log out`,
-      key: "log-out",
-      icon: <LogoutOutlined />,
-      onClick: handleLogout,
-    },
+    menuItemAllGuidelines,
+    menuItemMyGuidelinesWorkspace,
+    menuItemMyApprovalsWorkspace,
+    menuItemContact,
+    menuItemLogoutButton,
   ];
 
   const itemsLoggedInApproverOnly = [
-    {
-      label: <Link to="/guidelines">Home: All Guidelines</Link>,
-      key: "home",
-      icon: <HomeOutlined />,
-    },
-    {
-      label: <Link to="/myapprovals">My Approvals Workspace</Link>,
-      key: "myapprovals",
-      icon: <PlusCircleOutlined />,
-    },
-    {
-      label: <Link to="/contact">Contact</Link>,
-      key: "contact",
-      icon: <MailOutlined />,
-    },
-    {
-      label: `Log out`,
-      key: "log-out",
-      icon: <LogoutOutlined />,
-      onClick: handleLogout,
-    },
+    menuItemAllGuidelines,
+    menuItemMyApprovalsWorkspace,
+    menuItemContact,
+    menuItemLogoutButton,
   ];
 
   const itemsLoggedInAuthorEditorOnly = [
-    {
-      label: <Link to="/guidelines">Home: All Guidelines</Link>,
-      key: "home",
-      icon: <HomeOutlined />,
-    },
-    {
-      label: <Link to="/myguidelines">My Guidelines Workspace</Link>,
-      key: "myguidelines",
-      icon: <ReadOutlined />,
-    },
-    {
-      label: <Link to="/contact">Contact</Link>,
-      key: "contact",
-      icon: <MailOutlined />,
-    },
-    {
-      label: `Log out`,
-      key: "log-out",
-      icon: <LogoutOutlined />,
-      onClick: handleLogout,
-    },
+    menuItemAllGuidelines,
+    menuItemMyGuidelinesWorkspace,
+    menuItemContact,
+    menuItemLogoutButton,
   ];
 
   const itemsLoggedInViewerOnly = [
-    {
-      label: <Link to="/guidelines">Home: All Guidelines</Link>,
-      key: "home",
-      icon: <HomeOutlined />,
-    },
-    {
-      label: <Link to="/contact">Contact</Link>,
-      key: "contact",
-      icon: <MailOutlined />,
-    },
-    {
-      label: `Log out`,
-      key: "log-out",
-      icon: <LogoutOutlined />,
-      onClick: handleLogout,
-    },
+    menuItemAllGuidelines,
+    menuItemContact,
+    menuItemLogoutButton,
   ];
 
-  const itemsLoggedOut = [
-    {
-      label: <Link to="/">Please Login</Link>,
-      key: "login",
-      icon: <LoginOutlined />,
-    },
-    {
-      label: <Link to="/contact">Contact</Link>,
-      key: "contact",
-      icon: <MailOutlined />,
-    },
-  ];
+  const itemsLoggedOut = [menuItemPleaseLoginButton, menuItemContact];
 
   const onClick = (event) => {
     setCurrent(event.key);

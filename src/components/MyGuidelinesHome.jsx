@@ -4,8 +4,7 @@ import { UserContext } from "../contexts/User";
 import { BeatLoader } from "react-spinners";
 import NotLoggedInError from "./NotLoggedIn";
 import ErrorPage from "./ErrorPage";
-import { Typography, Space, Card } from "antd";
-const { Title } = Typography;
+import { MyGuidelinesBranchCard } from "./MyGuidelinesBranchCard";
 
 export const MyGuidelinesHome = () => {
   const { isLoggedIn, loggedInUser } = useContext(UserContext);
@@ -18,6 +17,10 @@ export const MyGuidelinesHome = () => {
     getAllBranches()
       .then((data) => {
         const filteredBranches = data.filter((branch) => {
+          if (loggedInUser.primaryAccessLevel.includes("Admin")) {
+            return branch;
+          }
+
           if (branch.branchOwner === loggedInUser.username) {
             return branch;
           } else if (
@@ -65,35 +68,7 @@ export const MyGuidelinesHome = () => {
             <h2>Your Guidelines Workspace</h2>
             <h3>Live Guidelines which you are currently working on:</h3>
 
-            <Space direction="vertical" size={16}>
-              {guidelineBranches.map((guideline) => {
-                return (
-                  <>
-                    <Card
-                      type="inner"
-                      title={
-                        <Title level={5} underline>
-                          Edit Workspace: {guideline.branchName}
-                        </Title>
-                      }
-                      style={{ width: "80vw" }}
-                      hoverable
-                      id="branch_card"
-                    >
-                      <strong>
-                        <p>Branch Owner: {guideline.branchOwner}</p>
-                      </strong>
-                      <p>
-                        <strong>Branch Guideline Being Edited:</strong>
-                        <br />
-                        {guideline.guideline.GuidanceNumber}&nbsp;
-                        {guideline.guideline.LongTitle}
-                      </p>
-                    </Card>
-                  </>
-                );
-              })}
-            </Space>
+            <MyGuidelinesBranchCard guidelineBranches={guidelineBranches} />
           </>
         );
       }

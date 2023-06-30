@@ -12,7 +12,7 @@ const ErrorPage = () => {
       <>
         <Alert
           message="Error"
-          description="Error: The page does not exist"
+          description="Error: There was an issue with what you tried to do."
           type="error"
           showIcon
         />
@@ -25,7 +25,7 @@ const ErrorPage = () => {
       <>
         <Alert
           message="Error"
-          description="Error: The page does not exist."
+          description="Error: There was an issue with what you tried to do."
           type="error"
           showIcon
         />

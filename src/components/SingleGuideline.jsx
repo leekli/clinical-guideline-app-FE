@@ -2,14 +2,13 @@ import "../styles/SingleGuideline.css";
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import parse from "html-react-parser";
-import { getGuidelineById, postNewBranch } from "../utils/api-calls";
+import { getGuidelineById } from "../utils/api-calls";
 import { convertUnixTime } from "../utils/convertUnixTime";
 import { BeatLoader } from "react-spinners";
-import { Space, Button, Modal, Input, Form } from "antd";
-import { EditOutlined } from "@ant-design/icons";
 import { UserContext } from "../contexts/User";
 import NotLoggedInError from "./NotLoggedIn";
 import ErrorPage from "./ErrorPage";
+import { SingleGuidelineEditButton } from "./SingleGuidelineEditButton";
 
 export const SingleGuideline = () => {
   const { isLoggedIn, loggedInUser } = useContext(UserContext);
@@ -18,9 +17,6 @@ export const SingleGuideline = () => {
   const [guideline, setGuideline] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editBranchName, setIsEditBranchName] = useState("");
-  const [form] = Form.useForm();
 
   useEffect(() => {
     setIsLoading(true);
@@ -35,14 +31,6 @@ export const SingleGuideline = () => {
       });
   }, [isError]);
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleModalCancel = () => {
-    setIsModalOpen(false);
-  };
-
   function handleClick(event) {
     event.target.classList.toggle("active");
     let content = event.target.nextElementSibling;
@@ -53,34 +41,6 @@ export const SingleGuideline = () => {
       content.style.display = "block";
     }
   }
-
-  const onEditModalTextChange = (event) => {
-    setIsEditBranchName(event.target.value);
-  };
-
-  const onEditButtonClick = () => {
-    const branchEditTitleCopy = editBranchName;
-    const branchEditTitleFormatted = branchEditTitleCopy.split(" ").join("-");
-
-    const currentDateTime = String(Date.now());
-
-    const branchToSetup = {
-      type: "edit",
-      branchName: branchEditTitleFormatted,
-      branchSetupDateTime: currentDateTime,
-      branchOwner: loggedInUser.username,
-      guideline: guideline,
-    };
-
-    return postNewBranch(branchToSetup)
-      .then(() => {
-        setIsModalOpen(false);
-        alert("New Branch Successfully submitted!");
-      })
-      .catch((err) => {
-        setIsError({ err });
-      });
-  };
 
   if (isError) {
     return <ErrorPage />;
@@ -117,36 +77,10 @@ export const SingleGuideline = () => {
               {guideline.GuidelineCurrentVersion + ".0"}
             </p>
 
-            <Space wrap>
-              <Button
-                type="primary"
-                size="large"
-                icon={<EditOutlined />}
-                style={{ background: "seagreen", borderColor: "black" }}
-                onClick={showModal}
-              >
-                Submit this Guideline for Editing...
-              </Button>
-
-              <Modal
-                title="Enter an Edit Workspace Title"
-                open={isModalOpen}
-                onOk={form.submit}
-                onCancel={handleModalCancel}
-                closable
-              >
-                <p>
-                  Before submitting, please specify what you want to call your
-                  'Edit Workspace' for this Guideline:
-                </p>
-                <Form form={form} onFinish={onEditButtonClick}>
-                  <Input
-                    placeholder="Enter Title here..."
-                    onChange={onEditModalTextChange}
-                  />
-                </Form>
-              </Modal>
-            </Space>
+            <SingleGuidelineEditButton
+              guideline={guideline}
+              setIsError={setIsError}
+            />
 
             <br />
             <br />

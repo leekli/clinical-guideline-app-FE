@@ -3,13 +3,13 @@ import "./App.css";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Login } from "./components/Login";
-import { Homepage } from "./components/Homepage";
 import { SingleGuideline } from "./components/SingleGuideline";
 import { NavBar } from "./components/NavBar";
 import ErrorPage from "./components/ErrorPage";
 import { Contact } from "./components/Contact";
 import { MyGuidelinesHome } from "./components/MyGuidelinesHome";
 import { MyApprovalsHome } from "./components/MyApprovalsHome";
+import { AllGuidelines } from "./components/AllGuidelines";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/guidelines" element={<Homepage />} />
+          <Route path="/guidelines" element={<AllGuidelines />} />
           <Route
             path="/guidelines/:guideline_id"
             element={<SingleGuideline />}
