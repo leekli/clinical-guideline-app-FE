@@ -10,6 +10,7 @@ import { Contact } from "./components/Contact";
 import { MyGuidelinesHome } from "./components/MyGuidelinesHome";
 import { MyApprovalsHome } from "./components/MyApprovalsHome";
 import { AllGuidelines } from "./components/AllGuidelines";
+import { MySingleGuidelineBranch } from "./components/MySingleGuidelineBranch";
 
 function App() {
   return (
@@ -26,6 +27,10 @@ function App() {
           />
           <Route path="/contact" element={<Contact />} />
           <Route path="/myguidelines" element={<MyGuidelinesHome />} />
+          <Route
+            path="/myguidelines/:branch_name"
+            element={<MySingleGuidelineBranch />}
+          />
           <Route path="/myapprovals" element={<MyApprovalsHome />} />
           <Route path="/error" element={<ErrorPage />} />
           <Route path="*" element={<ErrorPage />} />

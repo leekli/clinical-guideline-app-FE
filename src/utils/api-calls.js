@@ -47,6 +47,17 @@ export const getAllBranches = () => {
     });
 };
 
+export const getBranchByBranchName = (branch_name) => {
+  return axios
+    .get(`${apiUrl}/branches/${branch_name}`)
+    .then((res) => {
+      return res.data.branch;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
 export const postNewBranch = (branchToSetup) => {
   return axios
     .post(`${apiUrl}/branches?type=edit`, branchToSetup)
