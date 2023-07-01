@@ -2,9 +2,9 @@ import { useEffect, useState, useContext } from "react";
 import { getAllBranches } from "../../utils/api-calls";
 import { UserContext } from "../../contexts/User";
 import { BeatLoader } from "react-spinners";
-import NotLoggedInError from "./NotLoggedIn";
-import ErrorPage from "./ErrorPage";
-import { MyGuidelinesBranchCard } from "./MyGuidelinesBranchCard";
+import NotLoggedInError from "../Errors/NotLoggedIn";
+import ErrorPage from "../Errors/ErrorPage";
+import { MyGuidelinesBranchCard } from "../MyGuidelines/MyGuidelinesBranchCard";
 
 export const MyGuidelinesHome = () => {
   const { isLoggedIn, loggedInUser } = useContext(UserContext);

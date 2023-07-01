@@ -17,7 +17,7 @@ export const MyGuidelinesBranchCard = ({ guidelineBranches }) => {
                 title={
                   <Link to={branchLink} key={branch.branchName}>
                     <Title level={5} underline>
-                      Edit Workspace: {branch.branchName}
+                      Edit Workspace Name: {branch.branchName}
                     </Title>
                   </Link>
                 }

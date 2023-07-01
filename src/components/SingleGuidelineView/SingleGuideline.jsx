@@ -1,4 +1,4 @@
-import "../styles/SingleGuideline.css";
+import "../../styles/SingleGuideline.css";
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import parse from "html-react-parser";
@@ -6,9 +6,9 @@ import { getGuidelineById } from "../../utils/api-calls";
 import { convertUnixTime } from "../../utils/convertUnixTime";
 import { BeatLoader } from "react-spinners";
 import { UserContext } from "../../contexts/User";
-import NotLoggedInError from "./NotLoggedIn";
-import ErrorPage from "./ErrorPage";
-import { SingleGuidelineEditButton } from "./SingleGuidelineEditButton";
+import NotLoggedInError from "../Errors/NotLoggedIn";
+import ErrorPage from "../Errors/ErrorPage";
+import { SingleGuidelineEditButton } from "../SingleGuidelineView/SingleGuidelineEditButton";
 
 export const SingleGuideline = () => {
   const { isLoggedIn, loggedInUser } = useContext(UserContext);

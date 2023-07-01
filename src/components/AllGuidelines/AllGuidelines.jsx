@@ -1,12 +1,12 @@
-import "../styles/Homepage.css";
+import "../../styles/Homepage.css";
 import { useEffect, useState, useContext } from "react";
 import { getGuidelines } from "../../utils/api-calls";
 import { BeatLoader } from "react-spinners";
 import { UserContext } from "../../contexts/User";
-import NotLoggedInError from "./NotLoggedIn";
+import NotLoggedInError from "../Errors/NotLoggedIn";
 import { Space } from "antd";
-import { AllGuidelinesSearchBar } from "./AllGuidelinesSearchBar";
-import { AllGuidelinesSingleGuidelineCard } from "./AllGuidelinesSingleGuidelineCard";
+import { AllGuidelinesSearchBar } from "../AllGuidelines/AllGuidelinesSearchBar";
+import { AllGuidelinesSingleGuidelineCard } from "../AllGuidelines/AllGuidelinesSingleGuidelineCard";
 
 export const AllGuidelines = () => {
   const { isLoggedIn } = useContext(UserContext);

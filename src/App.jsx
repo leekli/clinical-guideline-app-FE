@@ -1,17 +1,17 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import { Header } from "./components/Header";
-import { Footer } from "./components/Footer";
-import { Login } from "./components/Login";
-import { SingleGuideline } from "./components/SingleGuideline";
-import { NavBar } from "./components/NavBar";
-import ErrorPage from "./components/ErrorPage";
-import { Contact } from "./components/Contact";
-import { MyGuidelinesHome } from "./components/MyGuidelinesHome";
-import { MyApprovalsHome } from "./components/MyApprovalsHome";
-import { AllGuidelines } from "./components/AllGuidelines";
-import { MySingleGuidelineBranch } from "./components/MySingleGuidelineBranch";
-import { MySingleGuidelineEditor } from "./components/MySingleGuidelineEditor";
+import { Header } from "./components/Header/Header";
+import { Footer } from "./components/Footer/Footer";
+import { Login } from "./components/Login/Login";
+import { SingleGuideline } from "./components/SingleGuidelineView/SingleGuideline";
+import { NavBar } from "./components/NavBar/NavBar";
+import ErrorPage from "./components/Errors/ErrorPage";
+import { Contact } from "./components/Contact/Contact";
+import { MyGuidelinesHome } from "./components/MyGuidelines/MyGuidelinesHome";
+import { MyApprovalsHome } from "./components/MyApprovals/MyApprovalsHome";
+import { AllGuidelines } from "./components/AllGuidelines/AllGuidelines";
+import { MySingleGuidelineBranch } from "./components/MyGuidelines/MySingleGuidelineBranch";
+import { MySingleGuidelineEditor } from "./components/MyGuidelines/MySingleGuidelineEditor";
 
 function App() {
   return (

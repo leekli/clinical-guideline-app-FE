@@ -1,14 +1,13 @@
-import "../styles/SingleGuideline.css";
+import "../../styles/SingleGuideline.css";
 import parse from "html-react-parser";
 import { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getBranchByBranchName } from "../../utils/api-calls";
 import { UserContext } from "../../contexts/User";
-import NotLoggedInError from "./NotLoggedIn";
+import NotLoggedInError from "../Errors/NotLoggedIn";
 import { BeatLoader } from "react-spinners";
 import { Space, Button } from "antd";
 import { EditOutlined } from "@ant-design/icons";
-import { convertUnixTime } from "../../utils/convertUnixTime";
 
 export const MySingleGuidelineBranch = () => {
   const { isLoggedIn } = useContext(UserContext);
