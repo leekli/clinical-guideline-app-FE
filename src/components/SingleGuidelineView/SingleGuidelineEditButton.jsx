@@ -1,8 +1,8 @@
 import { useState, useContext } from "react";
-import { UserContext } from "../contexts/User";
+import { UserContext } from "../../contexts/User";
 import { Space, Button, Modal, Input, Form } from "antd";
 import { EditOutlined } from "@ant-design/icons";
-import { postNewBranch } from "../utils/api-calls";
+import { postNewBranch } from "../../utils/api-calls";
 
 export const SingleGuidelineEditButton = ({ guideline, setIsError }) => {
   const { loggedInUser } = useContext(UserContext);
