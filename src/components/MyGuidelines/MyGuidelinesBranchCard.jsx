@@ -40,6 +40,14 @@ export const MyGuidelinesBranchCard = ({ guidelineBranches }) => {
                   {branch.guideline.GuidanceNumber}&nbsp;
                   {branch.guideline.LongTitle}
                 </p>
+                <p>
+                  <strong>
+                    Status:{" "}
+                    {!branch.branchLockedForApproval
+                      ? "✅ Open for edits"
+                      : "❌ Closed/Locked for edits"}
+                  </strong>
+                </p>
               </Card>
             </>
           );

@@ -6,8 +6,8 @@ import { getBranchByBranchName } from "../../utils/api-calls";
 import { UserContext } from "../../contexts/User";
 import NotLoggedInError from "../Errors/NotLoggedIn";
 import { BeatLoader } from "react-spinners";
-import { Space, Button } from "antd";
-import { EditOutlined } from "@ant-design/icons";
+import { MySingleGuidelineLockUnlock } from "./MySingleGuidelineLockUnlock";
+import { MySingleGuidelineEditButton } from "./MySingleGuidelineEditButton";
 
 export const MySingleGuidelineBranch = () => {
   const { isLoggedIn } = useContext(UserContext);
@@ -60,23 +60,35 @@ export const MySingleGuidelineBranch = () => {
     } else {
       return (
         <>
-          <p>Branch Name: {branchInfo.branchName}</p>
-          <p>Branch Type: {branchInfo.type}</p>
+          <p>Workspace Name: {branchInfo.branchName}</p>
+          <p>Workspace Type: {branchInfo.type}</p>
           <p>
-            Branch Setup Date/Time - fix meeee!!:{" "}
+            Workspace Setup Date/Time - fix meeee!!:{" "}
             {branchInfo.branchSetupDateTime}
           </p>
-          <p>Branch Owner: {branchInfo.branchOwners}</p>
-          <p>Branch Authorised Users: {branchInfo.branchAllowedUsers}</p>
+          <p>Workspace Owner: {branchInfo.branchOwners}</p>
           <p>
-            Branch Currently Locked?...{" "}
-            {String(branchInfo.branchLockedForApproval)}
+            Workspace Authorised Users (Permitted to contribute):{" "}
+            {branchInfo.branchAllowedUsers}
           </p>
           <p>
-            Branch Last Modified - fix meeee!!:{" "}
+            Is Workspace Currently Locked?...{" "}
+            {!branchInfo.branchLockedForApproval
+              ? "✅ Open for edits"
+              : "❌ Closed/Locked for edits"}
+          </p>
+
+          <MySingleGuidelineLockUnlock
+            branchName={branchInfo.branchName}
+            branchLockedForApproval={branchInfo.branchLockedForApproval}
+            setBranchInfo={setBranchInfo}
+          />
+
+          <p>
+            Workspace & Guideline Last Modified - fix meeee!!:{" "}
             {branchInfo.branchLastModified || "No Edits yet made"}
           </p>
-          <strong>Guideline below (EDIT BUTTONS BELOW):</strong>
+          <strong>Full Guideline below:</strong>
 
           {branchInfo.guideline.Chapters.map((chapter, chapterIndex) => {
             return (
@@ -102,19 +114,10 @@ export const MySingleGuidelineBranch = () => {
                       content: chapter.Content,
                     }}
                   >
-                    <Space wrap>
-                      <Button
-                        type="primary"
-                        size="large"
-                        icon={<EditOutlined />}
-                        style={{
-                          background: "seagreen",
-                          borderColor: "black",
-                        }}
-                      >
-                        Edit this chapter: ({chapter.Title})
-                      </Button>
-                    </Space>
+                    <MySingleGuidelineEditButton
+                      isBranchLocked={branchInfo.branchLockedForApproval}
+                      titleToEdit={chapter.Title}
+                    />
                   </Link>
 
                   {parse(chapter.Content)}
@@ -144,19 +147,12 @@ export const MySingleGuidelineBranch = () => {
                               content: section.Content,
                             }}
                           >
-                            <Space wrap>
-                              <Button
-                                type="primary"
-                                size="large"
-                                icon={<EditOutlined />}
-                                style={{
-                                  background: "seagreen",
-                                  borderColor: "black",
-                                }}
-                              >
-                                Edit this section: ({section.Title})
-                              </Button>
-                            </Space>
+                            <MySingleGuidelineEditButton
+                              isBranchLocked={
+                                branchInfo.branchLockedForApproval
+                              }
+                              titleToEdit={section.Title}
+                            />
                           </Link>
                           {parse(section.Content)}
                         </div>

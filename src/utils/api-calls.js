@@ -85,3 +85,25 @@ export const patchBranchByBranchName = ({
       throw err;
     });
 };
+
+export const branchLockRequest = (branch_name) => {
+  return axios
+    .patch(`${apiUrl}/branches/${branch_name}/lockbranch`)
+    .then((res) => {
+      return res.data.branch;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
+export const branchUnLockRequest = (branch_name) => {
+  return axios
+    .patch(`${apiUrl}/branches/${branch_name}/unlockbranch`)
+    .then((res) => {
+      return res.data.branch;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
