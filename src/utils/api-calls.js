@@ -68,3 +68,20 @@ export const postNewBranch = (branchToSetup) => {
       throw err;
     });
 };
+
+export const patchBranchByBranchName = ({
+  branch_name,
+  chapterNum,
+  sectionNum,
+  patchBody,
+}) => {
+  const branchToSend = { chapterNum, sectionNum, patchBody };
+  return axios
+    .patch(`${apiUrl}/branches/${branch_name}`, branchToSend)
+    .then((res) => {
+      return res.data.branch;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};

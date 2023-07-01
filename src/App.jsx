@@ -11,6 +11,7 @@ import { MyGuidelinesHome } from "./components/MyGuidelinesHome";
 import { MyApprovalsHome } from "./components/MyApprovalsHome";
 import { AllGuidelines } from "./components/AllGuidelines";
 import { MySingleGuidelineBranch } from "./components/MySingleGuidelineBranch";
+import { MySingleGuidelineEditor } from "./components/MySingleGuidelineEditor";
 
 function App() {
   return (
@@ -30,6 +31,10 @@ function App() {
           <Route
             path="/myguidelines/:branch_name"
             element={<MySingleGuidelineBranch />}
+          />
+          <Route
+            path="/myguidelines/:branch_name/editor"
+            element={<MySingleGuidelineEditor />}
           />
           <Route path="/myapprovals" element={<MyApprovalsHome />} />
           <Route path="/error" element={<ErrorPage />} />

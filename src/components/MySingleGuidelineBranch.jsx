@@ -1,7 +1,7 @@
 import "../styles/SingleGuideline.css";
 import parse from "html-react-parser";
 import { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getBranchByBranchName } from "../utils/api-calls";
 import { UserContext } from "../contexts/User";
 import NotLoggedInError from "./NotLoggedIn";
@@ -75,7 +75,7 @@ export const MySingleGuidelineBranch = () => {
           </p>
           <strong>Guideline below (EDIT BUTTONS BELOW):</strong>
 
-          {branchInfo.guideline.Chapters.map((chapter) => {
+          {branchInfo.guideline.Chapters.map((chapter, chapterIndex) => {
             return (
               <>
                 <button
@@ -88,23 +88,34 @@ export const MySingleGuidelineBranch = () => {
                 <div className="content">
                   <br />
 
-                  <Space wrap>
-                    <Button
-                      type="primary"
-                      size="large"
-                      icon={<EditOutlined />}
-                      style={{
-                        background: "seagreen",
-                        borderColor: "black",
-                      }}
-                      onClick={() => console.log("clicked")}
-                    >
-                      Edit this chapter: ({chapter.Title})
-                    </Button>
-                  </Space>
+                  <Link
+                    to={`/myguidelines/${branchInfo.branchName}/editor`}
+                    state={{
+                      branchName: branchInfo.branchName,
+                      guidelineTitle: branchInfo.guideline.LongTitle,
+                      currentEditTitle: chapter.Title,
+                      currentChapterIndex: chapterIndex,
+                      currentSectionIndex: 999,
+                      content: chapter.Content,
+                    }}
+                  >
+                    <Space wrap>
+                      <Button
+                        type="primary"
+                        size="large"
+                        icon={<EditOutlined />}
+                        style={{
+                          background: "seagreen",
+                          borderColor: "black",
+                        }}
+                      >
+                        Edit this chapter: ({chapter.Title})
+                      </Button>
+                    </Space>
+                  </Link>
 
                   {parse(chapter.Content)}
-                  {chapter.Sections.map((section) => {
+                  {chapter.Sections.map((section, sectionIndex) => {
                     return (
                       <>
                         <h3 align="left">Sub-section (Click to view):</h3>
@@ -119,20 +130,31 @@ export const MySingleGuidelineBranch = () => {
                         <div className="content">
                           <br />
 
-                          <Space wrap>
-                            <Button
-                              type="primary"
-                              size="large"
-                              icon={<EditOutlined />}
-                              style={{
-                                background: "seagreen",
-                                borderColor: "black",
-                              }}
-                              onClick={() => console.log("clicked")}
-                            >
-                              Edit this section: ({section.Title})
-                            </Button>
-                          </Space>
+                          <Link
+                            to={`/myguidelines/${branchInfo.branchName}/editor`}
+                            state={{
+                              branchName: branchInfo.branchName,
+                              guidelineTitle: branchInfo.guideline.LongTitle,
+                              currentEditTitle: section.Title,
+                              currentChapterIndex: chapterIndex,
+                              currentSectionIndex: sectionIndex,
+                              content: section.Content,
+                            }}
+                          >
+                            <Space wrap>
+                              <Button
+                                type="primary"
+                                size="large"
+                                icon={<EditOutlined />}
+                                style={{
+                                  background: "seagreen",
+                                  borderColor: "black",
+                                }}
+                              >
+                                Edit this section: ({section.Title})
+                              </Button>
+                            </Space>
+                          </Link>
                           {parse(section.Content)}
                         </div>
                       </>
