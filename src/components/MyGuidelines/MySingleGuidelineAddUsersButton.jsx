@@ -1,3 +1,4 @@
+import "../../styles/MySingleGuidelineModal.css";
 import { useState } from "react";
 import { Space, Button, Modal } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
@@ -69,14 +70,27 @@ export const MySingleGuidelineAddUsersButton = ({
           closable
         >
           <p>Select a user to add:</p>
+          <sub>
+            Note: Only users with Viewer/Editor/Q.C access priviledges are
+            permitted to be added.
+          </sub>
 
-          <label for="users"></label>
+          <br />
+          <br />
 
-          <select id="users" onChange={onUserSelectedChange}>
-            {allUsers.map((user) => {
-              return <option value={user.userName}>{user.userName}</option>;
-            })}
-          </select>
+          <center>
+            <label for="users"></label>
+
+            <select
+              id="users"
+              className="classic"
+              onChange={onUserSelectedChange}
+            >
+              {allUsers.map((user) => {
+                return <option value={user.userName}>{user.userName}</option>;
+              })}
+            </select>
+          </center>
         </Modal>
       </Space>
     </>

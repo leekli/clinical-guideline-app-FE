@@ -31,7 +31,22 @@ export const MySingleGuidelineBranch = () => {
         return getAllUsers();
       })
       .then((users) => {
-        setAllUsers(users);
+        const filteredPermittedUsers = users.filter((user) => {
+          if (user.primaryAccessLevel.includes("Admin")) {
+            return user;
+          }
+
+          if (
+            user.secondaryAccessLevel.includes("Author") ||
+            user.secondaryAccessLevel.includes("Editor") ||
+            user.secondaryAccessLevel.includes("Q.C") ||
+            user.secondaryAccessLevel.includes("Approver")
+          ) {
+            return user;
+          }
+        });
+
+        setAllUsers(filteredPermittedUsers);
       })
       .catch((err) => {
         setIsError({ err });
