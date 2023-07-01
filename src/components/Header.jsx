@@ -15,7 +15,7 @@ export const Header = () => {
             <h1>🏥 Clinical Guideline Authoring App</h1>
             <p>
               <img
-                src="./images/avatar_icon.png"
+                src="../images/avatar_icon.png"
                 alt="a black outline of a unisex avatar icon"
                 width="20"
               />

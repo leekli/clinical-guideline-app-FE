@@ -65,13 +65,17 @@ export const MySingleGuidelineBranch = () => {
           <p>Branch Type: {branchInfo.type}</p>
           <p>
             Branch Setup Date/Time - fix meeee!!:{" "}
-            {convertUnixTime(branchInfo.branchSetupDateTime)}
+            {branchInfo.branchSetupDateTime}
           </p>
           <p>Branch Owner: {branchInfo.branchOwners}</p>
           <p>Branch Authorised Users: {branchInfo.branchAllowedUsers}</p>
           <p>
             Branch Currently Locked?...{" "}
             {String(branchInfo.branchLockedForApproval)}
+          </p>
+          <p>
+            Branch Last Modified - fix meeee!!:{" "}
+            {branchInfo.branchLastModified || "No Edits yet made"}
           </p>
           <strong>Guideline below (EDIT BUTTONS BELOW):</strong>
 
