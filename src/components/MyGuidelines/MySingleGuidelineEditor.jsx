@@ -1,13 +1,15 @@
 import "react-quill/dist/quill.snow.css";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import ReactQuill, { Quill } from "react-quill";
+import ReactQuill from "react-quill";
 import { Space, Button } from "antd";
-import { SaveOutlined } from "@ant-design/icons";
+import { SaveOutlined, StopOutlined } from "@ant-design/icons";
 import { patchBranchByBranchName } from "../../utils/api-calls";
+import { useNavigate } from "react-router-dom";
 
 export const MySingleGuidelineEditor = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const {
     branchName,
     guidelineTitle,
@@ -39,6 +41,10 @@ export const MySingleGuidelineEditor = () => {
     });
   };
 
+  const onCancelGoBack = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <h2>You are currently editing the Guideline: {guidelineTitle} </h2>
@@ -59,6 +65,16 @@ export const MySingleGuidelineEditor = () => {
           onClick={onSaveClick}
         >
           Save Progress
+        </Button>
+
+        <Button
+          type="primary"
+          size="large"
+          icon={<StopOutlined />}
+          onClick={onCancelGoBack}
+          danger
+        >
+          Cancel Changes and Go Back
         </Button>
       </Space>
     </>
