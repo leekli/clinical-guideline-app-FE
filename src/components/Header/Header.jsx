@@ -1,6 +1,6 @@
 import "../styles/Header.css";
 import { useContext } from "react";
-import { UserContext } from "../contexts/User";
+import { UserContext } from "../../contexts/User";
 
 export const Header = () => {
   const { loggedInUser, isLoggedIn } = useContext(UserContext);

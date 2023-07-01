@@ -1,8 +1,8 @@
 import "../styles/Homepage.css";
 import { useEffect, useState, useContext } from "react";
-import { getGuidelines } from "../utils/api-calls";
+import { getGuidelines } from "../../utils/api-calls";
 import { BeatLoader } from "react-spinners";
-import { UserContext } from "../contexts/User";
+import { UserContext } from "../../contexts/User";
 import NotLoggedInError from "./NotLoggedIn";
 import { Space } from "antd";
 import { AllGuidelinesSearchBar } from "./AllGuidelinesSearchBar";

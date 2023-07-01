@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import ReactQuill, { Quill } from "react-quill";
 import { Space, Button } from "antd";
 import { SaveOutlined } from "@ant-design/icons";
-import { patchBranchByBranchName } from "../utils/api-calls";
+import { patchBranchByBranchName } from "../../utils/api-calls";
 
 export const MySingleGuidelineEditor = () => {
   const location = useLocation();

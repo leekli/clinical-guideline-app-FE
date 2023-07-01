@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
-import { UserContext } from "../contexts/User";
+import { UserContext } from "../../contexts/User";
 import { useNavigate } from "react-router-dom";
-import { getAllUsers } from "../utils/api-calls";
+import { getAllUsers } from "../../utils/api-calls";
 import { LoginFormComponent } from "./LoginFormComponent";
 
 export const Login = () => {

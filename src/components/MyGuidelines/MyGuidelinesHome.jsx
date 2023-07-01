@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
-import { getAllBranches } from "../utils/api-calls";
-import { UserContext } from "../contexts/User";
+import { getAllBranches } from "../../utils/api-calls";
+import { UserContext } from "../../contexts/User";
 import { BeatLoader } from "react-spinners";
 import NotLoggedInError from "./NotLoggedIn";
 import ErrorPage from "./ErrorPage";

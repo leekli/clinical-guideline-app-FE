@@ -9,7 +9,7 @@ import {
 import { Menu } from "antd";
 import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
-import { UserContext } from "../contexts/User";
+import { UserContext } from "../../contexts/User";
 import { useNavigate } from "react-router-dom";
 
 export const NavBar = () => {
