@@ -2,18 +2,20 @@ import "../../styles/SingleGuideline.css";
 import parse from "html-react-parser";
 import { useEffect, useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getBranchByBranchName } from "../../utils/api-calls";
+import { getAllUsers, getBranchByBranchName } from "../../utils/api-calls";
 import { UserContext } from "../../contexts/User";
 import NotLoggedInError from "../Errors/NotLoggedIn";
 import { BeatLoader } from "react-spinners";
 import { MySingleGuidelineLockUnlock } from "./MySingleGuidelineLockUnlock";
 import { MySingleGuidelineEditButton } from "./MySingleGuidelineEditButton";
+import { MySingleGuidelineAddUsersButton } from "./MySingleGuidelineAddUsersButton";
 
 export const MySingleGuidelineBranch = () => {
   const { isLoggedIn } = useContext(UserContext);
   const LoggedInCheck = JSON.parse(localStorage.getItem("isLoggedIn"));
   const { branch_name } = useParams();
   const [branchInfo, setBranchInfo] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
@@ -24,6 +26,12 @@ export const MySingleGuidelineBranch = () => {
       .then((data) => {
         setBranchInfo(data);
         setIsLoading(false);
+      })
+      .then(() => {
+        return getAllUsers();
+      })
+      .then((users) => {
+        setAllUsers(users);
       })
       .catch((err) => {
         setIsError({ err });
@@ -66,30 +74,34 @@ export const MySingleGuidelineBranch = () => {
             Workspace Setup Date/Time - fix meeee!!:{" "}
             {branchInfo.branchSetupDateTime}
           </p>
-          <p>Workspace Owner: {branchInfo.branchOwners}</p>
-          <p>
-            Workspace Authorised Users (Permitted to contribute):{" "}
-            {branchInfo.branchAllowedUsers}
-          </p>
+          <p>Workspace Owner: {branchInfo.branchOwner}</p>
+          Workspace Authorised Users (Permitted to contribute):{" "}
+          <ul>
+            {branchInfo.branchAllowedUsers.map((user) => {
+              return <li>{user}</li>;
+            })}
+          </ul>
+          <MySingleGuidelineAddUsersButton
+            branchName={branchInfo.branchName}
+            allUsers={allUsers}
+            setBranchInfo={setBranchInfo}
+          />
           <p>
             Is Workspace Currently Locked?...{" "}
             {!branchInfo.branchLockedForApproval
               ? "✅ Open for edits"
               : "❌ Closed/Locked for edits"}
           </p>
-
           <MySingleGuidelineLockUnlock
             branchName={branchInfo.branchName}
             branchLockedForApproval={branchInfo.branchLockedForApproval}
             setBranchInfo={setBranchInfo}
           />
-
           <p>
             Workspace & Guideline Last Modified - fix meeee!!:{" "}
             {branchInfo.branchLastModified || "No Edits yet made"}
           </p>
           <strong>Full Guideline below:</strong>
-
           {branchInfo.guideline.Chapters.map((chapter, chapterIndex) => {
             return (
               <>

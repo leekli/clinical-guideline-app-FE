@@ -107,3 +107,14 @@ export const branchUnLockRequest = (branch_name) => {
       throw err;
     });
 };
+
+export const branchAddNewAuthdUser = ({ branch_name, userToAdd }) => {
+  return axios
+    .patch(`${apiUrl}/branches/${branch_name}/addusers`, { userToAdd })
+    .then((res) => {
+      return res.data.branch;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
