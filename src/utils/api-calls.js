@@ -118,3 +118,25 @@ export const branchAddNewAuthdUser = ({ branch_name, userToAdd }) => {
       throw err;
     });
 };
+
+export const branchGetAllComments = (branch_name) => {
+  return axios
+    .get(`${apiUrl}/branches/${branch_name}/comments`)
+    .then((res) => {
+      return res.data.comments;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
+export const branchAddNewComment = (branch_name, newComment) => {
+  return axios
+    .post(`${apiUrl}/branches/${branch_name}/comments`, newComment)
+    .then((res) => {
+      return res.data.comment;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};

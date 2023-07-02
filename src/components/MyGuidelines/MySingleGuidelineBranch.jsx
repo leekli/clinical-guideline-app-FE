@@ -9,6 +9,7 @@ import { BeatLoader } from "react-spinners";
 import { MySingleGuidelineLockUnlock } from "./MySingleGuidelineLockUnlock";
 import { MySingleGuidelineEditButton } from "./MySingleGuidelineEditButton";
 import { MySingleGuidelineAddUsersButton } from "./MySingleGuidelineAddUsersButton";
+import { MyGuidelinesCommentsMain } from "../MyGuidelinesComments/MyGuidelinesCommentsMain";
 
 export const MySingleGuidelineBranch = () => {
   const { isLoggedIn } = useContext(UserContext);
@@ -116,6 +117,11 @@ export const MySingleGuidelineBranch = () => {
             Workspace & Guideline Last Modified - fix meeee!!:{" "}
             {branchInfo.branchLastModified || "No Edits yet made"}
           </p>
+          <div>
+            <a href="#workspaceComments">
+              <button>See Branch Comments</button>
+            </a>
+          </div>
           <strong>Full Guideline below:</strong>
           {branchInfo.guideline.Chapters.map((chapter, chapterIndex) => {
             return (
@@ -190,6 +196,12 @@ export const MySingleGuidelineBranch = () => {
               </>
             );
           })}
+          <section>
+            <a id="workspaceComments">
+              <h3>Workspace Comments</h3>
+            </a>
+            <MyGuidelinesCommentsMain branchName={branchInfo.branchName} />
+          </section>
         </>
       );
     }
