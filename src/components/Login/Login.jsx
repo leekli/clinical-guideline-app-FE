@@ -33,8 +33,6 @@ export const Login = () => {
             primaryAccessLevel: eachUser.primaryAccessLevel,
             secondaryAccessLevel: eachUser.secondaryAccessLevel,
           });
-          localStorage.setItem("username", JSON.stringify(newUsername));
-          localStorage.setItem("isLoggedIn", true);
           setNewUsername("");
           routeChange(`/guidelines`);
         }

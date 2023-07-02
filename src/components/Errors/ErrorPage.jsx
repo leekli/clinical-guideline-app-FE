@@ -4,10 +4,9 @@ import { UserContext } from "../../contexts/User";
 import { Alert } from "antd";
 
 const ErrorPage = () => {
-  const { isLoggedIn } = useContext(UserContext);
-  const LoggedInCheck = JSON.parse(localStorage.getItem("isLoggedIn"));
+  const { isLoggedIn, loggedInUser } = useContext(UserContext);
 
-  if (isLoggedIn === true || LoggedInCheck === true) {
+  if (isLoggedIn === true && loggedInUser.username !== undefined) {
     return (
       <>
         <Alert

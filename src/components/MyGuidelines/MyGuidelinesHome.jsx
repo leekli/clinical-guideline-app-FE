@@ -8,7 +8,6 @@ import { MyGuidelinesBranchCard } from "../MyGuidelines/MyGuidelinesBranchCard";
 
 export const MyGuidelinesHome = () => {
   const { isLoggedIn, loggedInUser } = useContext(UserContext);
-  const LoggedInCheck = JSON.parse(localStorage.getItem("isLoggedIn"));
   const [guidelineBranches, setGuidelineBranches] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -42,7 +41,7 @@ export const MyGuidelinesHome = () => {
     return <ErrorPage />;
   }
 
-  if (isLoggedIn === true || LoggedInCheck === true) {
+  if (isLoggedIn === true && loggedInUser.username !== undefined) {
     if (isLoading) {
       return (
         <>

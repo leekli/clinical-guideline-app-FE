@@ -4,10 +4,8 @@ import { UserContext } from "../../contexts/User";
 
 export const Header = () => {
   const { loggedInUser, isLoggedIn } = useContext(UserContext);
-  const LoggedInCheck = JSON.parse(localStorage.getItem("isLoggedIn"));
-  const username = JSON.parse(localStorage.getItem("username"));
 
-  if (isLoggedIn === true || JSON.parse(LoggedInCheck) === true) {
+  if (isLoggedIn === true && loggedInUser.username !== undefined) {
     return (
       <>
         <header>
@@ -20,7 +18,7 @@ export const Header = () => {
                 width="20"
               />
               &nbsp; You are logged in as:{" "}
-              <strong>{username || loggedInUser.username}</strong>
+              <strong>{loggedInUser.username}</strong>
             </p>
           </center>
         </header>

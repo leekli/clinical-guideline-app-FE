@@ -22,8 +22,6 @@ export const NavBar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("username");
-    localStorage.removeItem("isLoggedIn");
     setLoggedInUser({
       username: undefined,
       primaryAccessLevel: undefined,

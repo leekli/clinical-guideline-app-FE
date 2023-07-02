@@ -12,7 +12,6 @@ import { SingleGuidelineEditButton } from "../SingleGuidelineView/SingleGuidelin
 
 export const SingleGuideline = () => {
   const { isLoggedIn, loggedInUser } = useContext(UserContext);
-  const LoggedInCheck = JSON.parse(localStorage.getItem("isLoggedIn"));
   const { guideline_id } = useParams();
   const [guideline, setGuideline] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -46,7 +45,7 @@ export const SingleGuideline = () => {
     return <ErrorPage />;
   }
 
-  if (isLoggedIn === true || LoggedInCheck === true) {
+  if (isLoggedIn === true && loggedInUser.username !== undefined) {
     if (isLoading) {
       return (
         <>

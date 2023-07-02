@@ -12,8 +12,7 @@ import { MySingleGuidelineAddUsersButton } from "./MySingleGuidelineAddUsersButt
 import { MyGuidelinesCommentsMain } from "../MyGuidelinesComments/MyGuidelinesCommentsMain";
 
 export const MySingleGuidelineBranch = () => {
-  const { isLoggedIn } = useContext(UserContext);
-  const LoggedInCheck = JSON.parse(localStorage.getItem("isLoggedIn"));
+  const { isLoggedIn, loggedInUser } = useContext(UserContext);
   const { branch_name } = useParams();
   const [branchInfo, setBranchInfo] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
@@ -69,7 +68,7 @@ export const MySingleGuidelineBranch = () => {
     return <ErrorPage />;
   }
 
-  if (isLoggedIn === true || LoggedInCheck === true) {
+  if (isLoggedIn === true && loggedInUser.username !== undefined) {
     if (isLoading) {
       return (
         <>

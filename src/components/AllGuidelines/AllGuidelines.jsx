@@ -9,8 +9,7 @@ import { AllGuidelinesSearchBar } from "../AllGuidelines/AllGuidelinesSearchBar"
 import { AllGuidelinesSingleGuidelineCard } from "../AllGuidelines/AllGuidelinesSingleGuidelineCard";
 
 export const AllGuidelines = () => {
-  const { isLoggedIn } = useContext(UserContext);
-  const LoggedInCheck = JSON.parse(localStorage.getItem("isLoggedIn"));
+  const { isLoggedIn, loggedInUser } = useContext(UserContext);
   const [guidelines, setGuidelines] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -32,7 +31,7 @@ export const AllGuidelines = () => {
     return <ErrorPage />;
   }
 
-  if (isLoggedIn === true || LoggedInCheck === true) {
+  if (isLoggedIn === true && loggedInUser.username !== undefined) {
     return isLoading ? (
       <div className="loading-section">
         <BeatLoader color="rgb(4,2,39)" size={16} />
