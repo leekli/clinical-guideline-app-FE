@@ -151,3 +151,14 @@ export const postBranchForApproval = (postBody) => {
       throw err;
     });
 };
+
+export const getAllApprovals = () => {
+  return axios
+    .get(`${apiUrl}/approvals`)
+    .then((res) => {
+      return res.data.approvals;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
