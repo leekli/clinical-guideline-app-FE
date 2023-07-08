@@ -140,3 +140,14 @@ export const branchAddNewComment = (branch_name, newComment) => {
       throw err;
     });
 };
+
+export const postBranchForApproval = (postBody) => {
+  return axios
+    .post(`${apiUrl}/approvals?type=edit`, postBody)
+    .then((res) => {
+      return res.data.approval;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};

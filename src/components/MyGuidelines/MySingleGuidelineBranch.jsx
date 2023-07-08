@@ -10,6 +10,7 @@ import { MySingleGuidelineLockUnlock } from "./MySingleGuidelineLockUnlock";
 import { MySingleGuidelineEditButton } from "./MySingleGuidelineEditButton";
 import { MySingleGuidelineAddUsersButton } from "./MySingleGuidelineAddUsersButton";
 import { MyGuidelinesCommentsMain } from "../MyGuidelinesComments/MyGuidelinesCommentsMain";
+import { MySingleGuidelineSubmitForApproval } from "./MySingleGuidelineSubmitForApproval";
 
 export const MySingleGuidelineBranch = () => {
   const { isLoggedIn, loggedInUser } = useContext(UserContext);
@@ -116,11 +117,20 @@ export const MySingleGuidelineBranch = () => {
             Workspace & Guideline Last Modified - fix meeee!!:{" "}
             {branchInfo.branchLastModified || "No Edits yet made"}
           </p>
-          <div>
+          <section>
+            <MySingleGuidelineSubmitForApproval
+              branchType={branchInfo.type}
+              branchOwner={branchInfo.branchOwner}
+              branchName={branchInfo.branchName}
+              guideline={branchInfo.guideline}
+            />
+          </section>
+          <br />
+          <section>
             <a href="#workspaceComments">
               <button>See Branch Comments</button>
             </a>
-          </div>
+          </section>
           <strong>Full Guideline below:</strong>
           {branchInfo.guideline.Chapters.map((chapter, chapterIndex) => {
             return (
