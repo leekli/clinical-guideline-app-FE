@@ -1,6 +1,6 @@
 import "../../styles/MySingleGuidelineModal.css";
 import { useState } from "react";
-import { Space, Button, Modal } from "antd";
+import { Space, Button, Modal, Alert } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
 import { branchAddNewAuthdUser } from "../../utils/api-calls";
 
@@ -69,16 +69,16 @@ export const MySingleGuidelineAddUsersButton = ({
           onOk={onOKClick}
           closable
         >
-          <p>Select a user to add:</p>
-          <sub>
-            Note: Only users with Viewer/Editor/Q.C access priviledges are
-            permitted to be added.
-          </sub>
-
-          <br />
-          <br />
+          <Alert
+            message="Note"
+            description="Only users with Viewer/Editor/Q.C access priviledges are
+            permitted to be added."
+            type="warning"
+            showIcon
+          />
 
           <center>
+            <h4>Select a user to add:</h4>
             <label for="users"></label>
 
             <select

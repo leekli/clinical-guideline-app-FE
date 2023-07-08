@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../../contexts/User";
-import { Button, Modal, Input } from "antd";
+import { Button, Modal, Input, Alert } from "antd";
 import { StopOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import {
@@ -91,6 +91,19 @@ export const MySingleApprovalRejectionComponent = ({
           onChange={onTextChange}
           required
         />
+        <br />
+        <br />
+        <section>
+          <center>
+            <Alert
+              message="Next Step:"
+              description="Once you have input an approval rejection comment, please
+      confirm by pressing 'OK'."
+              type="info"
+              showIcon
+            />
+          </center>
+        </section>
       </Modal>
     </>
   );

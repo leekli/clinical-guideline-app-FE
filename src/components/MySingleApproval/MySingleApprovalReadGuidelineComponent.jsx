@@ -1,7 +1,7 @@
 import "../../styles/SingleGuideline.css";
 import parse from "html-react-parser";
 import { useState } from "react";
-import { Button, Modal } from "antd";
+import { Button, Modal, Alert } from "antd";
 import { ReadOutlined } from "@ant-design/icons";
 
 export const MySingleApprovalReadGuidelineComponent = ({ singleApproval }) => {
@@ -48,6 +48,14 @@ export const MySingleApprovalReadGuidelineComponent = ({ singleApproval }) => {
         width="50%"
         closable
       >
+        <Alert
+          message="Information"
+          description="Below contains the amended and updated Guideline for you to view."
+          type="info"
+          showIcon
+        />
+
+        <br></br>
         {singleApproval.guideline.Chapters.map((chapter) => {
           return (
             <>

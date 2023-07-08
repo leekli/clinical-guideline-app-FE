@@ -122,16 +122,19 @@ export const SingleGuideline = () => {
 
             <button
               type="button"
-              className="collapsible_section"
+              className="collapsible_section_changes"
               onClick={handleClick}
             >
               <strong>Guideline Change History Tracker</strong>
             </button>
             <div className="content">
-              <p>Each change listed below - TO RE-STYLE:</p>
+              <p>
+                <strong>Changes made to this guideline:</strong>
+              </p>
               {guideline.GuidelineChangeHistoryDescriptions.map((change) => {
                 return (
                   <>
+                    <hr />
                     <p>Change Number: {change.ChangeNumber}</p>
                     <p>Change Description: {change.ChangeDescription}</p>
                     <p>Change Owner: {change.ChangeOwner}</p>
@@ -202,7 +205,8 @@ export const SingleGuideline = () => {
               <strong>Guideline Change History Tracker</strong>
             </button>
             <div className="content">
-              <p>Each change listed below - TO RE-STYLE:</p>
+              <hr />
+              <p>Each change listed:</p>
               {guideline.GuidelineChangeHistoryDescriptions.map((change) => {
                 return (
                   <>

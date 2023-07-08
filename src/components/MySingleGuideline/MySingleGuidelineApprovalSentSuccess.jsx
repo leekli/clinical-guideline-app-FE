@@ -1,8 +1,15 @@
+import { Alert } from "antd";
+
 export const MySingleGuidelineApprovalSentSuccess = () => {
   return (
     <>
-      <p>Approval has been sent</p>
-      <p>branch has been locked</p>
+      <Alert
+        message="Approval Request Sent"
+        description={`Your Approval Request was successfully submitted.
+        Your Guideline Workspace has been locked while pending approval.`}
+        type="success"
+        showIcon
+      />
     </>
   );
 };

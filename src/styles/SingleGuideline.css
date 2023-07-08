@@ -12,7 +12,7 @@
 }
 
 .collapsible_chapter:after {
-  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  content: "\02795"; /* Unicode character for "plus" sign (+) */
   font-size: 13px;
   color: white;
   float: right;
@@ -36,7 +36,27 @@
 }
 
 .collapsible_section:after {
-  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  content: "\02795"; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: rgb(0, 0, 0);
+  float: right;
+  margin-left: 5px;
+}
+
+.collapsible_section_changes {
+  background-color: rgb(80, 125, 145);
+  color: #000000;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.collapsible_section_changes:after {
+  content: "\02795"; /* Unicode character for "plus" sign (+) */
   font-size: 13px;
   color: rgb(0, 0, 0);
   float: right;
@@ -48,7 +68,8 @@
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .collapsible:hover {
+.active,
+.collapsible:hover {
   background-color: #ccc;
 }
 

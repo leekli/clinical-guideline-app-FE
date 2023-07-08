@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../../contexts/User";
-import { Space, Button, Modal, Input, Form } from "antd";
+import { Space, Button, Modal, Input, Form, Alert } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import { postNewBranch } from "../../utils/api-calls";
 
@@ -70,11 +70,25 @@ export const SingleGuidelineEditButton = ({ guideline, setIsError }) => {
             Before submitting, please specify what you want to call your 'Edit
             Workspace' for this Guideline:
           </p>
-          <Form form={form} onFinish={onEditButtonClick}>
+          <Form form={form} onFinish={onEditButtonClick} required>
             <Input
               placeholder="Enter Title here..."
               onChange={onEditModalTextChange}
+              required
             />
+            <br />
+            <br />
+            <section>
+              <center>
+                <Alert
+                  message="Next Step:"
+                  description="Once you have input a Workspace Title, please confirm by
+                pressing 'OK'."
+                  type="info"
+                  showIcon
+                />
+              </center>
+            </section>
           </Form>
         </Modal>
       </Space>

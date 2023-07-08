@@ -1,4 +1,4 @@
-import { Space, Button, Modal, Input } from "antd";
+import { Space, Button, Modal, Input, Alert } from "antd";
 import { useState } from "react";
 import { CheckOutlined } from "@ant-design/icons";
 import {
@@ -88,6 +88,19 @@ export const MySingleGuidelineSubmitForApproval = ({
             onChange={onDescTextChange}
             required
           />
+          <br />
+          <br />
+          <section>
+            <center>
+              <Alert
+                message="Next Step:"
+                description="Once you have input an approval request description, please
+      confirm by pressing 'OK'."
+                type="info"
+                showIcon
+              />
+            </center>
+          </section>
         </Modal>
       </Space>
     </>
