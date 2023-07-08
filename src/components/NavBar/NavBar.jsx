@@ -49,12 +49,6 @@ export const NavBar = () => {
     icon: <PlusCircleOutlined />,
   };
 
-  const menuItemContact = {
-    label: <Link to="/contact">Contact</Link>,
-    key: "contact",
-    icon: <MailOutlined />,
-  };
-
   const menuItemLogoutButton = {
     label: `Log out`,
     key: "log-out",
@@ -72,31 +66,24 @@ export const NavBar = () => {
     menuItemAllGuidelines,
     menuItemMyGuidelinesWorkspace,
     menuItemMyApprovalsWorkspace,
-    menuItemContact,
     menuItemLogoutButton,
   ];
 
   const itemsLoggedInApproverOnly = [
     menuItemAllGuidelines,
     menuItemMyApprovalsWorkspace,
-    menuItemContact,
     menuItemLogoutButton,
   ];
 
   const itemsLoggedInAuthorEditorOnly = [
     menuItemAllGuidelines,
     menuItemMyGuidelinesWorkspace,
-    menuItemContact,
     menuItemLogoutButton,
   ];
 
-  const itemsLoggedInViewerOnly = [
-    menuItemAllGuidelines,
-    menuItemContact,
-    menuItemLogoutButton,
-  ];
+  const itemsLoggedInViewerOnly = [menuItemAllGuidelines, menuItemLogoutButton];
 
-  const itemsLoggedOut = [menuItemPleaseLoginButton, menuItemContact];
+  const itemsLoggedOut = [menuItemPleaseLoginButton];
 
   const onClick = (event) => {
     setCurrent(event.key);
