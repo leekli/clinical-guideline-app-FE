@@ -102,7 +102,7 @@ export const NavBar = () => {
     setCurrent(event.key);
   };
 
-  if (isLoggedIn === true) {
+  if (isLoggedIn === true && loggedInUser.username !== undefined) {
     if (loggedInUser.primaryAccessLevel.includes("Admin")) {
       return (
         <nav>
