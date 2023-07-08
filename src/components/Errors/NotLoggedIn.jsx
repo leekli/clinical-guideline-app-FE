@@ -12,7 +12,16 @@ const NotLoggedInError = () => {
         showIcon
       />
       <br />
-      <Link to="/">Click here to go to the Login page</Link>
+      <Alert
+        description={
+          <Link to="/">
+            <h3>
+              <strong>Click here to go to the Login page</strong>
+            </h3>
+          </Link>
+        }
+        type="error"
+      />
     </>
   );
 };
