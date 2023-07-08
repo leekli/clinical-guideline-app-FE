@@ -10,9 +10,9 @@ import { Contact } from "./components/Contact/Contact";
 import { MyGuidelinesHome } from "./components/MyGuidelines/MyGuidelinesHome";
 import { MyApprovalsHome } from "./components/MyApprovals/MyApprovalsHome";
 import { AllGuidelines } from "./components/AllGuidelines/AllGuidelines";
-import { MySingleGuidelineBranch } from "./components/MyGuidelines/MySingleGuidelineBranch";
-import { MySingleGuidelineEditor } from "./components/MyGuidelines/MySingleGuidelineEditor";
-import { MySingleGuidelineApprovalSentSuccess } from "./components/MyGuidelines/MySingleGuidelineApprovalSentSuccess";
+import { MySingleGuidelineBranch } from "./components/MySingleGuideline/MySingleGuidelineBranch";
+import { MySingleGuidelineEditor } from "./components/MySingleGuideline/MySingleGuidelineEditor";
+import { MySingleGuidelineApprovalSentSuccess } from "./components/MySingleGuideline/MySingleGuidelineApprovalSentSuccess";
 
 function App() {
   return (

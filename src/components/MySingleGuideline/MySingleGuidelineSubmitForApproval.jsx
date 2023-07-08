@@ -85,6 +85,7 @@ export const MySingleGuidelineSubmitForApproval = ({
             allowClear
             showCount
             onChange={onDescTextChange}
+            required
           />
         </Modal>
       </Space>
