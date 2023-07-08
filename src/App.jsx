@@ -12,6 +12,7 @@ import { AllGuidelines } from "./components/AllGuidelines/AllGuidelines";
 import { MySingleGuidelineBranch } from "./components/MySingleGuideline/MySingleGuidelineBranch";
 import { MySingleGuidelineEditor } from "./components/MySingleGuideline/MySingleGuidelineEditor";
 import { MySingleGuidelineApprovalSentSuccess } from "./components/MySingleGuideline/MySingleGuidelineApprovalSentSuccess";
+import { MySingleApprovalComponent } from "./components/MySingleApproval/MySingleApprovalComponent";
 
 function App() {
   return (
@@ -40,6 +41,10 @@ function App() {
             element={<MySingleGuidelineApprovalSentSuccess />}
           />
           <Route path="/myapprovals" element={<MyApprovalsHome />} />
+          <Route
+            path="/myapprovals/:approval_name"
+            element={<MySingleApprovalComponent />}
+          />
           <Route path="/error" element={<ErrorPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>

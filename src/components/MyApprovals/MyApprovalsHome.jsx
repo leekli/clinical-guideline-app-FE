@@ -14,7 +14,6 @@ export const MyApprovalsHome = () => {
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
     setIsError(false);
     getAllApprovals()
       .then((data) => {
@@ -32,12 +31,16 @@ export const MyApprovalsHome = () => {
 
   if (isLoggedIn === true && loggedInUser.username !== undefined) {
     if (isLoading) {
-      <div className="loading-section">
-        <BeatLoader color="rgb(4,2,39)" size={16} />
-        <p>
-          <strong>Loading...</strong>
-        </p>
-      </div>;
+      return (
+        <>
+          <div className="loading-section">
+            <BeatLoader color="rgb(4,2,39)" size={16} />
+            <p>
+              <strong>Loading...</strong>
+            </p>
+          </div>
+        </>
+      );
     } else {
       if (allApprovals.length === 0) {
         return (

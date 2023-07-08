@@ -1,21 +1,31 @@
-import { Typography, Space, Card } from "antd";
+import { Link } from "react-router-dom";
+import { Typography, Card } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
 const { Title } = Typography;
 
 export const MyApprovalsCard = ({ approvalInfo }) => {
+  const branchLink = `/myapprovals/${approvalInfo.approvalRequestName}`;
+
   return (
     <>
       <Card
         type="inner"
         title={
-          <Title level={5} underline>
-            Outstanding Approval: {approvalInfo.approvalRequestName}
-          </Title>
+          <Link to={branchLink} key={approvalInfo.approvalRequestName}>
+            <Title level={5} underline>
+              Outstanding Approval: {approvalInfo.approvalRequestName}
+            </Title>
+          </Link>
         }
-        extra={<EyeOutlined key="view-branch" />}
+        extra={
+          <Link to={branchLink} key={approvalInfo.approvalRequestName}>
+            <EyeOutlined key="view-approval" />
+            &nbsp;View Pending Approval Request
+          </Link>
+        }
         style={{ width: "80vw" }}
         hoverable
-        id="branch_card"
+        id="approval_card"
       >
         <strong>
           <p>Requested By: {approvalInfo.branchOwner}</p>

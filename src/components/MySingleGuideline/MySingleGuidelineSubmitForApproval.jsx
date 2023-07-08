@@ -40,6 +40,7 @@ export const MySingleGuidelineSubmitForApproval = ({
       approvalRequestName: `${guideline.GuidanceNumber}-approval-request`,
       approvalSetupDateTime: Date.now(),
       approvalPurposeDescription: approvalDesc,
+      branchName: branchName,
       branchOwner: branchOwner,
       guideline: guideline,
     };
@@ -81,7 +82,7 @@ export const MySingleGuidelineSubmitForApproval = ({
         >
           <TextArea
             rows={4}
-            placeholder="Add description here."
+            placeholder="Add description here..."
             allowClear
             showCount
             onChange={onDescTextChange}

@@ -25,6 +25,22 @@ export const getGuidelineById = (guideline_id) => {
     });
 };
 
+export const patchGuidelineById = (
+  guideline_id,
+  patchedGuideline,
+  submissionInfo
+) => {
+  const bodyToSend = { patchedGuideline, submissionInfo };
+  return axios
+    .patch(`${apiUrl}/guidelines/${guideline_id}`, bodyToSend)
+    .then((res) => {
+      return res.data.guideline;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
 export const getAllUsers = () => {
   return axios
     .get(`${apiUrl}/users`)
@@ -141,6 +157,10 @@ export const branchAddNewComment = (branch_name, newComment) => {
     });
 };
 
+export const deleteBranchByBranchName = (branch_name) => {
+  return axios.delete(`${apiUrl}/branches/${branch_name}`);
+};
+
 export const postBranchForApproval = (postBody) => {
   return axios
     .post(`${apiUrl}/approvals?type=edit`, postBody)
@@ -161,4 +181,19 @@ export const getAllApprovals = () => {
     .catch((err) => {
       throw err;
     });
+};
+
+export const getApprovalByName = (approval_name) => {
+  return axios
+    .get(`${apiUrl}/approvals/${approval_name}`)
+    .then((res) => {
+      return res.data.approval;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
+export const deleteApprovalByName = (approval_name) => {
+  return axios.delete(`${apiUrl}/approvals/${approval_name}`);
 };
