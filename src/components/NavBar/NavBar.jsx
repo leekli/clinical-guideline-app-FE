@@ -137,6 +137,22 @@ export const NavBar = () => {
       );
     } else if (
       loggedInUser.secondaryAccessLevel.includes("Approver") &&
+      loggedInUser.secondaryAccessLevel.includes("Q.C")
+    ) {
+      return (
+        <nav>
+          <Menu
+            onClick={onClick}
+            selectedKeys={[current]}
+            mode="horizontal"
+            items={itemsLoggedInApproverOnly}
+            theme="dark"
+          />
+          <br />
+        </nav>
+      );
+    } else if (
+      loggedInUser.secondaryAccessLevel.includes("Approver") &&
       loggedInUser.secondaryAccessLevel.includes("Editor")
     ) {
       return (
