@@ -11,6 +11,7 @@ import { MySingleGuidelineEditButton } from "./MySingleGuidelineEditButton";
 import { MySingleGuidelineAddUsersButton } from "./MySingleGuidelineAddUsersButton";
 import { MyGuidelinesCommentsMain } from "../MyGuidelinesComments/MyGuidelinesCommentsMain";
 import { MySingleGuidelineSubmitForApproval } from "./MySingleGuidelineSubmitForApproval";
+import ErrorPage from "../Errors/ErrorPage";
 
 export const MySingleGuidelineBranch = () => {
   const { isLoggedIn, loggedInUser } = useContext(UserContext);

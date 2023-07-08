@@ -7,6 +7,7 @@ import NotLoggedInError from "../Errors/NotLoggedIn";
 import { Space } from "antd";
 import { AllGuidelinesSearchBar } from "../AllGuidelines/AllGuidelinesSearchBar";
 import { AllGuidelinesSingleGuidelineCard } from "../AllGuidelines/AllGuidelinesSingleGuidelineCard";
+import ErrorPage from "../Errors/ErrorPage";
 
 export const AllGuidelines = () => {
   const { isLoggedIn, loggedInUser } = useContext(UserContext);
