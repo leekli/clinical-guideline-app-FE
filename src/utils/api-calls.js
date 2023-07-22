@@ -158,6 +158,19 @@ export const branchAddNewAuthdUser = ({ branch_name, userToAdd }) => {
     });
 };
 
+export const branchAddNewSubSection = ({ branch_name, chapterNum }) => {
+  const dataToSend = { chapterNum };
+
+  return axios
+    .patch(`${apiUrl}/branches/${branch_name}/addsection`, dataToSend)
+    .then((res) => {
+      return res.data.branch;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
 export const branchGetAllComments = (branch_name) => {
   return axios
     .get(`${apiUrl}/branches/${branch_name}/comments`)

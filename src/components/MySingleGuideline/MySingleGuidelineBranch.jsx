@@ -15,6 +15,7 @@ import { MyGuidelinesCommentsMain } from "../MyGuidelinesComments/MyGuidelinesCo
 import { MySingleGuidelineSubmitForApproval } from "./MySingleGuidelineSubmitForApproval";
 import ErrorPage from "../Errors/ErrorPage";
 import { MySingleGuidelineDeleteWorkspaceButton } from "./MySingleGuidelineDeleteWorkspace";
+import { MySingleGuidelineAddASectionButton } from "./MySingleGuidelineAddASectionButton";
 
 export const MySingleGuidelineBranch = () => {
   const { isLoggedIn, loggedInUser } = useContext(UserContext);
@@ -23,6 +24,7 @@ export const MySingleGuidelineBranch = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+  const [triggerReFetch, setTriggerReFetch] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -56,7 +58,7 @@ export const MySingleGuidelineBranch = () => {
       .catch((err) => {
         setIsError({ err });
       });
-  }, [isError]);
+  }, [isError, triggerReFetch]);
 
   function handleClick(event) {
     event.target.classList.toggle("active");
@@ -190,6 +192,7 @@ export const MySingleGuidelineBranch = () => {
                   </Link>
 
                   {parse(chapter.Content)}
+
                   {chapter.Sections.map((section, sectionIndex) => {
                     return (
                       <>
@@ -229,6 +232,17 @@ export const MySingleGuidelineBranch = () => {
                       </>
                     );
                   })}
+                  <div>
+                    <br />
+                    <section>
+                      <MySingleGuidelineAddASectionButton
+                        branchName={branchInfo.branchName}
+                        currentChapterIndex={chapterIndex}
+                        setTriggerReFetch={setTriggerReFetch}
+                      />
+                    </section>
+                    <br />
+                  </div>
                 </div>
               </>
             );

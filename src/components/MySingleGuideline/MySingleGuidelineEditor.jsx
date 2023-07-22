@@ -90,7 +90,7 @@ export const MySingleGuidelineEditor = () => {
           onClick={onCancelGoBack}
           danger
         >
-          Cancel Changes and Go Back
+          Cancel Changes / Go Back
         </Button>
       </Space>
     </>
