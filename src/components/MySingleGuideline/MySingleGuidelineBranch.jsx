@@ -6,6 +6,8 @@ import { getAllUsers, getBranchByBranchName } from "../../utils/api-calls";
 import { UserContext } from "../../contexts/User";
 import NotLoggedInError from "../Errors/NotLoggedIn";
 import { BeatLoader } from "react-spinners";
+import { Space, Button } from "antd";
+import { EyeOutlined } from "@ant-design/icons";
 import { MySingleGuidelineLockUnlock } from "./MySingleGuidelineLockUnlock";
 import { MySingleGuidelineEditButton } from "./MySingleGuidelineEditButton";
 import { MySingleGuidelineAddUsersButton } from "./MySingleGuidelineAddUsersButton";
@@ -140,7 +142,19 @@ export const MySingleGuidelineBranch = () => {
           <br />
           <section>
             <a href="#workspaceComments">
-              <button>See Branch Comments</button>
+              <Space wrap>
+                <Button
+                  type="primary"
+                  size="medium"
+                  icon={<EyeOutlined />}
+                  style={{
+                    background: "seagreen",
+                    borderColor: "black",
+                  }}
+                >
+                  View Collaborator Workspace Comments
+                </Button>
+              </Space>
             </a>
           </section>
           <strong>Full Guideline below:</strong>
