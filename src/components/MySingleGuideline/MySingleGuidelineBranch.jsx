@@ -155,6 +155,7 @@ export const MySingleGuidelineBranch = () => {
                       currentChapterIndex: chapterIndex,
                       currentSectionIndex: 999,
                       content: chapter.Content,
+                      title: chapter.Title,
                     }}
                   >
                     <MySingleGuidelineEditButton
@@ -188,6 +189,7 @@ export const MySingleGuidelineBranch = () => {
                               currentChapterIndex: chapterIndex,
                               currentSectionIndex: sectionIndex,
                               content: section.Content,
+                              title: section.Title,
                             }}
                           >
                             <MySingleGuidelineEditButton

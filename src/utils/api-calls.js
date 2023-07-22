@@ -112,8 +112,9 @@ export const patchBranchByBranchName = ({
   chapterNum,
   sectionNum,
   patchBody,
+  newTitle,
 }) => {
-  const branchToSend = { chapterNum, sectionNum, patchBody };
+  const branchToSend = { chapterNum, sectionNum, patchBody, newTitle };
   return axios
     .patch(`${apiUrl}/branches/${branch_name}`, branchToSend)
     .then((res) => {
