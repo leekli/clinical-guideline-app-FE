@@ -12,6 +12,7 @@ import { MySingleGuidelineAddUsersButton } from "./MySingleGuidelineAddUsersButt
 import { MyGuidelinesCommentsMain } from "../MyGuidelinesComments/MyGuidelinesCommentsMain";
 import { MySingleGuidelineSubmitForApproval } from "./MySingleGuidelineSubmitForApproval";
 import ErrorPage from "../Errors/ErrorPage";
+import { MySingleGuidelineDeleteWorkspaceButton } from "./MySingleGuidelineDeleteWorkspace";
 
 export const MySingleGuidelineBranch = () => {
   const { isLoggedIn, loggedInUser } = useContext(UserContext);
@@ -125,6 +126,16 @@ export const MySingleGuidelineBranch = () => {
               branchName={branchInfo.branchName}
               guideline={branchInfo.guideline}
             />
+          </section>
+          <br />
+          <section>
+            {branchInfo.branchOwner === loggedInUser.username ? (
+              <MySingleGuidelineDeleteWorkspaceButton
+                branchName={branchInfo.branchName}
+              />
+            ) : (
+              ""
+            )}
           </section>
           <br />
           <section>
