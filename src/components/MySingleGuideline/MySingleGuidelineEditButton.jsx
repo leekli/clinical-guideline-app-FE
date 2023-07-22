@@ -18,7 +18,7 @@ export const MySingleGuidelineEditButton = ({
               borderColor: "black",
             }}
           >
-            Edit this chapter: ({titleToEdit})
+            Edit section: ({titleToEdit})
           </Button>
         </Space>
       </>

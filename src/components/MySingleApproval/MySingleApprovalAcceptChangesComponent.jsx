@@ -4,6 +4,7 @@ import {
   deleteApprovalByName,
   deleteBranchByBranchName,
   patchGuidelineById,
+  postNewGuideline,
 } from "../../utils/api-calls";
 import { useNavigate } from "react-router-dom";
 const { confirm } = Modal;
@@ -15,6 +16,7 @@ export const MySingleApprovalAcceptChangesComponent = ({
   branchOwner,
   branchName,
   approvalName,
+  approvalType,
 }) => {
   const navigate = useNavigate();
 
@@ -23,42 +25,78 @@ export const MySingleApprovalAcceptChangesComponent = ({
   };
 
   const showConfirm = () => {
-    confirm({
-      title: "Are you sure that you want to approve this request?",
-      icon: <ExclamationCircleFilled />,
-      content:
-        "By approving this request, the changes will be merged into the main Guideline available for all users to read. It will also delete the current guideline workspace along with this approval request, once the Guideline merge has completed.",
-      onOk() {
-        // 1. Setup PATCH request info to send and execute patch
-        const patchedGuideline = structuredClone(guideline);
+    if (approvalType === "edit") {
+      confirm({
+        title: "Are you sure that you want to approve this request?",
+        icon: <ExclamationCircleFilled />,
+        content:
+          "By approving this request, the changes will be merged into the main Guideline available for all users to read. It will also delete the current guideline workspace along with this approval request, once the Guideline merge has completed.",
+        onOk() {
+          // 1. Setup PATCH request info to send and execute patch
+          const patchedGuideline = structuredClone(guideline);
 
-        const dateNow = Date.now();
+          const dateNow = Date.now();
 
-        const submissionInfo = {
-          ChangeNumber: 0,
-          ChangeDescription: approvalPurpose,
-          ChangeOwner: branchOwner,
-          ChangeDatePublished: dateNow,
-        };
+          const submissionInfo = {
+            ChangeNumber: 0,
+            ChangeDescription: approvalPurpose,
+            ChangeOwner: branchOwner,
+            ChangeDatePublished: dateNow,
+          };
 
-        return patchGuidelineById(guidelineId, patchedGuideline, submissionInfo)
-          .then(() => {
-            // 2. delete relevant branch
-            return deleteBranchByBranchName(branchName);
-          })
-          .then(() => {
-            // 3. delete relevant approval
-            return deleteApprovalByName(approvalName);
-          })
-          .then(() => {
-            // 4. navigate back to approvals homepage
-            routeChange(`/myapprovals`);
-          });
-      },
-      onCancel() {
-        console.log("Cancel");
-      },
-    });
+          return patchGuidelineById(
+            guidelineId,
+            patchedGuideline,
+            submissionInfo
+          )
+            .then(() => {
+              // 2. delete relevant branch
+              return deleteBranchByBranchName(branchName);
+            })
+            .then(() => {
+              // 3. delete relevant approval
+              return deleteApprovalByName(approvalName);
+            })
+            .then(() => {
+              // 4. navigate back to approvals homepage
+              routeChange(`/myapprovals`);
+            });
+        },
+        onCancel() {
+          console.log("Cancel");
+        },
+      });
+    }
+
+    if (approvalType === "create") {
+      confirm({
+        title: "Are you sure that you want to approve this request?",
+        icon: <ExclamationCircleFilled />,
+        content:
+          "By approving this request, the new Guideline will be set up into the main Guideline Library available for all users to read. It will also delete the current guideline workspace along with this approval request, once the Guideline merge has completed.",
+        onOk() {
+          // 1. Setup POST request info to send and execute post request
+          const newGuideline = structuredClone(guideline);
+
+          return postNewGuideline(newGuideline)
+            .then(() => {
+              // 2. delete relevant branch
+              return deleteBranchByBranchName(branchName);
+            })
+            .then(() => {
+              // 3. delete relevant approval
+              return deleteApprovalByName(approvalName);
+            })
+            .then(() => {
+              // 4. navigate back to approvals homepage
+              routeChange(`/myapprovals`);
+            });
+        },
+        onCancel() {
+          console.log("Cancel");
+        },
+      });
+    }
   };
 
   return (

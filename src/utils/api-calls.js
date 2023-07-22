@@ -41,6 +41,17 @@ export const patchGuidelineById = (
     });
 };
 
+export const postNewGuideline = (guidelineToSend) => {
+  return axios
+    .post(`${apiUrl}/guidelines`, guidelineToSend)
+    .then((res) => {
+      return res.data.guideline;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
 export const getAllUsers = () => {
   return axios
     .get(`${apiUrl}/users`)
@@ -77,6 +88,17 @@ export const getBranchByBranchName = (branch_name) => {
 export const postNewBranch = (branchToSetup) => {
   return axios
     .post(`${apiUrl}/branches?type=edit`, branchToSetup)
+    .then((res) => {
+      return res.data.branch;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
+export const postNewCreateBranch = (branchToSetup) => {
+  return axios
+    .post(`${apiUrl}/branches?type=create`, branchToSetup)
     .then((res) => {
       return res.data.branch;
     })

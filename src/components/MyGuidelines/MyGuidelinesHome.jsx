@@ -5,6 +5,7 @@ import { BeatLoader } from "react-spinners";
 import NotLoggedInError from "../Errors/NotLoggedIn";
 import ErrorPage from "../Errors/ErrorPage";
 import { MyGuidelinesBranchCard } from "../MyGuidelines/MyGuidelinesBranchCard";
+import { MyGuidelinesCreateNewGuidelineButton } from "./MyGuidelinesCreateNewGuidelineButton";
 
 export const MyGuidelinesHome = () => {
   const { isLoggedIn, loggedInUser } = useContext(UserContext);
@@ -58,6 +59,7 @@ export const MyGuidelinesHome = () => {
         return (
           <>
             <h2>Your Guidelines Workspace</h2>
+            <MyGuidelinesCreateNewGuidelineButton />
             <h3>You currently have no Guidelines in progress to work on.</h3>
           </>
         );
@@ -65,6 +67,7 @@ export const MyGuidelinesHome = () => {
         return (
           <>
             <h2>Your Guidelines Workspace</h2>
+            <MyGuidelinesCreateNewGuidelineButton />
             <h3>Live Guidelines which you are currently working on:</h3>
 
             <MyGuidelinesBranchCard guidelineBranches={guidelineBranches} />

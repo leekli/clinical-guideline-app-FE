@@ -76,6 +76,7 @@ export const MySingleApprovalComponent = () => {
                 branchOwner={singleApproval.branchOwner}
                 branchName={singleApproval.branchName}
                 approvalName={singleApproval.approvalRequestName}
+                approvalType={singleApproval.type}
               />
               <MySingleApprovalRejectionComponent
                 branchName={singleApproval.branchName}
