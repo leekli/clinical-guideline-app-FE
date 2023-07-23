@@ -2,8 +2,12 @@ import "react-quill/dist/quill.snow.css";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import ReactQuill from "react-quill";
-import { Space, Button, Input } from "antd";
-import { SaveOutlined, StopOutlined } from "@ant-design/icons";
+import { Space, Button, Input, Modal, Alert } from "antd";
+import {
+  SaveOutlined,
+  StopOutlined,
+  FileImageOutlined,
+} from "@ant-design/icons";
 import { patchBranchByBranchName } from "../../utils/api-calls";
 import { useNavigate } from "react-router-dom";
 
@@ -19,9 +23,20 @@ export const MySingleGuidelineEditor = () => {
     content,
     title,
   } = location.state;
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [value, setValue] = useState(content);
   const [currentHtml, setCurrentHtml] = useState("");
   const [newTitle, setNewTitle] = useState(title);
+  const [imageUrl, setImageUrl] = useState("");
+  const [imageCaptionText, setImageCaptionText] = useState("");
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const onEditorChange = (event) => {
     const html = String(event);
@@ -30,7 +45,17 @@ export const MySingleGuidelineEditor = () => {
     setCurrentHtml(html);
   };
 
-  const onSaveClick = () => {
+  const onSaveClick = async (hasImage) => {
+    if (hasImage === true) {
+      const imageHTMLString = `<div>\r\n<center>\r\n<section>\r\n<img src=\"${imageUrl}\" width=\"300\" />\r\n<br />\r\n<sub>${imageCaptionText}</sub>\r\n</section>\r\n</center>\r\n</div>`;
+
+      await setValue((currValue) => {
+        const newHtml = currValue + imageHTMLString;
+
+        return newHtml;
+      });
+    }
+
     const bodyToSend = {
       branch_name: branchName,
       chapterNum: currentChapterIndex,
@@ -41,6 +66,7 @@ export const MySingleGuidelineEditor = () => {
 
     return patchBranchByBranchName(bodyToSend).then(() => {
       alert("Save successful!");
+      setIsModalOpen(false);
     });
   };
 
@@ -50,6 +76,14 @@ export const MySingleGuidelineEditor = () => {
 
   const onTitleTextChange = (event) => {
     setNewTitle(event.target.value);
+  };
+
+  const onImageUrlTextBoxChange = (event) => {
+    setImageUrl(event.target.value);
+  };
+
+  const onImageCaptionTextBoxChange = (event) => {
+    setImageCaptionText(event.target.value);
   };
 
   return (
@@ -71,6 +105,64 @@ export const MySingleGuidelineEditor = () => {
       <h4>Edit Main Section Content:</h4>
       <ReactQuill theme="snow" value={value} onChange={onEditorChange} />
 
+      <div>
+        <h4>Add an Image to this section:</h4>
+        <Space wrap>
+          <Button
+            type="primary"
+            size="medium"
+            icon={<FileImageOutlined />}
+            style={{
+              background: "seagreen",
+              borderColor: "black",
+            }}
+            onClick={showModal}
+          >
+            Add Image & Caption
+          </Button>
+
+          <Modal
+            title="Add an Image & Caption to this section:"
+            open={isModalOpen}
+            onCancel={handleModalCancel}
+            onOk={() => onSaveClick(true)}
+            closable
+          >
+            <section>
+              <p>Enter an Image URL Address:</p>
+              <Input
+                placeholder="Enter Image URL address here..."
+                onChange={onImageUrlTextBoxChange}
+                type="url"
+                required
+              />
+            </section>
+
+            <section>
+              <p>
+                Create a section of caption text for what will display
+                underneath this Image:
+              </p>
+              <Input
+                placeholder="Enter Image caption text here..."
+                onChange={onImageCaptionTextBoxChange}
+                required
+              />
+            </section>
+
+            <br />
+
+            <Alert
+              message="Note"
+              description="By pressing 'OK' - The image link and caption text will be added to the editor view, to save progress you'll need to press the 'Save Progress' button."
+              type="warning"
+              showIcon
+            />
+          </Modal>
+        </Space>
+      </div>
+
+      <br />
       <br />
 
       <Space wrap>
@@ -78,7 +170,10 @@ export const MySingleGuidelineEditor = () => {
           type="primary"
           size="large"
           icon={<SaveOutlined />}
-          onClick={onSaveClick}
+          onClick={() => onSaveClick()}
+          style={{
+            borderColor: "black",
+          }}
         >
           Save Progress
         </Button>
@@ -88,6 +183,9 @@ export const MySingleGuidelineEditor = () => {
           size="large"
           icon={<StopOutlined />}
           onClick={onCancelGoBack}
+          style={{
+            borderColor: "black",
+          }}
           danger
         >
           Cancel Changes / Go Back
