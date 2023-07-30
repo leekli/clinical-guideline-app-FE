@@ -4,6 +4,7 @@ import { getApprovalByName } from "../../utils/api-calls";
 import { Space } from "antd";
 import { useParams } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
+import { convertJSTime } from "../../utils/convertJSTime";
 import ErrorPage from "../Errors/ErrorPage";
 import NotLoggedInError from "../Errors/NotLoggedIn";
 import { MySingleApprovalRejectionComponent } from "./MySingleApprovalRejectionComponent";
@@ -53,7 +54,10 @@ export const MySingleApprovalComponent = () => {
             Pending Approval Request: {singleApproval.approvalRequestName}
           </h2>
           <p>Requested by: {singleApproval.branchOwner}</p>
-          <p>Approval submitted: {singleApproval.approvalSetupDateTime}</p>
+          <p>
+            Approval submitted:{" "}
+            {convertJSTime(singleApproval.approvalSetupDateTime)}
+          </p>
           <p>
             Request Description: {singleApproval.approvalPurposeDescription}
           </p>

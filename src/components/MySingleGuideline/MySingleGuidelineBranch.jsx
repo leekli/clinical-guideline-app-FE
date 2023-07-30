@@ -8,6 +8,7 @@ import NotLoggedInError from "../Errors/NotLoggedIn";
 import { BeatLoader } from "react-spinners";
 import { Space, Button } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
+import { convertJSTime } from "../../utils/convertJSTime";
 import { MySingleGuidelineLockUnlock } from "./MySingleGuidelineLockUnlock";
 import { MySingleGuidelineEditButton } from "./MySingleGuidelineEditButton";
 import { MySingleGuidelineAddUsersButton } from "./MySingleGuidelineAddUsersButton";
@@ -93,8 +94,8 @@ export const MySingleGuidelineBranch = () => {
           <p>Workspace Name: {branchInfo.branchName}</p>
           <p>Workspace Type: {branchInfo.type}</p>
           <p>
-            Workspace Setup Date/Time - fix meeee!!:{" "}
-            {branchInfo.branchSetupDateTime}
+            Workspace Setup Date/Time:{" "}
+            {convertJSTime(branchInfo.branchSetupDateTime)}
           </p>
           <p>Workspace Owner: {branchInfo.branchOwner}</p>
           Workspace Authorised Users (Permitted to contribute):{" "}
@@ -120,8 +121,9 @@ export const MySingleGuidelineBranch = () => {
             setBranchInfo={setBranchInfo}
           />
           <p>
-            Workspace & Guideline Last Modified - fix meeee!!:{" "}
-            {branchInfo.branchLastModified || "No Edits yet made"}
+            Workspace & Guideline Last Modified:{" "}
+            {convertJSTime(branchInfo.branchLastModified) ||
+              "No Edits yet made"}
           </p>
           <section>
             <MySingleGuidelineSubmitForApproval

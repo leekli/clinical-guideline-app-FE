@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { branchGetAllComments } from "../../utils/api-calls";
 import { BeatLoader } from "react-spinners";
 import { MyGuidelinesAddComment } from "./MyGuidelinesAddComment";
+import { convertNormalJSTime } from "../../utils/convertNormalJSTime";
 
 export const MyGuidelinesCommentsMain = ({ branchName }) => {
   const [branchComments, setBranchComments] = useState([]);
@@ -38,7 +39,7 @@ export const MyGuidelinesCommentsMain = ({ branchName }) => {
             <>
               <hr />
               <p>Posted By: {comment.author}</p>
-              <p>Posted on: {comment.commentDate}</p>
+              <p>Posted on: {convertNormalJSTime(comment.commentDate)}</p>
               <p>{comment.body}</p>
             </>
           );

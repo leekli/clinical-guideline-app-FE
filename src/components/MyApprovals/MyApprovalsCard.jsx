@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Typography, Card } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
+import { convertJSTime } from "../../utils/convertJSTime";
 const { Title } = Typography;
 
 export const MyApprovalsCard = ({ approvalInfo }) => {
@@ -32,7 +33,7 @@ export const MyApprovalsCard = ({ approvalInfo }) => {
         </strong>
         <p>
           <strong>Requested on: </strong>
-          {approvalInfo.approvalSetupDateTime}
+          {convertJSTime(approvalInfo.approvalSetupDateTime)}
         </p>
         <p>
           <strong>Approval request Description: </strong>
