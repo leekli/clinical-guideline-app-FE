@@ -9,6 +9,8 @@
   text-align: left;
   outline: none;
   font-size: 15px;
+  border-radius: 3px;
+  margin: 3px;
 }
 
 .collapsible_chapter:after {
@@ -33,6 +35,8 @@
   text-align: left;
   outline: none;
   font-size: 15px;
+  border-radius: 3px;
+  margin: 3px;
 }
 
 .collapsible_section:after {
@@ -53,6 +57,8 @@
   text-align: left;
   outline: none;
   font-size: 15px;
+  border-radius: 3px;
+  margin: 3px;
 }
 
 .collapsible_section_changes:after {
@@ -79,6 +85,8 @@
   display: none;
   overflow: hidden;
   background-color: #f1f1f1;
+  border-radius: 3px;
+  margin: 3px;
 }
 
 #single_guideline_search_bar {
@@ -89,4 +97,50 @@
   #single_guideline_search_bar {
     width: 100%;
   }
+}
+
+.collapsible_tracker_history_changes {
+  background-color: rgb(80, 125, 145);
+  color: #000000;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  border-radius: 3px;
+  margin: 3px;
+}
+
+.collapsible_tracker_history_changes:after {
+  content: "\02795"; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: rgb(0, 0, 0);
+  float: right;
+  margin-left: 5px;
+}
+
+.tracker_active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.tracker_active,
+.collapsible:hover {
+  background-color: rgb(64, 126, 147);
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.tracker_history_content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  border-radius: 3px;
+  margin: 3px;
+}
+
+#trackerTitle {
+  color: white;
 }

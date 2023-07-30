@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 import { Card, Typography } from "antd";
-import { EyeOutlined } from "@ant-design/icons";
+import {
+  EyeOutlined,
+  FileTextOutlined,
+  NumberOutlined,
+  CalendarOutlined,
+} from "@ant-design/icons";
+import { convertUnixTime } from "../../utils/convertUnixTime";
 const { Title } = Typography;
 
 export const AllGuidelinesSingleGuidelineCard = ({
@@ -13,25 +19,36 @@ export const AllGuidelinesSingleGuidelineCard = ({
         type="inner"
         title={
           <Link to={guidelineLink} key={guideline.GuidanceNumber}>
-            <Title level={5} underline>
-              {guideline.Title}
+            <Title level={5}>
+              <FileTextOutlined />
+              &nbsp;{guideline.Title}
             </Title>
           </Link>
         }
         extra={
           <Link to={guidelineLink} key={guideline.GuidanceNumber}>
             <EyeOutlined key="view-guideline" />
-            &nbsp;View Guideline {guideline.GuidanceNumber}
+            &nbsp;View Guideline: {guideline.GuidanceNumber}
           </Link>
         }
-        style={{ width: "80vw" }}
+        style={{ width: "80vw", borderColor: "darkgray" }}
         hoverable
         id="guideline_card"
       >
-        <strong>
-          <p>Guideline Number: {guideline.GuidanceNumber}</p>
-        </strong>
-        <p>{guideline.LongTitle}</p>
+        <p>
+          <strong>
+            <NumberOutlined />
+            &nbsp;Guideline Number:
+          </strong>{" "}
+          {guideline.GuidanceNumber}
+        </p>
+        <p>
+          <strong>
+            <CalendarOutlined />
+            &nbsp;Published on:
+          </strong>{" "}
+          {convertUnixTime(guideline.MetadataApplicationProfile.Issued)}
+        </p>
       </Card>
     </>
   );

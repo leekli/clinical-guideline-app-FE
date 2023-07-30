@@ -1,4 +1,5 @@
 import { Space, Input } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 
 export const AllGuidelinesSearchBar = ({ searchInput, setSearchInput }) => {
   const { Search } = Input;
@@ -17,7 +18,7 @@ export const AllGuidelinesSearchBar = ({ searchInput, setSearchInput }) => {
         <Search
           placeholder="Search Guidelines..."
           allowClear
-          enterButton="Search"
+          enterButton={<SearchOutlined />}
           size="large"
           value={searchInput}
           onChange={onChange}

@@ -13,6 +13,7 @@ import { MySingleGuidelineBranch } from "./components/MySingleGuideline/MySingle
 import { MySingleGuidelineEditor } from "./components/MySingleGuideline/MySingleGuidelineEditor";
 import { MySingleGuidelineApprovalSentSuccess } from "./components/MySingleGuideline/MySingleGuidelineApprovalSentSuccess";
 import { MySingleApprovalComponent } from "./components/MySingleApproval/MySingleApprovalComponent";
+import { SingleGuidelineEditSubmissionSuccess } from "./components/SingleGuidelineView/SingleGuidelineEditSubmissionSuccess";
 
 function App() {
   return (
@@ -26,6 +27,10 @@ function App() {
           <Route
             path="/guidelines/:guideline_id"
             element={<SingleGuideline />}
+          />
+          <Route
+            path="/workspace-setup"
+            element={<SingleGuidelineEditSubmissionSuccess />}
           />
           <Route path="/myguidelines" element={<MyGuidelinesHome />} />
           <Route
