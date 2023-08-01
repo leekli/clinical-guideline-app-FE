@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { getAllBranches } from "../../utils/api-calls";
 import { UserContext } from "../../contexts/User";
+import { Space, Alert } from "antd";
 import { BeatLoader } from "react-spinners";
 import NotLoggedInError from "../Errors/NotLoggedIn";
 import ErrorPage from "../Errors/ErrorPage";
@@ -58,17 +59,53 @@ export const MyGuidelinesHome = () => {
       if (guidelineBranches.length === 0) {
         return (
           <>
-            <h2>Your Guidelines Workspace</h2>
-            <MyGuidelinesCreateNewGuidelineButton />
-            <h3>You currently have no Guidelines in progress to work on.</h3>
+            <section>
+              <Space
+                direction="vertical"
+                style={{
+                  width: "75%",
+                }}
+              >
+                <Alert
+                  message="Welcome to Your Guidelines Workspace Area"
+                  description={`There are currently no Guidelines workspaces available for you to collaborate with.`}
+                  type="info"
+                  showIcon
+                />
+              </Space>
+            </section>
+
+            <br />
+
+            <section>
+              <MyGuidelinesCreateNewGuidelineButton />
+            </section>
           </>
         );
       } else {
         return (
           <>
-            <h2>Your Guidelines Workspace</h2>
-            <MyGuidelinesCreateNewGuidelineButton />
-            <h3>Live Guidelines which you are currently working on:</h3>
+            <section>
+              <Space
+                direction="vertical"
+                style={{
+                  width: "75%",
+                }}
+              >
+                <Alert
+                  message="Welcome to Your Guidelines Workspace Area"
+                  description={`Any Guideline Workspaces available for you to collaborate with, are listed below. Once you have accessed a Workspace you wish to collaborate with, more authoring tools and options will be made available to you.`}
+                  type="info"
+                  showIcon
+                />
+              </Space>
+            </section>
+
+            <br />
+
+            <section>
+              <MyGuidelinesCreateNewGuidelineButton />
+            </section>
 
             <MyGuidelinesBranchCard guidelineBranches={guidelineBranches} />
           </>

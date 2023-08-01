@@ -53,10 +53,10 @@ export const MyGuidelinesCreateNewGuidelineButton = () => {
     return postNewCreateBranch(branchToSetup)
       .then(() => {
         setIsModalOpen(false);
-        alert("New Guideline Creation successful!");
-        routeChange(`/myguidelines`);
+        routeChange(`/workspace-setup`);
       })
       .catch((err) => {
+        alert("There was an error with your request.");
         setIsError({ err });
       });
   };
@@ -77,7 +77,7 @@ export const MyGuidelinesCreateNewGuidelineButton = () => {
         </Button>
 
         <Modal
-          title="Complete the following information to begin new Guideline creation:"
+          title="Complete the following information to begin creating a new Guideline and associated Workspace:"
           open={isModalOpen}
           onCancel={handleModalCancel}
           onOk={form.submit}
@@ -85,24 +85,35 @@ export const MyGuidelinesCreateNewGuidelineButton = () => {
           closable
         >
           <Form form={form} onFinish={onButtonClick} required>
-            <p>Guideline Title:</p>
+            <p>
+              <strong>Guideline Title:</strong>
+            </p>
             <Input
               placeholder="Enter Guideline Title here..."
               onChange={onModalGuidelineTitleTextChange}
+              allowClear
               required
             />
             <br />
-            <p>Proposed Guideline Number/ID:</p>
+            <p>
+              <strong>Proposed Guideline Number/ID:</strong>
+            </p>
             <Input
               placeholder="Enter Guideline Number/ID here..."
               onChange={onModalGuidelineNumberTextChange}
+              allowClear
               required
             />
             <br />
-            <p>What would you like to name this Guideline Workspace?</p>
+            <p>
+              <strong>
+                What would you like to name this Guideline Workspace?
+              </strong>
+            </p>
             <Input
               placeholder="Enter Guideline Workspace name here..."
               onChange={onModalWorkspaceNameTextChange}
+              allowClear
               required
             />
             <br />
@@ -112,8 +123,8 @@ export const MyGuidelinesCreateNewGuidelineButton = () => {
           <center>
             <Alert
               message="Next Step:"
-              description="Once you have complete the two input fields, please
-      confirm by pressing 'OK'. The newly proposed Guideline will submit, and a new 'Guideline Workspace' will be created for you to view & edit."
+              description="Once you have complete the 3 input boxes, please
+      confirm by pressing 'OK'. The newly proposed Guideline will be submitted, and a new 'Guideline Workspace' will be created for you to view & edit."
               type="info"
               showIcon
             />

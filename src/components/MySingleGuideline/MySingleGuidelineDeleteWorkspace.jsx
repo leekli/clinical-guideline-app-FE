@@ -30,18 +30,30 @@ export const MySingleGuidelineDeleteWorkspaceButton = ({ branchName }) => {
   return (
     <>
       <Space wrap>
-        <Button
-          type="primary"
-          size="medium"
-          icon={<DeleteOutlined />}
+        <div
           style={{
-            background: "red",
+            borderStyle: "solid",
             borderColor: "black",
+            backgroundColor: "#FFCDD2",
+            width: "375px",
+            margin: "3px",
+            padding: "8px",
           }}
-          onClick={showConfirm}
         >
-          &nbsp; Delete this Workspace
-        </Button>
+          <h4>To Delete this Workspace, click:</h4>
+          <Button
+            type="primary"
+            size="medium"
+            icon={<DeleteOutlined />}
+            style={{
+              background: "red",
+              borderColor: "black",
+            }}
+            onClick={showConfirm}
+          >
+            &nbsp; Delete Workspace
+          </Button>
+        </div>
       </Space>
     </>
   );

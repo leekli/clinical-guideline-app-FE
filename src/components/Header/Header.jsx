@@ -15,7 +15,7 @@ export const Header = () => {
           <center>
             <h1>
               🏥 Clinical Guideline Authoring App
-              <br /> <em>[* Prototype *]</em>
+              <br /> <em>[🚧 Prototype 🚧]</em>
             </h1>
 
             <p>
@@ -50,7 +50,7 @@ export const Header = () => {
           <center>
             <h1>
               🏥 Clinical Guideline Authoring App
-              <br /> <em>[* Prototype *]</em>
+              <br /> <em>[🚧 Prototype 🚧]</em>
             </h1>
           </center>
         </header>

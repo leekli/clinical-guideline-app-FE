@@ -32,7 +32,7 @@ export const MySingleGuidelineAddUsersButton = ({
 
     return branchAddNewAuthdUser(infoToSend)
       .then(() => {
-        alert("New User added to Workspace");
+        alert("New Collaborator successfully added to the Workspace.");
         setBranchInfo((currentBranchInfo) => {
           const newCurrentBranchInfo = structuredClone(currentBranchInfo);
 
@@ -59,11 +59,11 @@ export const MySingleGuidelineAddUsersButton = ({
           }}
           onClick={showModal}
         >
-          Add additional users to Workspace
+          Add Collaborators
         </Button>
 
         <Modal
-          title="Select a new user to add to this Workspace:"
+          title="Select a new collaborator to add to this Workspace:"
           open={isModalOpen}
           onCancel={handleModalCancel}
           onOk={onOKClick}

@@ -6,8 +6,8 @@ import { getAllUsers, getBranchByBranchName } from "../../utils/api-calls";
 import { UserContext } from "../../contexts/User";
 import NotLoggedInError from "../Errors/NotLoggedIn";
 import { BeatLoader } from "react-spinners";
-import { Space, Button } from "antd";
-import { EyeOutlined } from "@ant-design/icons";
+import { Space, Button, Card, Col, Row } from "antd";
+import { EyeOutlined, AlertOutlined } from "@ant-design/icons";
 import { convertJSTime } from "../../utils/convertJSTime";
 import { MySingleGuidelineLockUnlock } from "./MySingleGuidelineLockUnlock";
 import { MySingleGuidelineEditButton } from "./MySingleGuidelineEditButton";
@@ -91,76 +91,146 @@ export const MySingleGuidelineBranch = () => {
     } else {
       return (
         <>
-          <p>Workspace Name: {branchInfo.branchName}</p>
-          <p>Workspace Type: {branchInfo.type}</p>
-          <p>
-            Workspace Setup Date/Time:{" "}
-            {convertJSTime(branchInfo.branchSetupDateTime)}
-          </p>
-          <p>Workspace Owner: {branchInfo.branchOwner}</p>
-          Workspace Authorised Users (Permitted to contribute):{" "}
-          <ul>
-            {branchInfo.branchAllowedUsers.map((user) => {
-              return <li>{user}</li>;
-            })}
-          </ul>
-          <MySingleGuidelineAddUsersButton
-            branchName={branchInfo.branchName}
-            allUsers={allUsers}
-            setBranchInfo={setBranchInfo}
-          />
-          <p>
-            Is Workspace Currently Locked?...{" "}
-            {!branchInfo.branchLockedForApproval
-              ? "✅ Open for edits"
-              : "❌ Closed/Locked for edits"}
-          </p>
-          <MySingleGuidelineLockUnlock
-            branchName={branchInfo.branchName}
-            branchLockedForApproval={branchInfo.branchLockedForApproval}
-            setBranchInfo={setBranchInfo}
-          />
-          <p>
-            Workspace & Guideline Last Modified:{" "}
-            {convertJSTime(branchInfo.branchLastModified) ||
-              "No Edits yet made"}
-          </p>
-          <section>
-            <MySingleGuidelineSubmitForApproval
-              branchType={branchInfo.type}
-              branchOwner={branchInfo.branchOwner}
-              branchName={branchInfo.branchName}
-              guideline={branchInfo.guideline}
-            />
-          </section>
+          <Row gutter={16}>
+            <Col span={8}>
+              <Card
+                title="Workspace Information"
+                bordered={true}
+                style={{ borderColor: "darkgray" }}
+              >
+                <p>
+                  <strong>Workspace Name: </strong>
+                  {branchInfo.branchName.split("-").join(" ")}
+                </p>
+                <p>
+                  <strong>Workspace was set up on: </strong>
+                  {convertJSTime(branchInfo.branchSetupDateTime)}
+                </p>
+                <p>
+                  <strong>Workspace Owner: </strong>
+                  {branchInfo.branchOwner}
+                </p>
+                <p>
+                  <strong>Workspace was last modified on: </strong>
+                  {branchInfo.branchLastModified
+                    ? convertJSTime(branchInfo.branchLastModified)
+                    : "No amendments have been made to date."}
+                </p>
+                {branchInfo.type === "create" ? (
+                  <p style={{ color: "darkblue" }}>
+                    <strong>
+                      <AlertOutlined />
+                      &nbsp; <u>* Note: This is a newly created Guideline *</u>
+                    </strong>
+                  </p>
+                ) : (
+                  ""
+                )}
+                <p>
+                  <strong>Workspace Comments: </strong>
+                  There are{" "}
+                  <strong>
+                    <u>{branchInfo.comments.length}</u>
+                  </strong>{" "}
+                  comments from collaborators.
+                </p>
+                <section>
+                  <a href="#workspaceComments">
+                    <Space wrap>
+                      <Button
+                        type="primary"
+                        size="medium"
+                        icon={<EyeOutlined />}
+                        style={{
+                          background: "seagreen",
+                          borderColor: "black",
+                        }}
+                      >
+                        View Collaborator Comments
+                      </Button>
+                    </Space>
+                  </a>
+                </section>
+              </Card>
+            </Col>
+            <Col span={8}>
+              <Card
+                title="Workspace Tools"
+                bordered={true}
+                style={{ borderColor: "darkgray" }}
+              >
+                <Space wrap>
+                  <div
+                    style={{
+                      borderStyle: "solid",
+                      borderColor: "darkgray",
+                      backgroundColor: "#F5F5F5",
+                      width: "375px",
+                      margin: "3px",
+                      padding: "8px",
+                    }}
+                  >
+                    <h4>Current Workspace Collaborators:</h4>
+                    <ul
+                      style={{
+                        listStylePosition: "inside",
+                        textAlign: "center",
+                      }}
+                    >
+                      {branchInfo.branchAllowedUsers.map((user) => {
+                        return <li>{user}</li>;
+                      })}
+                    </ul>
+                    <p>
+                      <strong>Add additional collaborators...</strong>
+                    </p>
+                    <MySingleGuidelineAddUsersButton
+                      branchName={branchInfo.branchName}
+                      allUsers={allUsers}
+                      setBranchInfo={setBranchInfo}
+                    />
+                  </div>
+                </Space>
+                <br />
+                <MySingleGuidelineLockUnlock
+                  branchName={branchInfo.branchName}
+                  branchLockedForApproval={branchInfo.branchLockedForApproval}
+                  setBranchInfo={setBranchInfo}
+                />
+                <br />
+                <section>
+                  {branchInfo.branchOwner === loggedInUser.username ? (
+                    <MySingleGuidelineDeleteWorkspaceButton
+                      branchName={branchInfo.branchName}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </section>
+              </Card>
+            </Col>
+            <Col span={8}>
+              <Card
+                title="Approval Submission"
+                bordered={true}
+                style={{ borderColor: "darkgray" }}
+              >
+                <p>
+                  Once this Guideline is ready for final review and approval,
+                  submit with the button below:
+                </p>
+                <section>
+                  <MySingleGuidelineSubmitForApproval
+                    branchType={branchInfo.type}
+                    branchOwner={branchInfo.branchOwner}
+                    branchName={branchInfo.branchName}
+                    guideline={branchInfo.guideline}
+                  />
+                </section>
+              </Card>
+            </Col>
+          </Row>
           <br />
-          <section>
-            {branchInfo.branchOwner === loggedInUser.username ? (
-              <MySingleGuidelineDeleteWorkspaceButton
-                branchName={branchInfo.branchName}
-              />
-            ) : (
-              ""
-            )}
-          </section>
-          <br />
-          <section>
-            <a href="#workspaceComments">
-              <Space wrap>
-                <Button
-                  type="primary"
-                  size="medium"
-                  icon={<EyeOutlined />}
-                  style={{
-                    background: "seagreen",
-                    borderColor: "black",
-                  }}
-                >
-                  View Collaborator Workspace Comments
-                </Button>
-              </Space>
-            </a>
-          </section>
           <strong>Full Guideline below:</strong>
           {branchInfo.guideline.Chapters.map((chapter, chapterIndex) => {
             return (

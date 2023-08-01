@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
 import { Typography, Space, Card } from "antd";
-import { EyeOutlined } from "@ant-design/icons";
+import {
+  EyeOutlined,
+  FileTextOutlined,
+  UserOutlined,
+  ToolOutlined,
+  ExclamationOutlined,
+  AlertOutlined,
+} from "@ant-design/icons";
 const { Title } = Typography;
 
 export const MyGuidelinesBranchCard = ({ guidelineBranches }) => {
@@ -16,8 +23,10 @@ export const MyGuidelinesBranchCard = ({ guidelineBranches }) => {
                 type="inner"
                 title={
                   <Link to={branchLink} key={branch.branchName}>
-                    <Title level={5} underline>
-                      Workspace Name: {branch.branchName}
+                    <Title level={5}>
+                      <ToolOutlined />
+                      &nbsp;Workspace Name:{" "}
+                      {branch.branchName.split("-").join(" ")}
                     </Title>
                   </Link>
                 }
@@ -27,27 +36,37 @@ export const MyGuidelinesBranchCard = ({ guidelineBranches }) => {
                     &nbsp;View Guideline Workspace
                   </Link>
                 }
-                style={{ width: "80vw" }}
+                style={{ width: "80vw", borderColor: "darkgray" }}
                 hoverable
                 id="branch_card"
               >
-                <strong>
-                  <p>Branch Owner: {branch.branchOwner}</p>
-                </strong>
                 <p>
-                  <strong>Branch Guideline Being Edited:</strong>
-                  <br />
-                  {branch.guideline.GuidanceNumber}&nbsp;
+                  <UserOutlined />
+                  &nbsp; <strong>Workspace Owner:</strong> {branch.branchOwner}
+                </p>
+
+                <p>
+                  <FileTextOutlined />
+                  &nbsp;<strong>For Guideline: </strong>
                   {branch.guideline.LongTitle}
                 </p>
                 <p>
-                  <strong>
-                    Status:{" "}
-                    {!branch.branchLockedForApproval
-                      ? "✅ Open for edits"
-                      : "❌ Closed/Locked for edits"}
-                  </strong>
+                  <ExclamationOutlined />
+                  &nbsp;<strong>Workspace Status: </strong>
+                  {!branch.branchLockedForApproval
+                    ? "✅ Workspace currently Open for amendments"
+                    : "❌ Workspace currently Locked for further amendments"}
                 </p>
+                {branch.type === "create" ? (
+                  <p style={{ color: "darkblue" }}>
+                    <strong>
+                      <AlertOutlined />
+                      &nbsp; <u>* Note: This is a newly created Guideline *</u>
+                    </strong>
+                  </p>
+                ) : (
+                  ""
+                )}
               </Card>
             </>
           );

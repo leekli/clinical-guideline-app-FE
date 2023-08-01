@@ -45,18 +45,42 @@ export const MySingleGuidelineLockUnlock = ({
     return (
       <>
         <Space wrap>
-          <Button
-            type="primary"
-            size="medium"
-            icon={<LockOutlined />}
+          <div
             style={{
-              background: "red",
-              borderColor: "black",
+              borderStyle: "solid",
+              borderColor: "darkgray",
+              backgroundColor: "#F5F5F5",
+              width: "375px",
+              margin: "3px",
+              padding: "8px",
             }}
-            onClick={onLockClick}
           >
-            &nbsp; Lock this workspace (No further edits permitted)
-          </Button>
+            <h4>What does this do?</h4>
+            <p>
+              <strong>Lock: </strong>
+              <em>Prevents</em> any further amendments.
+            </p>
+            <p>
+              <strong>Unlock: </strong>
+              <em>Allows</em> further amendments.
+            </p>
+            <p>
+              <strong>Current Status: </strong>
+              {branchLockedForApproval === false ? "✅ Unlocked" : "❌ Locked"}
+            </p>
+            <Button
+              type="primary"
+              size="medium"
+              icon={<LockOutlined />}
+              style={{
+                background: "red",
+                borderColor: "black",
+              }}
+              onClick={onLockClick}
+            >
+              &nbsp; Lock Workspace
+            </Button>
+          </div>
         </Space>
       </>
     );
@@ -64,18 +88,42 @@ export const MySingleGuidelineLockUnlock = ({
     return (
       <>
         <Space wrap>
-          <Button
-            type="primary"
-            size="medium"
-            icon={<UnlockOutlined />}
+          <div
             style={{
-              background: "seagreen",
-              borderColor: "black",
+              borderStyle: "solid",
+              borderColor: "darkgray",
+              backgroundColor: "#F5F5F5",
+              width: "375px",
+              margin: "3px",
+              padding: "8px",
             }}
-            onClick={onUnLockClick}
           >
-            &nbsp; Un-lock this workspace (Further edits permitted)
-          </Button>
+            <h4>What does this do?</h4>
+            <p>
+              <strong>Lock: </strong>
+              <em>Prevents</em> any further amendments.
+            </p>
+            <p>
+              <strong>Unlock: </strong>
+              <em>Allows</em> further amendments.
+            </p>
+            <p>
+              <strong>Current Status: </strong>
+              {branchLockedForApproval === false ? "✅ Unlocked" : "❌ Locked"}
+            </p>
+            <Button
+              type="primary"
+              size="medium"
+              icon={<UnlockOutlined />}
+              style={{
+                background: "seagreen",
+                borderColor: "black",
+              }}
+              onClick={onUnLockClick}
+            >
+              &nbsp; Unlock Workspace
+            </Button>
+          </div>
         </Space>
       </>
     );
