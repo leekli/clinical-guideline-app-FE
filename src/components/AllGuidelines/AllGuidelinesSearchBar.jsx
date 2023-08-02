@@ -1,5 +1,5 @@
-import { Space, Input } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
+import { Space, Input, Tooltip } from "antd";
+import { SearchOutlined, InfoCircleOutlined } from "@ant-design/icons";
 
 export const AllGuidelinesSearchBar = ({ searchInput, setSearchInput }) => {
   const { Search } = Input;
@@ -23,6 +23,11 @@ export const AllGuidelinesSearchBar = ({ searchInput, setSearchInput }) => {
           value={searchInput}
           onChange={onChange}
           onSearch={onSearch}
+          suffix={
+            <Tooltip title="You can use this search bar to narrow down your search for specific Guidelines.">
+              <InfoCircleOutlined style={{ color: "rgba(0,0,0,.45)" }} />
+            </Tooltip>
+          }
         />
       </Space>
     </>

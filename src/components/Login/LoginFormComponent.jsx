@@ -1,5 +1,9 @@
 import { Alert, Button, Input, Tooltip } from "antd";
-import { InfoCircleOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  InfoCircleOutlined,
+  UserOutlined,
+  LoginOutlined,
+} from "@ant-design/icons";
 
 export const LoginFormComponent = ({
   newUsername,
@@ -15,7 +19,7 @@ export const LoginFormComponent = ({
       <form className="Login__form" onSubmit={handleSubmit}>
         <label htmlFor="Login__textbox">
           <Alert
-            message="Login"
+            message={<strong>Please Log in</strong>}
             description={`For Demo purposes - Please log in as any of the following: joebloggs (Admin), janedoe (Nurse), katedillon (GP), kelvinball (Approver)`}
             type="info"
             showIcon
@@ -26,7 +30,8 @@ export const LoginFormComponent = ({
             id="Login__textbox"
             value={newUsername}
             onChange={handleUsernameChange}
-            placeholder="Enter your username"
+            placeholder="Enter your username here..."
+            allowClear
             required
             prefix={<UserOutlined className="site-form-item-icon" />}
             suffix={
@@ -38,7 +43,8 @@ export const LoginFormComponent = ({
         </label>
         <br />
         <Button type="primary" htmlType="submit" style={{ marginTop: "4px" }}>
-          Log in
+          <LoginOutlined />
+          &nbsp;Log in
         </Button>
         <br />
         <br />

@@ -6,29 +6,40 @@ import {
   ReadOutlined,
   PlusCircleOutlined,
 } from "@ant-design/icons";
-import { Menu } from "antd";
+import { Menu, message } from "antd";
 import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
 import { UserContext } from "../../contexts/User";
 import { useNavigate } from "react-router-dom";
 
 export const NavBar = () => {
+  const [messageApi, contextHolder] = message.useMessage();
   const [current, setCurrent] = useState("");
   const { setLoggedInUser, isLoggedIn, loggedInUser } = useContext(UserContext);
   const navigate = useNavigate();
+
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "You are now logged out.",
+    });
+  };
 
   const routeChange = (path) => {
     navigate(path);
   };
 
   const handleLogout = () => {
-    setLoggedInUser({
-      username: undefined,
-      primaryAccessLevel: undefined,
-      secondaryAccessLevel: undefined,
-    });
-    alert("You are now logged out.");
-    routeChange("/");
+    success();
+    setTimeout(() => {
+      setLoggedInUser({
+        username: undefined,
+        primaryAccessLevel: undefined,
+        secondaryAccessLevel: undefined,
+      });
+
+      routeChange("/");
+    }, 2000);
   };
 
   const menuItemAllGuidelines = {
@@ -92,80 +103,95 @@ export const NavBar = () => {
   if (isLoggedIn === true && loggedInUser.username !== undefined) {
     if (loggedInUser.primaryAccessLevel.includes("Admin")) {
       return (
-        <nav>
-          <Menu
-            onClick={onClick}
-            selectedKeys={[current]}
-            mode="horizontal"
-            items={itemsLoggedInAdminOnly}
-            theme="dark"
-          />
-          <br />
-        </nav>
+        <>
+          {contextHolder}
+          <nav>
+            <Menu
+              onClick={onClick}
+              selectedKeys={[current]}
+              mode="horizontal"
+              items={itemsLoggedInAdminOnly}
+              theme="dark"
+            />
+            <br />
+          </nav>
+        </>
       );
     } else if (
       loggedInUser.secondaryAccessLevel.includes("Approver") &&
       loggedInUser.secondaryAccessLevel.length === 1
     ) {
       return (
-        <nav>
-          <Menu
-            onClick={onClick}
-            selectedKeys={[current]}
-            mode="horizontal"
-            items={itemsLoggedInApproverOnly}
-            theme="dark"
-          />
-          <br />
-        </nav>
+        <>
+          {contextHolder}
+          <nav>
+            <Menu
+              onClick={onClick}
+              selectedKeys={[current]}
+              mode="horizontal"
+              items={itemsLoggedInApproverOnly}
+              theme="dark"
+            />
+            <br />
+          </nav>
+        </>
       );
     } else if (
       loggedInUser.secondaryAccessLevel.includes("Viewer") &&
       loggedInUser.secondaryAccessLevel.length === 1
     ) {
       return (
-        <nav>
-          <Menu
-            onClick={onClick}
-            selectedKeys={[current]}
-            mode="horizontal"
-            items={itemsLoggedInViewerOnly}
-            theme="dark"
-          />
-          <br />
-        </nav>
+        <>
+          {contextHolder}
+          <nav>
+            <Menu
+              onClick={onClick}
+              selectedKeys={[current]}
+              mode="horizontal"
+              items={itemsLoggedInViewerOnly}
+              theme="dark"
+            />
+            <br />
+          </nav>
+        </>
       );
     } else if (
       loggedInUser.secondaryAccessLevel.includes("Approver") &&
       loggedInUser.secondaryAccessLevel.includes("Q.C")
     ) {
       return (
-        <nav>
-          <Menu
-            onClick={onClick}
-            selectedKeys={[current]}
-            mode="horizontal"
-            items={itemsLoggedInApproverOnly}
-            theme="dark"
-          />
-          <br />
-        </nav>
+        <>
+          {contextHolder}
+          <nav>
+            <Menu
+              onClick={onClick}
+              selectedKeys={[current]}
+              mode="horizontal"
+              items={itemsLoggedInApproverOnly}
+              theme="dark"
+            />
+            <br />
+          </nav>
+        </>
       );
     } else if (
       loggedInUser.secondaryAccessLevel.includes("Approver") &&
       loggedInUser.secondaryAccessLevel.includes("Editor")
     ) {
       return (
-        <nav>
-          <Menu
-            onClick={onClick}
-            selectedKeys={[current]}
-            mode="horizontal"
-            items={itemsLoggedInAdminOnly}
-            theme="dark"
-          />
-          <br />
-        </nav>
+        <>
+          {contextHolder}
+          <nav>
+            <Menu
+              onClick={onClick}
+              selectedKeys={[current]}
+              mode="horizontal"
+              items={itemsLoggedInAdminOnly}
+              theme="dark"
+            />
+            <br />
+          </nav>
+        </>
       );
     } else if (
       loggedInUser.secondaryAccessLevel.includes("Author") ||
@@ -173,30 +199,37 @@ export const NavBar = () => {
       loggedInUser.secondaryAccessLevel.includes("Q.C")
     ) {
       return (
+        <>
+          {contextHolder}
+          <nav>
+            <Menu
+              onClick={onClick}
+              selectedKeys={[current]}
+              mode="horizontal"
+              items={itemsLoggedInAuthorEditorOnly}
+              theme="dark"
+            />
+            <br />
+          </nav>
+        </>
+      );
+    }
+  } else {
+    return (
+      <>
+        {contextHolder}
+
         <nav>
           <Menu
             onClick={onClick}
             selectedKeys={[current]}
             mode="horizontal"
-            items={itemsLoggedInAuthorEditorOnly}
+            items={itemsLoggedOut}
             theme="dark"
           />
           <br />
         </nav>
-      );
-    }
-  } else {
-    return (
-      <nav>
-        <Menu
-          onClick={onClick}
-          selectedKeys={[current]}
-          mode="horizontal"
-          items={itemsLoggedOut}
-          theme="dark"
-        />
-        <br />
-      </nav>
+      </>
     );
   }
 };

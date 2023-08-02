@@ -1,4 +1,4 @@
-import { Space, Button } from "antd";
+import { Space, Button, message } from "antd";
 import { LockOutlined, UnlockOutlined } from "@ant-design/icons";
 import { branchLockRequest, branchUnLockRequest } from "../../utils/api-calls";
 
@@ -7,10 +7,40 @@ export const MySingleGuidelineLockUnlock = ({
   branchLockedForApproval,
   setBranchInfo,
 }) => {
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const lockSuccess = () => {
+    messageApi.open({
+      type: "success",
+      content: "Success: The Workspace is now Locked.",
+    });
+  };
+
+  const lockError = () => {
+    messageApi.open({
+      type: "error",
+      content: "There was an error: The Workspace is still Open & Unlocked.",
+    });
+  };
+
+  const unlockSuccess = () => {
+    messageApi.open({
+      type: "success",
+      content: "Success: The Workspace is now Unlocked & Open.",
+    });
+  };
+
+  const unlockError = () => {
+    messageApi.open({
+      type: "error",
+      content: "There was an error: The Workspace is still Locked.",
+    });
+  };
+
   const onLockClick = () => {
     branchLockRequest(branchName)
       .then(() => {
-        alert("Workspace is now LOCKED!");
+        lockSuccess();
         setBranchInfo((currentBranchInfo) => {
           const newCurrentBranchInfo = structuredClone(currentBranchInfo);
 
@@ -20,14 +50,14 @@ export const MySingleGuidelineLockUnlock = ({
         });
       })
       .catch(() => {
-        alert("There was an error: Workspace is still UNLOCKED");
+        lockError();
       });
   };
 
   const onUnLockClick = () => {
     branchUnLockRequest(branchName)
       .then(() => {
-        alert("Workspace is now UN-LOCKED!");
+        unlockSuccess();
         setBranchInfo((currentBranchInfo) => {
           const newCurrentBranchInfo = structuredClone(currentBranchInfo);
 
@@ -37,13 +67,14 @@ export const MySingleGuidelineLockUnlock = ({
         });
       })
       .catch(() => {
-        alert("There was an error: Workspace is still LOCKED");
+        unlockError();
       });
   };
 
   if (branchLockedForApproval === false) {
     return (
       <>
+        {contextHolder}
         <Space wrap>
           <div
             style={{
@@ -56,14 +87,15 @@ export const MySingleGuidelineLockUnlock = ({
             }}
           >
             <h4>What does this do?</h4>
-            <p>
+            <sub>
               <strong>Lock: </strong>
               <em>Prevents</em> any further amendments.
-            </p>
-            <p>
+            </sub>
+            <br />
+            <sub>
               <strong>Unlock: </strong>
               <em>Allows</em> further amendments.
-            </p>
+            </sub>
             <p>
               <strong>Current Status: </strong>
               {branchLockedForApproval === false ? "✅ Unlocked" : "❌ Locked"}
@@ -87,6 +119,7 @@ export const MySingleGuidelineLockUnlock = ({
   } else {
     return (
       <>
+        {contextHolder}
         <Space wrap>
           <div
             style={{
@@ -99,14 +132,15 @@ export const MySingleGuidelineLockUnlock = ({
             }}
           >
             <h4>What does this do?</h4>
-            <p>
+            <sub>
               <strong>Lock: </strong>
               <em>Prevents</em> any further amendments.
-            </p>
-            <p>
+            </sub>
+            <br />
+            <sub>
               <strong>Unlock: </strong>
               <em>Allows</em> further amendments.
-            </p>
+            </sub>
             <p>
               <strong>Current Status: </strong>
               {branchLockedForApproval === false ? "✅ Unlocked" : "❌ Locked"}

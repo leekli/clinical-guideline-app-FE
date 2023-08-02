@@ -1,6 +1,6 @@
 import "../../styles/MySingleGuidelineModal.css";
 import { useState } from "react";
-import { Space, Button, Modal, Alert } from "antd";
+import { Space, Button, Modal, Alert, message } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
 import { branchAddNewAuthdUser } from "../../utils/api-calls";
 
@@ -9,8 +9,23 @@ export const MySingleGuidelineAddUsersButton = ({
   allUsers,
   setBranchInfo,
 }) => {
+  const [messageApi, contextHolder] = message.useMessage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userSelected, setUserSelected] = useState("");
+
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "A new Collaborator was successfully added to the Workspace.",
+    });
+  };
+
+  const error = () => {
+    messageApi.open({
+      type: "error",
+      content: "There was an error, please try again.",
+    });
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -32,7 +47,7 @@ export const MySingleGuidelineAddUsersButton = ({
 
     return branchAddNewAuthdUser(infoToSend)
       .then(() => {
-        alert("New Collaborator successfully added to the Workspace.");
+        success();
         setBranchInfo((currentBranchInfo) => {
           const newCurrentBranchInfo = structuredClone(currentBranchInfo);
 
@@ -43,12 +58,13 @@ export const MySingleGuidelineAddUsersButton = ({
         setIsModalOpen(false);
       })
       .catch(() => {
-        alert("There was an error, please try again.");
+        error();
       });
   };
 
   return (
     <>
+      {contextHolder}
       <Space wrap>
         <Button
           type="primary"
@@ -70,9 +86,13 @@ export const MySingleGuidelineAddUsersButton = ({
           closable
         >
           <Alert
-            message="Note"
-            description="Only users with Viewer/Editor/Q.C access priviledges are
-            permitted to be added."
+            message={<strong>Note:</strong>}
+            description={
+              <p>
+                Only users with <em>Viewer/Editor/Q.C</em> access priviledges
+                are permitted to be added.
+              </p>
+            }
             type="warning"
             showIcon
           />

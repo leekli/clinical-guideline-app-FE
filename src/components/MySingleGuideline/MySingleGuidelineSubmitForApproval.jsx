@@ -82,7 +82,7 @@ export const MySingleGuidelineSubmitForApproval = ({
         >
           <TextArea
             rows={4}
-            placeholder="Add description here..."
+            placeholder="Add description and summary of changes here..."
             allowClear
             showCount
             onChange={onDescTextChange}
@@ -93,8 +93,8 @@ export const MySingleGuidelineSubmitForApproval = ({
           <section>
             <center>
               <Alert
-                message="Next Step:"
-                description="Once you have input an approval request description, please
+                message={<strong>Next Step:</strong>}
+                description="Once you have input an approval request description, and summary of Guideline changes, please
       confirm by pressing 'OK'."
                 type="info"
                 showIcon

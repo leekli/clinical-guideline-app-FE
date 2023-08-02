@@ -1,4 +1,4 @@
-import { Space, Button } from "antd";
+import { Space, Button, message } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { branchAddNewSubSection } from "../../utils/api-calls";
 
@@ -7,6 +7,15 @@ export const MySingleGuidelineAddASectionButton = ({
   currentChapterIndex,
   setTriggerReFetch,
 }) => {
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "A new sub-section was successfully added to the Guideline.",
+    });
+  };
+
   const onAddClick = () => {
     const infoToSend = {
       branch_name: branchName,
@@ -15,17 +24,20 @@ export const MySingleGuidelineAddASectionButton = ({
 
     return branchAddNewSubSection(infoToSend)
       .then(() => {
-        alert("New sub section added!");
+        success();
       })
       .then(() => {
-        return setTriggerReFetch((currValue) => {
-          return !currValue;
-        });
+        setTimeout(() => {
+          return setTriggerReFetch((currValue) => {
+            return !currValue;
+          });
+        }, 3000);
       });
   };
 
   return (
     <>
+      {contextHolder}
       <Space wrap>
         <Button
           type="primary"

@@ -5,9 +5,16 @@ export const SingleGuidelineEditSubmissionSuccess = () => {
   return (
     <>
       <Alert
-        message="New Guideline Workspace Setup"
-        description={`Your Submission Request was successful.
-        Your New Guideline Workspace has set up, and is ready for authoring. You can view this by clicking the 'My Guidelines Workspace' button in the Navigation Bar above.`}
+        message={<strong>New Guideline Workspace Setup</strong>}
+        description={
+          <p>
+            Your Submission Request was successful.<br></br>
+            <br></br>
+            Your New Guideline Workspace has set up, and is ready for authoring.
+            You can view this by clicking the 'My Guidelines Workspace' button
+            in the Navigation Bar above.
+          </p>
+        }
         type="success"
         showIcon
       />

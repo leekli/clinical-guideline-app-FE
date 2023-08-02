@@ -1,4 +1,4 @@
-import { Input, Button, Space, Form } from "antd";
+import { Input, Button, Space, Form, Card, message } from "antd";
 import { MailOutlined } from "@ant-design/icons";
 import { useState, useContext } from "react";
 import { UserContext } from "../../contexts/User";
@@ -6,8 +6,23 @@ import { branchAddNewComment } from "../../utils/api-calls";
 const { TextArea } = Input;
 
 export const MyGuidelinesAddComment = ({ branchName, setBranchComments }) => {
+  const [messageApi, contextHolder] = message.useMessage();
   const [newCommentBody, setNewCommentBody] = useState("");
   const { loggedInUser } = useContext(UserContext);
+
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "Your comment was successfully added.",
+    });
+  };
+
+  const error = () => {
+    messageApi.open({
+      type: "error",
+      content: "There was an error, please try again.",
+    });
+  };
 
   const onTextChange = (event) => {
     setNewCommentBody(event.target.value);
@@ -24,7 +39,7 @@ export const MyGuidelinesAddComment = ({ branchName, setBranchComments }) => {
 
     return branchAddNewComment(branchName, { newComment })
       .then(() => {
-        alert("New comment added!");
+        success();
         setBranchComments((currentComments) => {
           const newCurrentComments = [newComment, ...currentComments];
 
@@ -33,52 +48,62 @@ export const MyGuidelinesAddComment = ({ branchName, setBranchComments }) => {
         setNewCommentBody("");
       })
       .catch(() => {
-        alert("There was an error, please try again.");
+        error();
       });
   };
 
   return (
     <>
-      <p>Add a new comment:</p>
-      <div>
-        <center>
-          <Form
-            name="basic"
-            style={{ maxWidth: "75%" }}
-            initialValues={{ remember: true }}
-            onFinish={submitNewComment}
-            autoComplete="off"
-          >
-            <TextArea
-              rows={4}
-              placeholder="Write your comment here..."
-              allowClear
-              bordered
-              showCount
-              size="large"
-              value={newCommentBody}
-              onChange={onTextChange}
-              required
-            />
-            <Form.Item>
-              <Space wrap>
-                <Button
-                  type="primary"
-                  size="large"
-                  icon={<MailOutlined />}
-                  style={{
-                    borderColor: "black",
-                    margin: "10px",
-                  }}
-                  htmlType="submit"
-                >
-                  Add Comment
-                </Button>
-              </Space>
-            </Form.Item>
-          </Form>
-        </center>
-      </div>
+      {contextHolder}
+      <Space direction="vertical" size={16}>
+        <Card
+          title="Add a new comment:"
+          style={{
+            width: "74vw",
+            borderColor: "darkgray",
+          }}
+          bordered={true}
+        >
+          <center>
+            <Form
+              name="basic"
+              style={{ maxWidth: "75%" }}
+              initialValues={{ remember: true }}
+              onFinish={submitNewComment}
+              autoComplete="off"
+            >
+              <TextArea
+                rows={4}
+                placeholder="Write your comment here..."
+                allowClear
+                bordered
+                showCount
+                size="large"
+                value={newCommentBody}
+                onChange={onTextChange}
+                required
+              />
+              <Form.Item>
+                <Space wrap>
+                  <Button
+                    type="primary"
+                    size="large"
+                    icon={<MailOutlined />}
+                    style={{
+                      borderColor: "black",
+                      margin: "10px",
+                    }}
+                    htmlType="submit"
+                  >
+                    Add Comment
+                  </Button>
+                </Space>
+              </Form.Item>
+            </Form>
+          </center>
+        </Card>
+      </Space>
+      <br />
       <br />
     </>
   );

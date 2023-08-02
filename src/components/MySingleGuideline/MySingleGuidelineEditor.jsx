@@ -2,7 +2,7 @@ import "react-quill/dist/quill.snow.css";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import ReactQuill from "react-quill";
-import { Space, Button, Input, Modal, Alert } from "antd";
+import { Space, Button, Input, Modal, Alert, message } from "antd";
 import {
   SaveOutlined,
   StopOutlined,
@@ -12,6 +12,7 @@ import { patchBranchByBranchName } from "../../utils/api-calls";
 import { useNavigate } from "react-router-dom";
 
 export const MySingleGuidelineEditor = () => {
+  const [messageApi, contextHolder] = message.useMessage();
   const location = useLocation();
   const navigate = useNavigate();
   const {
@@ -29,6 +30,20 @@ export const MySingleGuidelineEditor = () => {
   const [newTitle, setNewTitle] = useState(title);
   const [imageUrl, setImageUrl] = useState("");
   const [imageCaptionText, setImageCaptionText] = useState("");
+
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "Save successful.",
+    });
+  };
+
+  const error = () => {
+    messageApi.open({
+      type: "error",
+      content: "Error: Save was unsuccessful.",
+    });
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -64,10 +79,14 @@ export const MySingleGuidelineEditor = () => {
       newTitle: newTitle,
     };
 
-    return patchBranchByBranchName(bodyToSend).then(() => {
-      alert("Save successful!");
-      setIsModalOpen(false);
-    });
+    return patchBranchByBranchName(bodyToSend)
+      .then(() => {
+        success();
+        setIsModalOpen(false);
+      })
+      .catch(() => {
+        error();
+      });
   };
 
   const onCancelGoBack = () => {
@@ -88,6 +107,7 @@ export const MySingleGuidelineEditor = () => {
 
   return (
     <>
+      {contextHolder}
       <h2>You are currently editing the Guideline: {guidelineTitle} </h2>
 
       <h3>

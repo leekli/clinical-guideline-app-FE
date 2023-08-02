@@ -5,7 +5,7 @@ import { BeatLoader } from "react-spinners";
 import { UserContext } from "../../contexts/User";
 import NotLoggedInError from "../Errors/NotLoggedIn";
 import { MyApprovalsCard } from "./MyApprovalsCard";
-import { Space } from "antd";
+import { Space, Alert } from "antd";
 
 export const MyApprovalsHome = () => {
   const { isLoggedIn, loggedInUser } = useContext(UserContext);
@@ -45,13 +45,52 @@ export const MyApprovalsHome = () => {
       if (allApprovals.length === 0) {
         return (
           <>
-            <h2>Your Approvals Workspace</h2>
-            <h3>You currently have no Approvals in progress at the moment.</h3>
+            <section>
+              <Space
+                direction="vertical"
+                style={{
+                  width: "75%",
+                }}
+              >
+                <Alert
+                  message={
+                    <strong>Welcome to Your Approvals Workspace Area</strong>
+                  }
+                  description={`There are currently no Guidelines requiring or pending for approval right now.`}
+                  type="info"
+                  showIcon
+                />
+              </Space>
+            </section>
           </>
         );
       } else {
         return (
           <>
+            <section>
+              <Space
+                direction="vertical"
+                style={{
+                  width: "75%",
+                }}
+              >
+                <Alert
+                  message={
+                    <strong>Welcome to Your Approvals Workspace Area</strong>
+                  }
+                  description={
+                    <p>
+                      Any Guidelines which are pending for review and approval,
+                      are listed below.<br></br>
+                      <br></br>Once you have accessed an Approval Request, more
+                      tools will be made available to you.
+                    </p>
+                  }
+                  type="info"
+                  showIcon
+                />
+              </Space>
+            </section>
             {allApprovals.map((approval) => {
               return (
                 <>

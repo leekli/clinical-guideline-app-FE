@@ -77,7 +77,7 @@ export const MySingleApprovalRejectionComponent = ({
       </Button>
 
       <Modal
-        title="Please provide a comment and justification to rejecting this approval request:"
+        title="Please provide a comment and justification for rejecting this Approval Request:"
         open={isRejectCommentModalOpen}
         onCancel={handleRejectCommentModalCancel}
         onOk={handleRejectionSubmission}
@@ -96,9 +96,19 @@ export const MySingleApprovalRejectionComponent = ({
         <section>
           <center>
             <Alert
-              message="Next Step:"
-              description="Once you have input an approval rejection comment, please
-      confirm by pressing 'OK'."
+              message={<strong>Next Step:</strong>}
+              description={
+                <p>
+                  Once you have input an approval rejection comment, please
+                  confirm by pressing 'OK'.<br></br>
+                  <br></br>
+                  This Approval Request Workspace will be deleted.<br></br>
+                  <br></br>
+                  Your Approval Rejection comment will also be added to the
+                  Collaborators Workspace, so they have visibility and a reason
+                  for their request being rejected.
+                </p>
+              }
               type="info"
               showIcon
             />

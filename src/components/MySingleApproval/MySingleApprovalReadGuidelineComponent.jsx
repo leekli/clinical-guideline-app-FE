@@ -41,7 +41,7 @@ export const MySingleApprovalReadGuidelineComponent = ({ singleApproval }) => {
       </Button>
 
       <Modal
-        title="Guideline in full:"
+        title={singleApproval.guideline.LongTitle}
         open={isGuidelineModalOpen}
         onCancel={handleGuidelineModalCancel}
         onOk={handleGuidelineModalCancel}
@@ -49,8 +49,8 @@ export const MySingleApprovalReadGuidelineComponent = ({ singleApproval }) => {
         closable
       >
         <Alert
-          message="Information"
-          description="Below contains the amended and updated Guideline for you to view."
+          message={<strong>Note:</strong>}
+          description="The full, and amended Guideline is available to view here. All Chapters and sections and viewable by expanding them individually."
           type="info"
           showIcon
         />

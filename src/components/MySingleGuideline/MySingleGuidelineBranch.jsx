@@ -216,8 +216,10 @@ export const MySingleGuidelineBranch = () => {
                 style={{ borderColor: "darkgray" }}
               >
                 <p>
-                  Once this Guideline is ready for final review and approval,
-                  submit with the button below:
+                  <strong>
+                    Once this Guideline is ready for final review and approval,
+                    submit with the button below:
+                  </strong>
                 </p>
                 <section>
                   <MySingleGuidelineSubmitForApproval

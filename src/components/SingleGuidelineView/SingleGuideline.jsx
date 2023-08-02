@@ -6,6 +6,8 @@ import {
   NumberOutlined,
   CalendarOutlined,
   UnorderedListOutlined,
+  ToolOutlined,
+  EditOutlined,
 } from "@ant-design/icons";
 import { useParams } from "react-router-dom";
 import parse from "html-react-parser";
@@ -108,7 +110,11 @@ export const SingleGuideline = () => {
               <Space direction="vertical" size={16}>
                 <Card
                   size="small"
-                  title="Authoring Tools Available"
+                  title={
+                    <p>
+                      <ToolOutlined /> Authoring Tools Available
+                    </p>
+                  }
                   style={{
                     width: "75vw",
                     backgroundColor: "#e9f4fe",
@@ -170,7 +176,10 @@ export const SingleGuideline = () => {
               className="collapsible_tracker_history_changes"
               onClick={handleTrackerClick}
             >
-              <strong id="trackerTitle">Guideline Change History</strong>
+              <strong id="trackerTitle">
+                <EditOutlined />
+                &nbsp;Guideline Change History
+              </strong>
             </button>
             <div className="tracker_history_content">
               <p>
@@ -191,7 +200,12 @@ export const SingleGuideline = () => {
                     <>
                       <Card
                         size="medium"
-                        title="Change Information"
+                        title={
+                          <p>
+                            <EditOutlined />
+                            &nbsp; Change Information
+                          </p>
+                        }
                         style={{
                           width: "75vw",
                           borderColor: "darkgray",
@@ -285,7 +299,10 @@ export const SingleGuideline = () => {
               className="collapsible_tracker_history_changes"
               onClick={handleTrackerClick}
             >
-              <strong id="trackerTitle">Guideline Change History</strong>
+              <strong id="trackerTitle">
+                <EditOutlined />
+                &nbsp;Guideline Change History
+              </strong>
             </button>
             <div className="tracker_history_content">
               <p>
@@ -306,7 +323,12 @@ export const SingleGuideline = () => {
                     <>
                       <Card
                         size="medium"
-                        title="Change Information"
+                        title={
+                          <p>
+                            <EditOutlined />
+                            &nbsp; Change Information
+                          </p>
+                        }
                         style={{
                           width: "75vw",
                           borderColor: "darkgray",

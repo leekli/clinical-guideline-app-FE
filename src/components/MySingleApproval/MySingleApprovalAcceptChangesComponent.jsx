@@ -1,4 +1,4 @@
-import { Button, Modal } from "antd";
+import { Button, Modal, message } from "antd";
 import { CheckOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import {
   deleteApprovalByName,
@@ -18,7 +18,22 @@ export const MySingleApprovalAcceptChangesComponent = ({
   approvalName,
   approvalType,
 }) => {
+  const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
+
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "Guideline Approval & Merge was successful.",
+    });
+  };
+
+  const error = () => {
+    messageApi.open({
+      type: "error",
+      content: "There was an error, please try again.",
+    });
+  };
 
   const routeChange = (path) => {
     navigate(path);
@@ -30,7 +45,7 @@ export const MySingleApprovalAcceptChangesComponent = ({
         title: "Are you sure that you want to approve this request?",
         icon: <ExclamationCircleFilled />,
         content:
-          "By approving this request, the changes will be merged into the main Guideline available for all users to read. It will also delete the current guideline workspace along with this approval request, once the Guideline merge has completed.",
+          "By approving this request, the changes will be merged into the main Guideline available for all users to read. It will also delete the current Collaborators' Guideline Workspace along with this approval request, once the Guideline merge has completed.",
         onOk() {
           // 1. Setup PATCH request info to send and execute patch
           const patchedGuideline = structuredClone(guideline);
@@ -59,7 +74,13 @@ export const MySingleApprovalAcceptChangesComponent = ({
             })
             .then(() => {
               // 4. navigate back to approvals homepage
-              routeChange(`/myapprovals`);
+              success();
+              setTimeout(() => {
+                routeChange(`/myapprovals`);
+              }, 3000);
+            })
+            .catch(() => {
+              error();
             });
         },
         onCancel() {
@@ -73,7 +94,7 @@ export const MySingleApprovalAcceptChangesComponent = ({
         title: "Are you sure that you want to approve this request?",
         icon: <ExclamationCircleFilled />,
         content:
-          "By approving this request, the new Guideline will be set up into the main Guideline Library available for all users to read. It will also delete the current guideline workspace along with this approval request, once the Guideline merge has completed.",
+          "By approving this request, the new Guideline will be set up into the main Guideline Library available for all users to read. It will also delete the current Collaborators' Guideline Workspace along with this approval request, once the Guideline merge has completed.",
         onOk() {
           // 1. Setup POST request info to send and execute post request
           const newGuideline = structuredClone(guideline);
@@ -89,7 +110,13 @@ export const MySingleApprovalAcceptChangesComponent = ({
             })
             .then(() => {
               // 4. navigate back to approvals homepage
-              routeChange(`/myapprovals`);
+              success();
+              setTimeout(() => {
+                routeChange(`/myapprovals`);
+              }, 3000);
+            })
+            .catch(() => {
+              error();
             });
         },
         onCancel() {
@@ -101,6 +128,7 @@ export const MySingleApprovalAcceptChangesComponent = ({
 
   return (
     <>
+      {contextHolder}
       <Button
         type="primary"
         size="large"

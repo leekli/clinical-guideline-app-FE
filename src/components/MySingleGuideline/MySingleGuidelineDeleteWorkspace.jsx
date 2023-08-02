@@ -1,11 +1,26 @@
-import { Space, Button, Modal } from "antd";
+import { Space, Button, Modal, message } from "antd";
 import { DeleteOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { deleteBranchByBranchName } from "../../utils/api-calls";
 const { confirm } = Modal;
 
 export const MySingleGuidelineDeleteWorkspaceButton = ({ branchName }) => {
+  const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
+
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "Your Workspace was successfully deleted.",
+    });
+  };
+
+  const error = () => {
+    messageApi.open({
+      type: "error",
+      content: "There was an error, please try again.",
+    });
+  };
 
   const showConfirm = () => {
     confirm({
@@ -14,10 +29,16 @@ export const MySingleGuidelineDeleteWorkspaceButton = ({ branchName }) => {
       content:
         "By confirming that you wish to delete this whole workspace, it will mean that the whole workspace, including all progress-to-date by any contributor will be lost and cannot be retrieved. Are you sure that you wish to delete this Workspace?",
       onOk() {
-        return deleteBranchByBranchName(branchName).then(() => {
-          alert("Workspace successfully deleted");
-          routeChange(`/myguidelines`);
-        });
+        return deleteBranchByBranchName(branchName)
+          .then(() => {
+            success();
+            setTimeout(() => {
+              routeChange(`/myguidelines`);
+            }, 2000);
+          })
+          .catch(() => {
+            error();
+          });
       },
       onCancel() {},
     });
@@ -29,6 +50,7 @@ export const MySingleGuidelineDeleteWorkspaceButton = ({ branchName }) => {
 
   return (
     <>
+      {contextHolder}
       <Space wrap>
         <div
           style={{

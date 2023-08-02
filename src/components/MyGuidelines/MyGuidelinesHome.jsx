@@ -67,7 +67,9 @@ export const MyGuidelinesHome = () => {
                 }}
               >
                 <Alert
-                  message="Welcome to Your Guidelines Workspace Area"
+                  message={
+                    <strong>Welcome to Your Guidelines Workspace Area</strong>
+                  }
                   description={`There are currently no Guidelines workspaces available for you to collaborate with.`}
                   type="info"
                   showIcon
@@ -93,8 +95,18 @@ export const MyGuidelinesHome = () => {
                 }}
               >
                 <Alert
-                  message="Welcome to Your Guidelines Workspace Area"
-                  description={`Any Guideline Workspaces available for you to collaborate with, are listed below. Once you have accessed a Workspace you wish to collaborate with, more authoring tools and options will be made available to you.`}
+                  message={
+                    <strong>Welcome to Your Guidelines Workspace Area</strong>
+                  }
+                  description={
+                    <p>
+                      Any Guideline Workspaces available for you to collaborate
+                      with, are listed below. <br></br>
+                      <br></br>Once you have accessed a Workspace you wish to
+                      collaborate with, more authoring tools and options will be
+                      made available to you.
+                    </p>
+                  }
                   type="info"
                   showIcon
                 />
