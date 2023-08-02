@@ -199,7 +199,8 @@ export const MySingleGuidelineBranch = () => {
                 />
                 <br />
                 <section>
-                  {branchInfo.branchOwner === loggedInUser.username ? (
+                  {branchInfo.branchOwner === loggedInUser.username ||
+                  loggedInUser.primaryAccessLevel.includes("Admin") ? (
                     <MySingleGuidelineDeleteWorkspaceButton
                       branchName={branchInfo.branchName}
                     />
