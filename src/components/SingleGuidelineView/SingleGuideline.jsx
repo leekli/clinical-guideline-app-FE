@@ -1,6 +1,6 @@
 import "../../styles/SingleGuideline.css";
 import { useEffect, useState, useContext } from "react";
-import { Card, Space } from "antd";
+import { Card, Space, Collapse } from "antd";
 import {
   FileTextOutlined,
   NumberOutlined,
@@ -97,7 +97,6 @@ export const SingleGuideline = () => {
               </strong>
               {convertUnixTime(guideline.MetadataApplicationProfile.Issued)}
             </p>
-
             <p>
               <strong>
                 <NumberOutlined />
@@ -105,7 +104,6 @@ export const SingleGuideline = () => {
               </strong>
               {guideline.GuidelineCurrentVersion + ".0"}
             </p>
-
             <div>
               <Space direction="vertical" size={16}>
                 <Card
@@ -130,47 +128,51 @@ export const SingleGuideline = () => {
                 </Card>
               </Space>
             </div>
-
             <br />
             <br />
-
             {guideline.Chapters.map((chapter) => {
               return (
                 <>
-                  <button
-                    type="button"
-                    className="collapsible_chapter"
-                    onClick={handleClick}
-                  >
-                    <strong>{chapter.Title}</strong>
-                  </button>
-                  <div className="content">
-                    {parse(chapter.Content)}
-                    {chapter.Sections.map((section) => {
-                      return (
-                        <>
-                          <h3 align="left">Sub-section (Click to expand):</h3>
-                          <button
-                            type="button"
-                            className="collapsible_section"
-                            onClick={handleClick}
-                          >
-                            <strong>{section.Title}</strong>
-                          </button>
-                          <div className="content">
-                            {parse(section.Content)}
+                  <Collapse
+                    accordion
+                    bordered={true}
+                    size="large"
+                    style={{ borderColor: "darkgray" }}
+                    items={[
+                      {
+                        key: "1",
+                        label: <strong>{chapter.Title}</strong>,
+                        children: (
+                          <div>
+                            {parse(chapter.Content)}
+                            {chapter.Sections.map((section) => {
+                              return (
+                                <>
+                                  <Collapse
+                                    accordion
+                                    bordered={true}
+                                    style={{ borderColor: "darkgray" }}
+                                    items={[
+                                      {
+                                        key: "1",
+                                        label: <strong>{section.Title}</strong>,
+                                        children: parse(section.Content),
+                                      },
+                                    ]}
+                                  />
+                                </>
+                              );
+                            })}
                           </div>
-                        </>
-                      );
-                    })}
-                  </div>
+                        ),
+                      },
+                    ]}
+                  />
                 </>
               );
             })}
-
             <br />
             <br />
-
             <button
               type="button"
               className="collapsible_tracker_history_changes"
@@ -260,33 +262,41 @@ export const SingleGuideline = () => {
             {guideline.Chapters.map((chapter) => {
               return (
                 <>
-                  <button
-                    type="button"
-                    className="collapsible_chapter"
-                    onClick={handleClick}
-                  >
-                    <strong>{chapter.Title}</strong>
-                  </button>
-                  <div className="content">
-                    {parse(chapter.Content)}
-                    {chapter.Sections.map((section) => {
-                      return (
-                        <>
-                          <h3 align="left">Sub-section (Click to view):</h3>
-                          <button
-                            type="button"
-                            className="collapsible_section"
-                            onClick={handleClick}
-                          >
-                            <strong>{section.Title}</strong>
-                          </button>
-                          <div className="content">
-                            {parse(section.Content)}
+                  <Collapse
+                    accordion
+                    bordered={true}
+                    size="large"
+                    style={{ borderColor: "darkgray" }}
+                    items={[
+                      {
+                        key: "1",
+                        label: <strong>{chapter.Title}</strong>,
+                        children: (
+                          <div>
+                            {parse(chapter.Content)}
+                            {chapter.Sections.map((section) => {
+                              return (
+                                <>
+                                  <Collapse
+                                    accordion
+                                    bordered={true}
+                                    style={{ borderColor: "darkgray" }}
+                                    items={[
+                                      {
+                                        key: "1",
+                                        label: <strong>{section.Title}</strong>,
+                                        children: parse(section.Content),
+                                      },
+                                    ]}
+                                  />
+                                </>
+                              );
+                            })}
                           </div>
-                        </>
-                      );
-                    })}
-                  </div>
+                        ),
+                      },
+                    ]}
+                  />
                 </>
               );
             })}

@@ -6,7 +6,7 @@ import { getAllUsers, getBranchByBranchName } from "../../utils/api-calls";
 import { UserContext } from "../../contexts/User";
 import NotLoggedInError from "../Errors/NotLoggedIn";
 import { BeatLoader } from "react-spinners";
-import { Space, Button, Card, Col, Row } from "antd";
+import { Space, Button, Card, Col, Row, Collapse } from "antd";
 import { EyeOutlined, AlertOutlined } from "@ant-design/icons";
 import { convertJSTime } from "../../utils/convertJSTime";
 import { MySingleGuidelineLockUnlock } from "./MySingleGuidelineLockUnlock";
@@ -234,94 +234,125 @@ export const MySingleGuidelineBranch = () => {
             </Col>
           </Row>
           <br />
-          <strong>Full Guideline below:</strong>
-          {branchInfo.guideline.Chapters.map((chapter, chapterIndex) => {
-            return (
-              <>
-                <button
-                  type="button"
-                  className="collapsible_chapter"
-                  onClick={handleClick}
-                >
-                  <strong>{chapter.Title}</strong>
-                </button>
-                <div className="content">
-                  <br />
+          <Space wrap>
+            <Card
+              title="Full Guideline"
+              bordered={true}
+              style={{ borderColor: "darkgray", width: "95vw" }}
+            >
+              {branchInfo.guideline.Chapters.map((chapter, chapterIndex) => {
+                return (
+                  <>
+                    <Collapse
+                      accordion
+                      bordered={true}
+                      size="large"
+                      style={{ borderColor: "darkgray" }}
+                      items={[
+                        {
+                          key: "1",
+                          label: <strong>{chapter.Title}</strong>,
+                          children: (
+                            <div>
+                              <br />
+                              <Link
+                                to={`/myguidelines/${branchInfo.branchName}/editor`}
+                                state={{
+                                  branchName: branchInfo.branchName,
+                                  guidelineTitle:
+                                    branchInfo.guideline.LongTitle,
+                                  currentEditTitle: chapter.Title,
+                                  currentChapterIndex: chapterIndex,
+                                  currentSectionIndex: 999,
+                                  content: chapter.Content,
+                                  title: chapter.Title,
+                                }}
+                              >
+                                <MySingleGuidelineEditButton
+                                  isBranchLocked={
+                                    branchInfo.branchLockedForApproval
+                                  }
+                                  titleToEdit={chapter.Title}
+                                />
+                              </Link>
 
-                  <Link
-                    to={`/myguidelines/${branchInfo.branchName}/editor`}
-                    state={{
-                      branchName: branchInfo.branchName,
-                      guidelineTitle: branchInfo.guideline.LongTitle,
-                      currentEditTitle: chapter.Title,
-                      currentChapterIndex: chapterIndex,
-                      currentSectionIndex: 999,
-                      content: chapter.Content,
-                      title: chapter.Title,
-                    }}
-                  >
-                    <MySingleGuidelineEditButton
-                      isBranchLocked={branchInfo.branchLockedForApproval}
-                      titleToEdit={chapter.Title}
+                              {parse(chapter.Content)}
+                              {chapter.Sections.map((section, sectionIndex) => {
+                                return (
+                                  <>
+                                    <Collapse
+                                      accordion
+                                      bordered={true}
+                                      style={{ borderColor: "darkgray" }}
+                                      items={[
+                                        {
+                                          key: "1",
+                                          label: (
+                                            <strong>{section.Title}</strong>
+                                          ),
+                                          children: (
+                                            <div>
+                                              <br />
+
+                                              <Link
+                                                to={`/myguidelines/${branchInfo.branchName}/editor`}
+                                                state={{
+                                                  branchName:
+                                                    branchInfo.branchName,
+                                                  guidelineTitle:
+                                                    branchInfo.guideline
+                                                      .LongTitle,
+                                                  currentEditTitle:
+                                                    section.Title,
+                                                  currentChapterIndex:
+                                                    chapterIndex,
+                                                  currentSectionIndex:
+                                                    sectionIndex,
+                                                  content: section.Content,
+                                                  title: section.Title,
+                                                }}
+                                              >
+                                                <MySingleGuidelineEditButton
+                                                  isBranchLocked={
+                                                    branchInfo.branchLockedForApproval
+                                                  }
+                                                  titleToEdit={section.Title}
+                                                />
+                                              </Link>
+                                              {parse(section.Content)}
+                                            </div>
+                                          ),
+                                        },
+                                      ]}
+                                    />
+                                  </>
+                                );
+                              })}
+                              <div>
+                                <br />
+                                <section>
+                                  <MySingleGuidelineAddASectionButton
+                                    branchName={branchInfo.branchName}
+                                    currentChapterIndex={chapterIndex}
+                                    setTriggerReFetch={setTriggerReFetch}
+                                  />
+                                </section>
+                                <br />
+                              </div>
+                            </div>
+                          ),
+                        },
+                      ]}
                     />
-                  </Link>
+                  </>
+                );
+              })}
+            </Card>
+          </Space>
 
-                  {parse(chapter.Content)}
-
-                  {chapter.Sections.map((section, sectionIndex) => {
-                    return (
-                      <>
-                        <h3 align="left">Sub-section (Click to view):</h3>
-                        <button
-                          type="button"
-                          className="collapsible_section"
-                          onClick={handleClick}
-                        >
-                          <strong>{section.Title}</strong>
-                        </button>
-
-                        <div className="content">
-                          <br />
-
-                          <Link
-                            to={`/myguidelines/${branchInfo.branchName}/editor`}
-                            state={{
-                              branchName: branchInfo.branchName,
-                              guidelineTitle: branchInfo.guideline.LongTitle,
-                              currentEditTitle: section.Title,
-                              currentChapterIndex: chapterIndex,
-                              currentSectionIndex: sectionIndex,
-                              content: section.Content,
-                              title: section.Title,
-                            }}
-                          >
-                            <MySingleGuidelineEditButton
-                              isBranchLocked={
-                                branchInfo.branchLockedForApproval
-                              }
-                              titleToEdit={section.Title}
-                            />
-                          </Link>
-                          {parse(section.Content)}
-                        </div>
-                      </>
-                    );
-                  })}
-                  <div>
-                    <br />
-                    <section>
-                      <MySingleGuidelineAddASectionButton
-                        branchName={branchInfo.branchName}
-                        currentChapterIndex={chapterIndex}
-                        setTriggerReFetch={setTriggerReFetch}
-                      />
-                    </section>
-                    <br />
-                  </div>
-                </div>
-              </>
-            );
-          })}
+          <br />
+          <br />
+          <hr />
           <section>
             <a id="workspaceComments">
               <h3>Workspace Comments</h3>

@@ -1,7 +1,7 @@
 import "../../styles/SingleGuideline.css";
 import parse from "html-react-parser";
 import { useState } from "react";
-import { Button, Modal, Alert } from "antd";
+import { Button, Modal, Alert, Collapse } from "antd";
 import { ReadOutlined } from "@ant-design/icons";
 
 export const MySingleApprovalReadGuidelineComponent = ({ singleApproval }) => {
@@ -59,31 +59,41 @@ export const MySingleApprovalReadGuidelineComponent = ({ singleApproval }) => {
         {singleApproval.guideline.Chapters.map((chapter) => {
           return (
             <>
-              <button
-                type="button"
-                className="collapsible_chapter"
-                onClick={handleClick}
-              >
-                <strong>{chapter.Title}</strong>
-              </button>
-              <div className="content">
-                {parse(chapter.Content)}
-                {chapter.Sections.map((section) => {
-                  return (
-                    <>
-                      <h3 align="left">Sub-section (Click to view):</h3>
-                      <button
-                        type="button"
-                        className="collapsible_section"
-                        onClick={handleClick}
-                      >
-                        <strong>{section.Title}</strong>
-                      </button>
-                      <div className="content">{parse(section.Content)}</div>
-                    </>
-                  );
-                })}
-              </div>
+              <Collapse
+                accordion
+                bordered={true}
+                size="large"
+                style={{ borderColor: "darkgray" }}
+                items={[
+                  {
+                    key: "1",
+                    label: <strong>{chapter.Title}</strong>,
+                    children: (
+                      <div>
+                        {parse(chapter.Content)}
+                        {chapter.Sections.map((section) => {
+                          return (
+                            <>
+                              <Collapse
+                                accordion
+                                bordered={true}
+                                style={{ borderColor: "darkgray" }}
+                                items={[
+                                  {
+                                    key: "1",
+                                    label: <strong>{section.Title}</strong>,
+                                    children: parse(section.Content),
+                                  },
+                                ]}
+                              />
+                            </>
+                          );
+                        })}
+                      </div>
+                    ),
+                  },
+                ]}
+              />
             </>
           );
         })}
