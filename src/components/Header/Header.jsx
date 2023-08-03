@@ -13,10 +13,7 @@ export const Header = () => {
       <>
         <header>
           <center>
-            <h1>
-              🏥 Clinical Guideline Authoring App
-              <br /> <em>[🚧 Prototype 🚧]</em>
-            </h1>
+            <h1>🏥 Clinical Guideline Authoring App</h1>
 
             <p>
               <Avatar
@@ -48,10 +45,7 @@ export const Header = () => {
       <>
         <header>
           <center>
-            <h1>
-              🏥 Clinical Guideline Authoring App
-              <br /> <em>[🚧 Prototype 🚧]</em>
-            </h1>
+            <h1>🏥 Clinical Guideline Authoring App</h1>
           </center>
         </header>
       </>
