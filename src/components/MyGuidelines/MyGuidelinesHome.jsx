@@ -68,7 +68,9 @@ export const MyGuidelinesHome = () => {
               >
                 <Alert
                   message={
-                    <strong>Welcome to Your Guidelines Workspace Area</strong>
+                    <strong>
+                      Welcome to Your Guideline Authoring Workspace Area
+                    </strong>
                   }
                   description={`There are currently no Guidelines workspaces available for you to collaborate with.`}
                   type="info"
@@ -96,7 +98,9 @@ export const MyGuidelinesHome = () => {
               >
                 <Alert
                   message={
-                    <strong>Welcome to Your Guidelines Workspace Area</strong>
+                    <strong>
+                      Welcome to Your Guideline Authoring Workspace Area
+                    </strong>
                   }
                   description={
                     <p>

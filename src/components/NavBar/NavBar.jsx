@@ -49,7 +49,7 @@ export const NavBar = () => {
   };
 
   const menuItemMyGuidelinesWorkspace = {
-    label: <Link to="/myguidelines">My Guidelines Workspace</Link>,
+    label: <Link to="/myguidelines">My Authoring Workspace</Link>,
     key: "myguidelines",
     icon: <ReadOutlined />,
   };
