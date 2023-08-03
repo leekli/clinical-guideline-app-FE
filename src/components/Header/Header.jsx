@@ -31,7 +31,7 @@ export const Header = () => {
               >
                 {loggedInUser.username}
               </Avatar>
-              <br />
+              &nbsp;
               <strong>
                 <LoginOutlined />
                 &nbsp;Status:
