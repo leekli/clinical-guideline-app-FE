@@ -6,7 +6,7 @@ const NotLoggedInError = () => {
     <>
       <br />
       <Alert
-        message="Error"
+        message={<strong>Error</strong>}
         description="You must be logged in to access this page."
         type="error"
         showIcon

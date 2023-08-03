@@ -10,26 +10,46 @@ const ErrorPage = () => {
     return (
       <>
         <Alert
-          message="Error"
+          message={<strong>Error</strong>}
           description="Error: There was an issue with what you tried to do."
           type="error"
           showIcon
         />
         <br />
-        <Link to="/guidelines">Click here to go back to the Homepage</Link>
+        <Alert
+          description={
+            <Link to="/guidelines">
+              <h3>
+                <strong>
+                  Click here to go to the Home page / All Guidelines
+                </strong>
+              </h3>
+            </Link>
+          }
+          type="error"
+        />
       </>
     );
   } else {
     return (
       <>
         <Alert
-          message="Error"
+          message={<strong>Error</strong>}
           description="Error: There was an issue with what you tried to do."
           type="error"
           showIcon
         />
         <br />
-        <Link to="/">Click here to go back to the Login page</Link>
+        <Alert
+          description={
+            <Link to="/">
+              <h3>
+                <strong>Click here to go to the Login page</strong>
+              </h3>
+            </Link>
+          }
+          type="error"
+        />
       </>
     );
   }
