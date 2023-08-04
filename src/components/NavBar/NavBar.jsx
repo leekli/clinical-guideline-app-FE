@@ -1,10 +1,9 @@
 import {
   HomeOutlined,
-  MailOutlined,
+  CheckSquareOutlined,
   LoginOutlined,
   LogoutOutlined,
   ReadOutlined,
-  PlusCircleOutlined,
 } from "@ant-design/icons";
 import { Menu, message } from "antd";
 import { Link } from "react-router-dom";
@@ -57,7 +56,7 @@ export const NavBar = () => {
   const menuItemMyApprovalsWorkspace = {
     label: <Link to="/myapprovals">My Approvals Workspace</Link>,
     key: "myapprovals",
-    icon: <PlusCircleOutlined />,
+    icon: <CheckSquareOutlined />,
   };
 
   const menuItemLogoutButton = {

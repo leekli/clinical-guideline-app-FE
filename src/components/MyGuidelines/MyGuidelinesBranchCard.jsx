@@ -5,7 +5,7 @@ import {
   FileTextOutlined,
   UserOutlined,
   ToolOutlined,
-  ExclamationOutlined,
+  InfoCircleOutlined,
   AlertOutlined,
 } from "@ant-design/icons";
 const { Title } = Typography;
@@ -51,7 +51,7 @@ export const MyGuidelinesBranchCard = ({ guidelineBranches }) => {
                   {branch.guideline.LongTitle}
                 </p>
                 <p>
-                  <ExclamationOutlined />
+                  <InfoCircleOutlined />
                   &nbsp;<strong>Workspace Status: </strong>
                   {!branch.branchLockedForApproval
                     ? "✅ Workspace currently Open for amendments"

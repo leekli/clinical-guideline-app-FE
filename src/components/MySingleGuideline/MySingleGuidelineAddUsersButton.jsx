@@ -75,7 +75,7 @@ export const MySingleGuidelineAddUsersButton = ({
           }}
           onClick={showModal}
         >
-          Add Collaborators
+          Add Collaborators...
         </Button>
 
         <Modal

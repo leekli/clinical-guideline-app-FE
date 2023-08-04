@@ -82,8 +82,8 @@ export const MyApprovalsHome = () => {
                     <p>
                       Any Guidelines which are pending for review and approval,
                       are listed below.<br></br>
-                      <br></br>Once you have accessed an Approval Request, more
-                      tools will be made available to you.
+                      <br></br>Once you have accessed a Pending Approval
+                      Request, more tools will be made available to you.
                     </p>
                   }
                   type="info"

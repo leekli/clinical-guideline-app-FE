@@ -21,7 +21,7 @@ export const MyApprovalsCard = ({ approvalInfo }) => {
           <Link to={branchLink} key={approvalInfo.approvalRequestName}>
             <Title level={5}>
               <EyeOutlined />
-              &nbsp;Outstanding Approval: {approvalInfo.approvalRequestName}
+              &nbsp;Pending Approval: {approvalInfo.approvalRequestName}
             </Title>
           </Link>
         }
