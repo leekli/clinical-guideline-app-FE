@@ -4,7 +4,7 @@ import { getGuidelines } from "../../utils/api-calls";
 import { BeatLoader } from "react-spinners";
 import { UserContext } from "../../contexts/User";
 import NotLoggedInError from "../Errors/NotLoggedIn";
-import { Space } from "antd";
+import { Alert, Space } from "antd";
 import { AllGuidelinesSearchBar } from "../AllGuidelines/AllGuidelinesSearchBar";
 import { AllGuidelinesSingleGuidelineCard } from "../AllGuidelines/AllGuidelinesSingleGuidelineCard";
 import ErrorPage from "../Errors/ErrorPage";
@@ -49,6 +49,29 @@ export const AllGuidelines = () => {
 
         <br />
         <br />
+        <section>
+          <Space
+            direction="vertical"
+            style={{
+              width: "75%",
+            }}
+          >
+            <Alert
+              message={<strong>Clinical Guidelines Listings</strong>}
+              description={
+                <p>
+                  All Clinical Guidelines are listed below
+                  <br></br>
+                  <br></br>
+                  You are able to filter and search for Clinical Guidelines by
+                  using the Search Bar above.
+                </p>
+              }
+              type="info"
+              showIcon
+            />
+          </Space>
+        </section>
         <Space direction="vertical" size={16}>
           {guidelines.map((guideline) => {
             const guidelineLink = `/guidelines/${guideline.GuidanceNumber}`;

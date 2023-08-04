@@ -54,7 +54,12 @@ export const MySingleGuidelineBranch = () => {
           }
         });
 
-        setAllUsers(filteredPermittedUsers);
+        const finalPermittedUsersMinusLoggedInUser =
+          filteredPermittedUsers.filter((user) => {
+            return user.userName !== loggedInUser.username;
+          });
+
+        setAllUsers(finalPermittedUsersMinusLoggedInUser);
       })
       .catch((err) => {
         setIsError({ err });
@@ -168,6 +173,7 @@ export const MySingleGuidelineBranch = () => {
                       width: "375px",
                       margin: "3px",
                       padding: "8px",
+                      borderRadius: "5px",
                     }}
                   >
                     <h4>Current Workspace Collaborators:</h4>

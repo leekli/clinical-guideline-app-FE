@@ -1,6 +1,6 @@
 import "../../styles/SingleGuideline.css";
 import { useEffect, useState, useContext } from "react";
-import { Card, Space, Collapse } from "antd";
+import { Card, Space, Collapse, Alert } from "antd";
 import {
   FileTextOutlined,
   NumberOutlined,
@@ -127,6 +127,24 @@ export const SingleGuideline = () => {
                   />
                 </Card>
               </Space>
+            </div>
+            <br />
+            <div>
+              <section>
+                <Space
+                  direction="vertical"
+                  style={{
+                    width: "75%",
+                  }}
+                >
+                  <Alert
+                    message={<strong>Clinical Guideline</strong>}
+                    description={`The Clinical Guideline is listed below. Each section is able to be expanded by clicking the section header.`}
+                    type="info"
+                    showIcon
+                  />
+                </Space>
+              </section>
             </div>
             <br />
             <br />
@@ -256,9 +274,25 @@ export const SingleGuideline = () => {
               </strong>
               {guideline.GuidelineCurrentVersion + ".0"}
             </p>
-
             <br />
-
+            <div>
+              <section>
+                <Space
+                  direction="vertical"
+                  style={{
+                    width: "75%",
+                  }}
+                >
+                  <Alert
+                    message={<strong>Clinical Guideline</strong>}
+                    description={`The Clinical Guideline is listed below. Each section is able to be expanded by clicking the section header.`}
+                    type="info"
+                    showIcon
+                  />
+                </Space>
+              </section>
+            </div>
+            <br />
             {guideline.Chapters.map((chapter) => {
               return (
                 <>

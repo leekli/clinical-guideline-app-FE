@@ -73,7 +73,7 @@ export const MySingleApprovalRejectionComponent = ({
         }}
         onClick={showRejectCommentModal}
       >
-        Reject Approval Request and Add a Comment
+        Reject Approval Request and Add a Justification
       </Button>
 
       <Modal

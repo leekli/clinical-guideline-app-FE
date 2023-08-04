@@ -24,10 +24,13 @@ export const MySingleGuidelineDeleteWorkspaceButton = ({ branchName }) => {
 
   const showConfirm = () => {
     confirm({
+      closable: true,
       title: "Are you sure that you wish to delete this Workspace?",
       icon: <ExclamationCircleFilled />,
       content:
         "By confirming that you wish to delete this whole workspace, it will mean that the whole workspace, including all progress-to-date by any contributor will be lost and cannot be retrieved. Are you sure that you wish to delete this Workspace?",
+      okText: "Yes",
+      cancelText: "No",
       onOk() {
         return deleteBranchByBranchName(branchName)
           .then(() => {
@@ -55,11 +58,12 @@ export const MySingleGuidelineDeleteWorkspaceButton = ({ branchName }) => {
         <div
           style={{
             borderStyle: "solid",
-            borderColor: "black",
+            borderColor: "#880808",
             backgroundColor: "#FFCDD2",
             width: "375px",
             margin: "3px",
             padding: "8px",
+            borderRadius: "5px",
           }}
         >
           <h4>To Delete this Workspace, click:</h4>

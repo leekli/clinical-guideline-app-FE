@@ -61,7 +61,7 @@ export const MySingleApprovalComponent = () => {
             <Card
               title="Approval Request Information"
               bordered={true}
-              style={{ borderColor: "darkgray" }}
+              style={{ borderColor: "darkgray", width: "75vw" }}
             >
               <h2>
                 <EyeOutlined />
@@ -100,7 +100,7 @@ export const MySingleApprovalComponent = () => {
             <Card
               title="Approval User Tools"
               bordered={true}
-              style={{ borderColor: "darkgray" }}
+              style={{ borderColor: "darkgray", width: "75vw" }}
             >
               <div>
                 <Space wrap>

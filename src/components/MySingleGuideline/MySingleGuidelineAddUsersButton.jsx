@@ -106,6 +106,9 @@ export const MySingleGuidelineAddUsersButton = ({
               className="classic"
               onChange={onUserSelectedChange}
             >
+              <option value="none" selected disabled>
+                Select a username...
+              </option>
               {allUsers.map((user) => {
                 return <option value={user.userName}>{user.userName}</option>;
               })}

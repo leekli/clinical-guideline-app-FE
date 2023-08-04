@@ -42,10 +42,13 @@ export const MySingleApprovalAcceptChangesComponent = ({
   const showConfirm = () => {
     if (approvalType === "edit") {
       confirm({
+        closable: true,
         title: "Are you sure that you want to approve this request?",
         icon: <ExclamationCircleFilled />,
         content:
           "By approving this request, the changes will be merged into the main Guideline available for all users to read. It will also delete the current Collaborators' Guideline Workspace along with this approval request, once the Guideline merge has completed.",
+        okText: "Yes",
+        cancelText: "No",
         onOk() {
           // 1. Setup PATCH request info to send and execute patch
           const patchedGuideline = structuredClone(guideline);
@@ -91,10 +94,13 @@ export const MySingleApprovalAcceptChangesComponent = ({
 
     if (approvalType === "create") {
       confirm({
+        closable: true,
         title: "Are you sure that you want to approve this request?",
         icon: <ExclamationCircleFilled />,
         content:
           "By approving this request, the new Guideline will be set up into the main Guideline Library available for all users to read. It will also delete the current Collaborators' Guideline Workspace along with this approval request, once the Guideline merge has completed.",
+        okText: "Yes",
+        cancelText: "No",
         onOk() {
           // 1. Setup POST request info to send and execute post request
           const newGuideline = structuredClone(guideline);

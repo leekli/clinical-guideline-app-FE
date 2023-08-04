@@ -84,15 +84,20 @@ export const MySingleGuidelineLockUnlock = ({
               width: "375px",
               margin: "3px",
               padding: "8px",
+              borderRadius: "5px",
             }}
           >
-            <h4>What does this do?</h4>
+            <h4>Workspace Status:</h4>
             <sub>
+              <LockOutlined />
+              &nbsp;
               <strong>Lock: </strong>
               <em>Prevents</em> any further amendments.
             </sub>
             <br />
             <sub>
+              <UnlockOutlined />
+              &nbsp;
               <strong>Unlock: </strong>
               <em>Allows</em> further amendments.
             </sub>
@@ -131,13 +136,17 @@ export const MySingleGuidelineLockUnlock = ({
               padding: "8px",
             }}
           >
-            <h4>What does this do?</h4>
+            <h4>Workspace Status:</h4>
             <sub>
+              <LockOutlined />
+              &nbsp;
               <strong>Lock: </strong>
               <em>Prevents</em> any further amendments.
             </sub>
             <br />
             <sub>
+              <UnlockOutlined />
+              &nbsp;
               <strong>Unlock: </strong>
               <em>Allows</em> further amendments.
             </sub>

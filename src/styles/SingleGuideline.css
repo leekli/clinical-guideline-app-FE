@@ -111,6 +111,8 @@
   font-size: 15px;
   border-radius: 3px;
   margin: 3px;
+  border-style: solid;
+  border-color: rgb(39, 62, 71);
 }
 
 .collapsible_tracker_history_changes:after {
