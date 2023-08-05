@@ -1,5 +1,6 @@
-import { Space, Button, message } from "antd";
+import { Space, Button, message, Spin } from "antd";
 import { LockOutlined, UnlockOutlined } from "@ant-design/icons";
+import { useState } from "react";
 import { branchLockRequest, branchUnLockRequest } from "../../utils/api-calls";
 
 export const MySingleGuidelineLockUnlock = ({
@@ -8,6 +9,8 @@ export const MySingleGuidelineLockUnlock = ({
   setBranchInfo,
 }) => {
   const [messageApi, contextHolder] = message.useMessage();
+  const [workspaceStatusChangeRequest, setWorkspaceStatusChangeRequest] =
+    useState(false);
 
   const lockSuccess = () => {
     messageApi.open({
@@ -38,9 +41,11 @@ export const MySingleGuidelineLockUnlock = ({
   };
 
   const onLockClick = () => {
+    setWorkspaceStatusChangeRequest(true);
     branchLockRequest(branchName)
       .then(() => {
         lockSuccess();
+
         setBranchInfo((currentBranchInfo) => {
           const newCurrentBranchInfo = structuredClone(currentBranchInfo);
 
@@ -49,15 +54,21 @@ export const MySingleGuidelineLockUnlock = ({
           return newCurrentBranchInfo;
         });
       })
+      .then(() => {
+        setWorkspaceStatusChangeRequest(false);
+      })
       .catch(() => {
+        setWorkspaceStatusChangeRequest(false);
         lockError();
       });
   };
 
   const onUnLockClick = () => {
+    setWorkspaceStatusChangeRequest(true);
     branchUnLockRequest(branchName)
       .then(() => {
         unlockSuccess();
+
         setBranchInfo((currentBranchInfo) => {
           const newCurrentBranchInfo = structuredClone(currentBranchInfo);
 
@@ -66,7 +77,11 @@ export const MySingleGuidelineLockUnlock = ({
           return newCurrentBranchInfo;
         });
       })
+      .then(() => {
+        setWorkspaceStatusChangeRequest(false);
+      })
       .catch(() => {
+        setWorkspaceStatusChangeRequest(false);
         unlockError();
       });
   };
@@ -101,6 +116,14 @@ export const MySingleGuidelineLockUnlock = ({
               <strong>Unlock: </strong>
               <em>Allows</em> further amendments.
             </sub>
+            {workspaceStatusChangeRequest === true ? (
+              <Spin tip="Changing Status..." style={{ color: "black" }}>
+                <div className="content" />
+                <br />
+              </Spin>
+            ) : (
+              ""
+            )}
             <p>
               <strong>Current Status: </strong>
               {branchLockedForApproval === false ? "✅ Unlocked" : "❌ Locked"}
@@ -150,6 +173,14 @@ export const MySingleGuidelineLockUnlock = ({
               <strong>Unlock: </strong>
               <em>Allows</em> further amendments.
             </sub>
+            {workspaceStatusChangeRequest === true ? (
+              <Spin tip="Changing Status..." style={{ color: "black" }}>
+                <div className="content" />
+                <br />
+              </Spin>
+            ) : (
+              ""
+            )}
             <p>
               <strong>Current Status: </strong>
               {branchLockedForApproval === false ? "✅ Unlocked" : "❌ Locked"}

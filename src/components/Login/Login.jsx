@@ -9,6 +9,7 @@ export const Login = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [userList, setUserList] = useState([]);
   const [newUsername, setNewUsername] = useState("");
+  const [loggingInProgress, setLoggingInProgress] = useState(false);
   const { setLoggedInUser } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -37,6 +38,7 @@ export const Login = () => {
   };
 
   const handleSubmit = (event) => {
+    setLoggingInProgress(true);
     event.preventDefault();
 
     const checkUsername = (userList) => userList.userName === newUsername;
@@ -53,13 +55,14 @@ export const Login = () => {
             });
 
             setNewUsername("");
-
+            setLoggingInProgress(false);
             routeChange(`/guidelines`);
           }, 2500);
         }
       });
     } else {
       error();
+      setLoggingInProgress(false);
       setNewUsername("");
     }
   };
@@ -72,6 +75,8 @@ export const Login = () => {
           newUsername={newUsername}
           setNewUsername={setNewUsername}
           handleSubmit={handleSubmit}
+          loggingInProgress={loggingInProgress}
+          setLoggingInProgress={setLoggingInProgress}
         />
       </main>
     </>

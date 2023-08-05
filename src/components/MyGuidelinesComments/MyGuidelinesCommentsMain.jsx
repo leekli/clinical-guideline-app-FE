@@ -48,12 +48,10 @@ export const MyGuidelinesCommentsMain = ({ branchName }) => {
               dataSource={branchComments}
               style={{
                 width: "75%",
-                alignItems: "center",
               }}
               bordered
               header={<strong>Collaborator Comments</strong>}
               loadMore
-              alignItems="center"
               renderItem={(item, index) => (
                 <List.Item>
                   <List.Item.Meta
@@ -81,12 +79,10 @@ export const MyGuidelinesCommentsMain = ({ branchName }) => {
               dataSource={data}
               style={{
                 width: "75%",
-                alignItems: "center",
               }}
               bordered
               header={<strong>Collaborator Comments</strong>}
               loadMore
-              alignItems="center"
               renderItem={(item, index) => (
                 <List.Item>
                   <List.Item.Meta

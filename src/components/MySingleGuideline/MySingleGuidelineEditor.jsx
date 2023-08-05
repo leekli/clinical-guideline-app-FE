@@ -1,4 +1,5 @@
 import "react-quill/dist/quill.snow.css";
+import { Spin } from "antd";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import ReactQuill from "react-quill";
@@ -43,6 +44,7 @@ export const MySingleGuidelineEditor = () => {
   const [newTitle, setNewTitle] = useState(title);
   const [imageUrl, setImageUrl] = useState("");
   const [imageCaptionText, setImageCaptionText] = useState("");
+  const [saveInProgress, setSaveInProgress] = useState(false);
 
   const success = () => {
     messageApi.open({
@@ -74,6 +76,7 @@ export const MySingleGuidelineEditor = () => {
   };
 
   const onSaveClick = async (hasImage) => {
+    setSaveInProgress(true);
     if (hasImage === true) {
       const imageHTMLString = `<div>\r\n<center>\r\n<section>\r\n<img src=\"${imageUrl}\" width=\"300\" />\r\n<br />\r\n<sub>${imageCaptionText}</sub>\r\n</section>\r\n</center>\r\n</div>`;
 
@@ -95,9 +98,11 @@ export const MySingleGuidelineEditor = () => {
     return patchBranchByBranchName(bodyToSend)
       .then(() => {
         success();
+        setSaveInProgress(false);
         setIsModalOpen(false);
       })
       .catch(() => {
+        setSaveInProgress(false);
         error();
       });
   };
@@ -137,6 +142,14 @@ export const MySingleGuidelineEditor = () => {
           bordered={true}
           style={{ borderColor: "darkgray" }}
         >
+          {saveInProgress === true ? (
+            <Spin tip="Saving...">
+              <div className="content" />
+              <br />
+            </Spin>
+          ) : (
+            ""
+          )}
           <h4 style={{ textAlign: "left" }}>
             <EditOutlined />
             &nbsp;Edit Section Title:

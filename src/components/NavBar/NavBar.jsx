@@ -5,7 +5,7 @@ import {
   LogoutOutlined,
   ReadOutlined,
 } from "@ant-design/icons";
-import { Menu, message } from "antd";
+import { Menu, message, Spin } from "antd";
 import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
 import { UserContext } from "../../contexts/User";
@@ -15,6 +15,7 @@ export const NavBar = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [current, setCurrent] = useState("");
   const { setLoggedInUser, isLoggedIn, loggedInUser } = useContext(UserContext);
+  const [logoutInProgress, setLogoutInProgress] = useState(false);
   const navigate = useNavigate();
 
   const success = () => {
@@ -29,6 +30,7 @@ export const NavBar = () => {
   };
 
   const handleLogout = () => {
+    setLogoutInProgress(true);
     success();
     setTimeout(() => {
       setLoggedInUser({
@@ -37,6 +39,7 @@ export const NavBar = () => {
         secondaryAccessLevel: undefined,
       });
 
+      setLogoutInProgress(false);
       routeChange("/");
     }, 2000);
   };
@@ -112,6 +115,13 @@ export const NavBar = () => {
               items={itemsLoggedInAdminOnly}
               theme="dark"
             />
+            {logoutInProgress === true ? (
+              <Spin tip="Logging out...">
+                <div className="content" />
+              </Spin>
+            ) : (
+              ""
+            )}
             <br />
           </nav>
         </>
@@ -150,6 +160,13 @@ export const NavBar = () => {
               items={itemsLoggedInViewerOnly}
               theme="dark"
             />
+            {logoutInProgress === true ? (
+              <Spin tip="Logging out...">
+                <div className="content" />
+              </Spin>
+            ) : (
+              ""
+            )}
             <br />
           </nav>
         </>
@@ -169,6 +186,13 @@ export const NavBar = () => {
               items={itemsLoggedInApproverOnly}
               theme="dark"
             />
+            {logoutInProgress === true ? (
+              <Spin tip="Logging out...">
+                <div className="content" />
+              </Spin>
+            ) : (
+              ""
+            )}
             <br />
           </nav>
         </>
@@ -188,6 +212,13 @@ export const NavBar = () => {
               items={itemsLoggedInAdminOnly}
               theme="dark"
             />
+            {logoutInProgress === true ? (
+              <Spin tip="Logging out...">
+                <div className="content" />
+              </Spin>
+            ) : (
+              ""
+            )}
             <br />
           </nav>
         </>
@@ -208,6 +239,13 @@ export const NavBar = () => {
               items={itemsLoggedInAuthorEditorOnly}
               theme="dark"
             />
+            {logoutInProgress === true ? (
+              <Spin tip="Logging out...">
+                <div className="content" />
+              </Spin>
+            ) : (
+              ""
+            )}
             <br />
           </nav>
         </>
@@ -226,6 +264,13 @@ export const NavBar = () => {
             items={itemsLoggedOut}
             theme="dark"
           />
+          {logoutInProgress === true ? (
+            <Spin tip="Logging out...">
+              <div className="content" />
+            </Spin>
+          ) : (
+            ""
+          )}
           <br />
         </nav>
       </>

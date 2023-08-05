@@ -1,4 +1,4 @@
-import { Input, Button, Space, Form, Card, message } from "antd";
+import { Input, Button, Space, Form, Card, message, Spin } from "antd";
 import { MailOutlined } from "@ant-design/icons";
 import { useState, useContext } from "react";
 import { UserContext } from "../../contexts/User";
@@ -8,6 +8,7 @@ const { TextArea } = Input;
 export const MyGuidelinesAddComment = ({ branchName, setBranchComments }) => {
   const [messageApi, contextHolder] = message.useMessage();
   const [newCommentBody, setNewCommentBody] = useState("");
+  const [commentRequestSending, setCommentRequestSending] = useState(false);
   const { loggedInUser } = useContext(UserContext);
 
   const success = () => {
@@ -29,6 +30,7 @@ export const MyGuidelinesAddComment = ({ branchName, setBranchComments }) => {
   };
 
   const submitNewComment = () => {
+    setCommentRequestSending(true);
     const dateNow = Date.now();
 
     const newComment = {
@@ -46,8 +48,10 @@ export const MyGuidelinesAddComment = ({ branchName, setBranchComments }) => {
           return newCurrentComments;
         });
         setNewCommentBody("");
+        setCommentRequestSending(false);
       })
       .catch(() => {
+        setCommentRequestSending(false);
         error();
       });
   };
@@ -84,6 +88,14 @@ export const MyGuidelinesAddComment = ({ branchName, setBranchComments }) => {
                 required
               />
               <Form.Item>
+                {commentRequestSending === true ? (
+                  <Spin tip="Posting comment..." style={{ color: "black" }}>
+                    <div className="content" />
+                    <br />
+                  </Spin>
+                ) : (
+                  ""
+                )}
                 <Space wrap>
                   <Button
                     type="primary"

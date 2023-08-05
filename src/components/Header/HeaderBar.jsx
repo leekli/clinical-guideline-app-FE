@@ -4,7 +4,7 @@ import { LoginOutlined } from "@ant-design/icons";
 import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/User";
 
-export const Header = () => {
+export const HeaderBar = () => {
   const { loggedInUser, isLoggedIn } = useContext(UserContext);
   const [gap, setGap] = useState(2);
 

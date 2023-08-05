@@ -9,6 +9,7 @@ import {
   Form,
   Tooltip,
   message,
+  Spin,
 } from "antd";
 import { FormOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +22,7 @@ export const MyGuidelinesCreateNewGuidelineButton = () => {
   const [guidelineNumber, setGuidelineNumber] = useState("");
   const [workspaceName, setWorkspaceName] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [sendingRequestLoading, setSendingRequestLoading] = useState(false);
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
@@ -56,6 +58,7 @@ export const MyGuidelinesCreateNewGuidelineButton = () => {
   };
 
   const onButtonClick = () => {
+    setSendingRequestLoading(true);
     const currentDateTime = String(Date.now());
 
     const branchToSetup = {
@@ -70,9 +73,11 @@ export const MyGuidelinesCreateNewGuidelineButton = () => {
     return postNewCreateBranch(branchToSetup)
       .then(() => {
         setIsModalOpen(false);
+        setSendingRequestLoading(false);
         routeChange(`/workspace-setup`);
       })
       .catch(() => {
+        setSendingRequestLoading(false);
         error();
       });
   };
@@ -94,12 +99,13 @@ export const MyGuidelinesCreateNewGuidelineButton = () => {
         </Button>
 
         <Modal
-          title="Complete the following information to begin creating a new Guideline and associated Workspace:"
+          title="Complete the following information to begin creating a new Guideline and associated Authoring Workspace:"
           open={isModalOpen}
           onCancel={handleModalCancel}
           onOk={form.submit}
           width={"50%"}
           closable
+          okText="Submit"
         >
           <Form form={form} onFinish={onButtonClick} required>
             <p>
@@ -134,11 +140,11 @@ export const MyGuidelinesCreateNewGuidelineButton = () => {
             <br />
             <p>
               <strong>
-                What would you like to name this Guideline Workspace?
+                What would you like to name this Guideline Authoring Workspace?
               </strong>
             </p>
             <Input
-              placeholder="Enter Guideline Workspace name here..."
+              placeholder="Enter Guideline Authoring Workspace name here..."
               onChange={onModalWorkspaceNameTextChange}
               allowClear
               required
@@ -152,11 +158,20 @@ export const MyGuidelinesCreateNewGuidelineButton = () => {
             <br />
           </Form>
 
+          <br />
+          {sendingRequestLoading === true ? (
+            <Spin tip="Sending Request...">
+              <div className="content" />
+            </Spin>
+          ) : (
+            ""
+          )}
+
           <center>
             <Alert
               message={<strong>Next Step:</strong>}
               description="Once you have complete the 3 input boxes, please
-      confirm by pressing 'OK'. The newly proposed Guideline will be submitted, and a new 'Guideline Workspace' will be created for you to view & edit."
+      confirm by pressing 'Submit'. The newly proposed Guideline will be submitted, and a new 'Guideline Authoring Workspace' will be created for you to view & edit."
               type="info"
               showIcon
             />

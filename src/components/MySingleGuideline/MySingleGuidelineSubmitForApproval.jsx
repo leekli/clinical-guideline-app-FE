@@ -1,4 +1,4 @@
-import { Space, Button, Modal, Input, Alert } from "antd";
+import { Space, Button, Modal, Input, Alert, Spin } from "antd";
 import { useState } from "react";
 import { CheckOutlined } from "@ant-design/icons";
 import {
@@ -16,6 +16,8 @@ export const MySingleGuidelineSubmitForApproval = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [approvalDesc, setApprovalDesc] = useState("");
+  const [submittingApprovalProgress, setSubmittingApprovalProgress] =
+    useState(false);
   const navigate = useNavigate();
 
   const showModal = () => {
@@ -35,6 +37,7 @@ export const MySingleGuidelineSubmitForApproval = ({
   };
 
   const onApprovalSubmit = () => {
+    setSubmittingApprovalProgress(true);
     const bodyToSubmit = {
       type: branchType,
       approvalRequestName: `${guideline.GuidanceNumber}-approval-request`,
@@ -54,7 +57,11 @@ export const MySingleGuidelineSubmitForApproval = ({
         return branchLockRequest(branchName);
       })
       .then(() => {
+        setSubmittingApprovalProgress(false);
         routeChange(`/approval-sent`);
+      })
+      .catch(() => {
+        setSubmittingApprovalProgress(false);
       });
   };
 
@@ -79,6 +86,7 @@ export const MySingleGuidelineSubmitForApproval = ({
           onCancel={handleModalCancel}
           onOk={onApprovalSubmit}
           closable
+          okText="Submit Request"
         >
           <TextArea
             rows={4}
@@ -89,13 +97,21 @@ export const MySingleGuidelineSubmitForApproval = ({
             required
           />
           <br />
+          {submittingApprovalProgress === true ? (
+            <Spin tip="Submitting Approval Request...">
+              <div className="content" />
+              <br />
+            </Spin>
+          ) : (
+            ""
+          )}
           <br />
           <section>
             <center>
               <Alert
                 message={<strong>Next Step:</strong>}
                 description="Once you have input an approval request description, and summary of Guideline changes, please
-      confirm by pressing 'OK'."
+      confirm by pressing 'Submit Request'."
                 type="info"
                 showIcon
               />

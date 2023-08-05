@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../../contexts/User";
-import { Button, Modal, Input, Alert } from "antd";
+import { Button, Modal, Input, Alert, Spin } from "antd";
 import { StopOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import {
@@ -18,6 +18,7 @@ export const MySingleApprovalRejectionComponent = ({
   const [isRejectCommentModalOpen, setIsRejectCommentModalOpen] =
     useState(false);
   const [rejectionCommentText, setRejectionCommentText] = useState("");
+  const [sendingRequestProgress, setSendingRequestProgress] = useState(false);
   const navigate = useNavigate();
 
   const routeChange = (path) => {
@@ -37,6 +38,7 @@ export const MySingleApprovalRejectionComponent = ({
   };
 
   const handleRejectionSubmission = () => {
+    setSendingRequestProgress(true);
     // 1. Submit/Add the rejection comment to the existing branch
     const dateNow = Date.now();
 
@@ -57,7 +59,11 @@ export const MySingleApprovalRejectionComponent = ({
       })
       .then(() => {
         // 4. If successful: Navigate back to Approvals homepage
+        setSendingRequestProgress(false);
         routeChange(`/myapprovals`);
+      })
+      .catch(() => {
+        setSendingRequestProgress(false);
       });
   };
 
@@ -82,6 +88,7 @@ export const MySingleApprovalRejectionComponent = ({
         onCancel={handleRejectCommentModalCancel}
         onOk={handleRejectionSubmission}
         closable
+        okText="Reject Request"
       >
         <TextArea
           rows={4}
@@ -93,6 +100,14 @@ export const MySingleApprovalRejectionComponent = ({
         />
         <br />
         <br />
+        {sendingRequestProgress === true ? (
+          <Spin tip="Sending Response..." style={{ color: "black" }}>
+            <div className="content" />
+            <br />
+          </Spin>
+        ) : (
+          ""
+        )}
         <section>
           <center>
             <Alert
@@ -100,7 +115,7 @@ export const MySingleApprovalRejectionComponent = ({
               description={
                 <p>
                   Once you have input an approval rejection comment, please
-                  confirm by pressing 'OK'.<br></br>
+                  confirm by pressing 'Reject Request'.<br></br>
                   <br></br>
                   This Approval Request Workspace will be deleted.<br></br>
                   <br></br>

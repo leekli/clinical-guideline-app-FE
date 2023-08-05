@@ -1,4 +1,4 @@
-import { Alert, Button, Input, Tooltip } from "antd";
+import { Alert, Button, Input, Tooltip, Spin } from "antd";
 import {
   InfoCircleOutlined,
   UserOutlined,
@@ -9,6 +9,8 @@ export const LoginFormComponent = ({
   newUsername,
   setNewUsername,
   handleSubmit,
+  loggingInProgress,
+  setLoggingInProgress,
 }) => {
   const handleUsernameChange = (event) => {
     setNewUsername(event.target.value);
@@ -24,6 +26,14 @@ export const LoginFormComponent = ({
             type="info"
             showIcon
           />
+          <br />
+          {loggingInProgress === true ? (
+            <Spin tip="Logging in...">
+              <div className="content" />
+            </Spin>
+          ) : (
+            ""
+          )}
           <br />
           <Input
             name="Login__textbox"

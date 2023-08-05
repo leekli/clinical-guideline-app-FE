@@ -1,6 +1,6 @@
 import "../../styles/MySingleGuidelineModal.css";
 import { useState } from "react";
-import { Space, Button, Modal, Alert, message } from "antd";
+import { Space, Button, Modal, Alert, message, Spin } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
 import { branchAddNewAuthdUser } from "../../utils/api-calls";
 
@@ -12,6 +12,7 @@ export const MySingleGuidelineAddUsersButton = ({
   const [messageApi, contextHolder] = message.useMessage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userSelected, setUserSelected] = useState("");
+  const [addingUserRequest, setAddingUserRequest] = useState(false);
 
   const success = () => {
     messageApi.open({
@@ -40,6 +41,7 @@ export const MySingleGuidelineAddUsersButton = ({
   };
 
   const onOKClick = () => {
+    setAddingUserRequest(true);
     const infoToSend = {
       branch_name: branchName,
       userToAdd: userSelected,
@@ -56,8 +58,10 @@ export const MySingleGuidelineAddUsersButton = ({
           return newCurrentBranchInfo;
         });
         setIsModalOpen(false);
+        setAddingUserRequest(false);
       })
       .catch(() => {
+        setAddingUserRequest(false);
         error();
       });
   };
@@ -84,22 +88,31 @@ export const MySingleGuidelineAddUsersButton = ({
           onCancel={handleModalCancel}
           onOk={onOKClick}
           closable
+          okText="Add user"
         >
           <Alert
             message={<strong>Note:</strong>}
             description={
               <p>
                 Only users with <em>Viewer/Editor/Q.C</em> access priviledges
-                are permitted to be added.
+                are permitted to be added. Click the <em>Add User</em> button
+                once you have selected a user to add.
               </p>
             }
             type="warning"
             showIcon
           />
-
+          {addingUserRequest === true ? (
+            <Spin tip="Adding user to Workspace...">
+              <div className="content" />
+              <br />
+            </Spin>
+          ) : (
+            ""
+          )}
           <center>
             <h4>Select a user to add:</h4>
-            <label for="users"></label>
+            <label htmlFor="users"></label>
 
             <select
               id="users"
@@ -110,7 +123,11 @@ export const MySingleGuidelineAddUsersButton = ({
                 Select a username...
               </option>
               {allUsers.map((user) => {
-                return <option value={user.userName}>{user.userName}</option>;
+                return (
+                  <option value={user.userName} key={user.userName}>
+                    {user.userName}
+                  </option>
+                );
               })}
             </select>
           </center>

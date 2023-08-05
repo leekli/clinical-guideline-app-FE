@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import { Header } from "./components/Header/Header";
+import { HeaderBar } from "./components/Header/HeaderBar";
 import { Footer } from "./components/Footer/Footer";
 import { Login } from "./components/Login/Login";
 import { SingleGuideline } from "./components/SingleGuidelineView/SingleGuideline";
@@ -19,7 +19,7 @@ function App() {
   return (
     <>
       <div className="App">
-        <Header />
+        <HeaderBar />
         <NavBar />
         <Routes>
           <Route path="/" element={<Login />} />

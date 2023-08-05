@@ -10,6 +10,7 @@ import {
   Alert,
   Tooltip,
   message,
+  Spin,
 } from "antd";
 import { EditOutlined, InfoCircleOutlined } from "@ant-design/icons";
 import { postNewBranch } from "../../utils/api-calls";
@@ -19,6 +20,7 @@ export const SingleGuidelineEditButton = ({ guideline, setIsError }) => {
   const { loggedInUser } = useContext(UserContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editBranchName, setIsEditBranchName] = useState("");
+  const [workspaceRequestLoading, setWorkspaceRequestLoading] = useState(false);
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
@@ -46,6 +48,7 @@ export const SingleGuidelineEditButton = ({ guideline, setIsError }) => {
   };
 
   const onEditButtonClick = () => {
+    setWorkspaceRequestLoading(true);
     const branchEditTitleCopy = editBranchName;
     const branchEditTitleFormatted = branchEditTitleCopy.split(" ").join("-");
 
@@ -61,10 +64,12 @@ export const SingleGuidelineEditButton = ({ guideline, setIsError }) => {
 
     return postNewBranch(branchToSetup)
       .then(() => {
+        setWorkspaceRequestLoading(false);
         setIsModalOpen(false);
         routeChange(`/workspace-setup`);
       })
       .catch((err) => {
+        setWorkspaceRequestLoading(false);
         error();
       });
   };
@@ -84,25 +89,25 @@ export const SingleGuidelineEditButton = ({ guideline, setIsError }) => {
         </Button>
 
         <Modal
-          title="Creating a New Guideline Workspace"
+          title="Creating a New Guideline Authoring Workspace"
           open={isModalOpen}
           onOk={form.submit}
           onCancel={handleModalCancel}
           closable
+          okText="Submit"
         >
           <p>
-            <center>
-              <strong>
-                You are about to create a New Guideline Workspace...
-              </strong>
-            </center>
+            <strong>
+              You are about to create a New Guideline Authoring Workspace...
+            </strong>
             <br />
             Before submitting, please specify what you wish to call your
-            'Guideline Workspace' for this Guideline to be edited:
+            'Guideline Authoring Workspace' for this Guideline to be
+            collaborated on:
           </p>
           <Form form={form} onFinish={onEditButtonClick} required>
             <Input
-              placeholder="Enter New Guideline Workspace Title here..."
+              placeholder="Enter New Guideline Authoring Workspace Title here..."
               onChange={onEditModalTextChange}
               allowClear
               required
@@ -115,11 +120,18 @@ export const SingleGuidelineEditButton = ({ guideline, setIsError }) => {
             <br />
             <br />
             <section>
+              {workspaceRequestLoading === true ? (
+                <Spin tip="Submitting Request...">
+                  <div className="content" />
+                </Spin>
+              ) : (
+                ""
+              )}
               <center>
                 <Alert
                   message={<strong>Next Step:</strong>}
-                  description="Once you have input a New Guideline Workspace Title, please confirm by
-                pressing 'OK'. Your request will then be processed."
+                  description="Once you have input a New Guideline Authoring Workspace Title, please confirm by
+                pressing 'Submit'. Your request will then be processed."
                   type="info"
                   showIcon
                 />

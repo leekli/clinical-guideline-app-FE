@@ -184,7 +184,7 @@ export const MySingleGuidelineBranch = () => {
                       }}
                     >
                       {branchInfo.branchAllowedUsers.map((user) => {
-                        return <li>{user}</li>;
+                        return <li key={user}>{user}</li>;
                       })}
                     </ul>
                     <p>
@@ -203,6 +203,7 @@ export const MySingleGuidelineBranch = () => {
                   branchLockedForApproval={branchInfo.branchLockedForApproval}
                   setBranchInfo={setBranchInfo}
                 />
+
                 <br />
                 <section>
                   {branchInfo.branchOwner === loggedInUser.username ||
