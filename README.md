@@ -45,7 +45,6 @@ This content is made available by NICE (National Institute for Health and Care E
 
 - <strong>Languages:</strong> HTML, CSS, JavaScript
 - <strong>Framework:</strong> React.js
-- <strong>Testing:</strong> React Testing Library
 - <strong>Design Framework:</strong> Ant Design
 - <strong>Build Tool:</strong> Vite
 
