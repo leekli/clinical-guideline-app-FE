@@ -3,11 +3,14 @@ import {
   InfoCircleOutlined,
   UserOutlined,
   LoginOutlined,
+  KeyOutlined,
 } from "@ant-design/icons";
 
 export const LoginFormComponent = ({
   newUsername,
+  newPassword,
   setNewUsername,
+  setNewPassword,
   handleSubmit,
   loggingInProgress,
   setLoggingInProgress,
@@ -16,13 +19,17 @@ export const LoginFormComponent = ({
     setNewUsername(event.target.value);
   };
 
+  const handlePasswordChange = (event) => {
+    setNewPassword(event.target.value);
+  };
+
   return (
     <>
       <form className="Login__form" onSubmit={handleSubmit}>
         <label htmlFor="Login__textbox">
           <Alert
             message={<strong>Please Log in</strong>}
-            description={`For Demo purposes - Please log in as any of the following: joebloggs (Admin), janedoe (Nurse), katedillon (GP), kelvinball (Approver)`}
+            description={`Enter your Username and Password, below and then press 'Log In'.`}
             type="info"
             showIcon
           />
@@ -46,6 +53,21 @@ export const LoginFormComponent = ({
             prefix={<UserOutlined className="site-form-item-icon" />}
             suffix={
               <Tooltip title="Please enter your username">
+                <InfoCircleOutlined style={{ color: "rgba(0,0,0,.45)" }} />
+              </Tooltip>
+            }
+          />
+          <br />
+          <br />
+          <Input
+            value={newPassword}
+            onChange={handlePasswordChange}
+            placeholder="Enter your password here..."
+            allowClear
+            required
+            prefix={<KeyOutlined className="site-form-item-icon" />}
+            suffix={
+              <Tooltip title="Please enter your password">
                 <InfoCircleOutlined style={{ color: "rgba(0,0,0,.45)" }} />
               </Tooltip>
             }

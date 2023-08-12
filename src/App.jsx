@@ -14,6 +14,7 @@ import { MySingleGuidelineEditor } from "./components/MySingleGuideline/MySingle
 import { MySingleGuidelineApprovalSentSuccess } from "./components/MySingleGuideline/MySingleGuidelineApprovalSentSuccess";
 import { MySingleApprovalComponent } from "./components/MySingleApproval/MySingleApprovalComponent";
 import { SingleGuidelineEditSubmissionSuccess } from "./components/SingleGuidelineView/SingleGuidelineEditSubmissionSuccess";
+import { HelpHome } from "./components/Help/HelpHome";
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
             element={<MySingleApprovalComponent />}
           />
           <Route path="/error" element={<ErrorPage />} />
+          <Route path="/help" element={<HelpHome />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />

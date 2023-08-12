@@ -4,6 +4,7 @@ import {
   LoginOutlined,
   LogoutOutlined,
   ReadOutlined,
+  QuestionCircleOutlined,
 } from "@ant-design/icons";
 import { Menu, message, Spin } from "antd";
 import { Link } from "react-router-dom";
@@ -75,26 +76,39 @@ export const NavBar = () => {
     icon: <LoginOutlined />,
   };
 
+  const menuItemHelp = {
+    label: <Link to="/help">Help & Support</Link>,
+    key: "help",
+    icon: <QuestionCircleOutlined />,
+  };
+
   const itemsLoggedInAdminOnly = [
     menuItemAllGuidelines,
     menuItemMyGuidelinesWorkspace,
     menuItemMyApprovalsWorkspace,
+    menuItemHelp,
     menuItemLogoutButton,
   ];
 
   const itemsLoggedInApproverOnly = [
     menuItemAllGuidelines,
     menuItemMyApprovalsWorkspace,
+    menuItemHelp,
     menuItemLogoutButton,
   ];
 
   const itemsLoggedInAuthorEditorOnly = [
     menuItemAllGuidelines,
     menuItemMyGuidelinesWorkspace,
+    menuItemHelp,
     menuItemLogoutButton,
   ];
 
-  const itemsLoggedInViewerOnly = [menuItemAllGuidelines, menuItemLogoutButton];
+  const itemsLoggedInViewerOnly = [
+    menuItemAllGuidelines,
+    menuItemHelp,
+    menuItemLogoutButton,
+  ];
 
   const itemsLoggedOut = [menuItemPleaseLoginButton];
 

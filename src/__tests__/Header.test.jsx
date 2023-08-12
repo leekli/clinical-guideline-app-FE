@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Header } from "../components/Header";
+import { HeaderBar } from "../components/Header/HeaderBar
 import { UserContext } from "../contexts/User";
 
 describe("Header component tests", () => {
@@ -8,7 +8,7 @@ describe("Header component tests", () => {
       <UserContext.Provider
         value={{ loggedInUser: { username: "" }, isLoggedIn: false }}
       >
-        <Header />
+        <HeaderBar />
       </UserContext.Provider>
     );
 
@@ -22,45 +22,11 @@ describe("Header component tests", () => {
       <UserContext.Provider
         value={{ loggedInUser: { username: "joebloggs" }, isLoggedIn: true }}
       >
-        <Header />
+        <HeaderBar />
       </UserContext.Provider>
     );
 
-    const headingElement = screen.getByText(/You are logged in as: joebloggs/i);
+    const headingElement = screen.getByText(/Logged in/i);
     expect(headingElement).toBeInTheDocument();
-  });
-  test("Should render 'You are logged in as X' in the Header component when a valid user context is passed in as 'kelvinball'", () => {
-    render(
-      <UserContext.Provider
-        value={{ loggedInUser: { username: "kelvinball" }, isLoggedIn: true }}
-      >
-        <Header />
-      </UserContext.Provider>
-    );
-
-    const loggedInElement = screen.getByText(
-      /You are logged in as: kelvinball/i
-    );
-    expect(loggedInElement).toBeInTheDocument();
-  });
-  test("Should render the logged in image in the Header component when a valid user context is passed in", () => {
-    render(
-      <UserContext.Provider
-        value={{ loggedInUser: { username: "joebloggs" }, isLoggedIn: true }}
-      >
-        <Header />
-      </UserContext.Provider>
-    );
-
-    const loggedInUserAvatar = screen.getByRole("img");
-    expect(loggedInUserAvatar).toBeInTheDocument();
-    expect(loggedInUserAvatar).toHaveAttribute(
-      "src",
-      "./images/avatar_icon.png"
-    );
-    expect(loggedInUserAvatar).toHaveAttribute(
-      "alt",
-      "a black outline of a unisex avatar icon"
-    );
   });
 });

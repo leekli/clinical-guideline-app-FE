@@ -9,6 +9,7 @@ export const Login = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [userList, setUserList] = useState([]);
   const [newUsername, setNewUsername] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [loggingInProgress, setLoggingInProgress] = useState(false);
   const { setLoggedInUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -26,10 +27,17 @@ export const Login = () => {
     });
   };
 
-  const error = () => {
+  const userNameError = () => {
     messageApi.open({
       type: "error",
       content: "There was an error, username does not exist, please try again.",
+    });
+  };
+
+  const passwordError = () => {
+    messageApi.open({
+      type: "error",
+      content: "Incorrect password, please try again.",
     });
   };
 
@@ -46,24 +54,33 @@ export const Login = () => {
     if (userList.some(checkUsername) === true) {
       userList.forEach((eachUser) => {
         if (eachUser.userName === newUsername) {
-          success();
-          setTimeout(() => {
-            setLoggedInUser({
-              username: newUsername,
-              primaryAccessLevel: eachUser.primaryAccessLevel,
-              secondaryAccessLevel: eachUser.secondaryAccessLevel,
-            });
+          if (newPassword === eachUser.password) {
+            success();
+            setTimeout(() => {
+              setLoggedInUser({
+                username: newUsername,
+                primaryAccessLevel: eachUser.primaryAccessLevel,
+                secondaryAccessLevel: eachUser.secondaryAccessLevel,
+              });
 
-            setNewUsername("");
+              setNewUsername("");
+              setNewPassword("");
+              setLoggingInProgress(false);
+              routeChange(`/guidelines`);
+            }, 2500);
+          } else {
+            passwordError();
             setLoggingInProgress(false);
-            routeChange(`/guidelines`);
-          }, 2500);
+            setNewUsername("");
+            setNewPassword("");
+          }
         }
       });
     } else {
-      error();
+      userNameError();
       setLoggingInProgress(false);
       setNewUsername("");
+      setNewPassword("");
     }
   };
 
@@ -73,7 +90,9 @@ export const Login = () => {
       <main>
         <LoginFormComponent
           newUsername={newUsername}
+          newPassword={newPassword}
           setNewUsername={setNewUsername}
+          setNewPassword={setNewPassword}
           handleSubmit={handleSubmit}
           loggingInProgress={loggingInProgress}
           setLoggingInProgress={setLoggingInProgress}
