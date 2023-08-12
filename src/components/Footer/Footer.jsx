@@ -1,10 +1,11 @@
 import "../../styles/Footer.css";
+import { Divider } from "antd";
 
 export const Footer = () => {
   return (
     <>
       <footer>
-        <hr />
+        <Divider />
         <div className="footer_main_container">
           <sub>
             <p align="right">
