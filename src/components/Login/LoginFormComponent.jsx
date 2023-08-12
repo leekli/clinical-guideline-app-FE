@@ -1,4 +1,4 @@
-import { Alert, Button, Input, Tooltip, Spin } from "antd";
+import { Alert, Button, Input, Tooltip, Spin, Space } from "antd";
 import {
   InfoCircleOutlined,
   UserOutlined,
@@ -27,12 +27,19 @@ export const LoginFormComponent = ({
     <>
       <form className="Login__form" onSubmit={handleSubmit}>
         <label htmlFor="Login__textbox">
-          <Alert
-            message={<strong>Please Log in</strong>}
-            description={`Enter your Username and Password, below and then press 'Log In'.`}
-            type="info"
-            showIcon
-          />
+          <Space
+            direction="vertical"
+            style={{
+              width: "75%",
+            }}
+          >
+            <Alert
+              message={<strong>Please Log in</strong>}
+              description={`Enter your Username and Password, below and then press 'Log In'.`}
+              type="info"
+              showIcon
+            />
+          </Space>
           <br />
           {loggingInProgress === true ? (
             <Spin tip="Logging in...">
@@ -50,6 +57,7 @@ export const LoginFormComponent = ({
             placeholder="Enter your username here..."
             allowClear
             required
+            style={{ width: "40vw" }}
             prefix={<UserOutlined className="site-form-item-icon" />}
             suffix={
               <Tooltip title="Please enter your username">
@@ -65,6 +73,7 @@ export const LoginFormComponent = ({
             placeholder="Enter your password here..."
             allowClear
             required
+            style={{ width: "40vw" }}
             prefix={<KeyOutlined className="site-form-item-icon" />}
             suffix={
               <Tooltip title="Please enter your password">

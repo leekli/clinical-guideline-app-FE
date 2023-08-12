@@ -1,6 +1,6 @@
 import "../../styles/SingleGuideline.css";
 import { useEffect, useState, useContext } from "react";
-import { Card, Space, Collapse, Alert } from "antd";
+import { Card, Space, Collapse, Alert, Table } from "antd";
 import {
   FileTextOutlined,
   NumberOutlined,
@@ -24,6 +24,7 @@ export const SingleGuideline = () => {
   const { isLoggedIn, loggedInUser } = useContext(UserContext);
   const { guideline_id } = useParams();
   const [guideline, setGuideline] = useState("");
+  const [changesList, setChangesList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
@@ -33,23 +34,27 @@ export const SingleGuideline = () => {
     getGuidelineById(guideline_id)
       .then((data) => {
         setGuideline(data.guideline);
+        setChangesList([...data.guideline.GuidelineChangeHistoryDescriptions]);
+      })
+      .then(() => {
+        setChangesList((currList) => {
+          return currList.map((change) => {
+            return {
+              ChangeNumber: change.ChangeNumber,
+              ChangeDescription: change.ChangeDescription,
+              ChangeOwner: change.ChangeOwner,
+              ChangeDatePublished: convertJSTime(change.ChangeDatePublished),
+            };
+          });
+        });
+      })
+      .then(() => {
         setIsLoading(false);
       })
       .catch((err) => {
         setIsError({ err });
       });
   }, [isError]);
-
-  function handleClick(event) {
-    event.target.classList.toggle("active");
-    let content = event.target.nextElementSibling;
-
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  }
 
   function handleTrackerClick(event) {
     event.target.classList.toggle("tracker_active");
@@ -61,6 +66,29 @@ export const SingleGuideline = () => {
       content.style.display = "block";
     }
   }
+
+  const columns = [
+    {
+      title: "Change Number",
+      dataIndex: "ChangeNumber",
+      key: "ChangeNumber",
+    },
+    {
+      title: "Reason for Change",
+      dataIndex: "ChangeDescription",
+      key: "ChangeDescription",
+    },
+    {
+      title: "Submitted By",
+      dataIndex: "ChangeOwner",
+      key: "ChangeOwner",
+    },
+    {
+      title: "Date Published",
+      dataIndex: "ChangeDatePublished",
+      key: "ChangeDatePublished",
+    },
+  ];
 
   if (isError) {
     return <ErrorPage />;
@@ -203,52 +231,33 @@ export const SingleGuideline = () => {
             </button>
             <div className="tracker_history_content">
               <p>
-                {guideline.GuidelineChangeHistoryDescriptions.length !== 0 ? (
-                  <strong>
-                    <UnorderedListOutlined />
-                    &nbsp;History of changes to this Guideline:
-                  </strong>
+                {changesList[0] !== undefined ? (
+                  <>
+                    <strong>
+                      <UnorderedListOutlined />
+                      &nbsp;History of changes to this Guideline:
+                    </strong>
+                    <br />
+                    <Space direction="vertical" size={16}>
+                      <Table
+                        columns={columns}
+                        dataSource={changesList}
+                        bordered
+                        pagination={false}
+                        size="large"
+                        style={{
+                          width: "75vw",
+                        }}
+                      />
+                      <br />
+                    </Space>
+                  </>
                 ) : (
                   <strong>
                     There have been no changes made to this Guideline.
                   </strong>
                 )}
               </p>
-              <Space direction="vertical" size={16}>
-                {guideline.GuidelineChangeHistoryDescriptions.map((change) => {
-                  return (
-                    <>
-                      <Card
-                        size="medium"
-                        title={
-                          <p>
-                            <EditOutlined />
-                            &nbsp; Change Information
-                          </p>
-                        }
-                        style={{
-                          width: "75vw",
-                          borderColor: "darkgray",
-                        }}
-                      >
-                        <p>
-                          <strong>Reason given for change(s) made:</strong>{" "}
-                          {change.ChangeDescription}
-                        </p>
-                        <p>
-                          <strong>Change submitted by:</strong>{" "}
-                          {change.ChangeOwner}
-                        </p>
-                        <p>
-                          <strong>Change was incorporated on: </strong>{" "}
-                          {convertJSTime(change.ChangeDatePublished)}
-                        </p>
-                      </Card>
-                      <hr />
-                    </>
-                  );
-                })}
-              </Space>
             </div>
           </>
         );
@@ -350,52 +359,33 @@ export const SingleGuideline = () => {
             </button>
             <div className="tracker_history_content">
               <p>
-                {guideline.GuidelineChangeHistoryDescriptions.length !== 0 ? (
-                  <strong>
-                    <UnorderedListOutlined />
-                    &nbsp;History of changes to this Guideline:
-                  </strong>
+                {changesList[0] !== undefined ? (
+                  <>
+                    <strong>
+                      <UnorderedListOutlined />
+                      &nbsp;History of changes to this Guideline:
+                    </strong>
+                    <br />
+                    <Space direction="vertical" size={16}>
+                      <Table
+                        columns={columns}
+                        dataSource={changesList}
+                        bordered
+                        pagination={false}
+                        size="large"
+                        style={{
+                          width: "75vw",
+                        }}
+                      />
+                      <br />
+                    </Space>
+                  </>
                 ) : (
                   <strong>
                     There have been no changes made to this Guideline.
                   </strong>
                 )}
               </p>
-              <Space direction="vertical" size={16}>
-                {guideline.GuidelineChangeHistoryDescriptions.map((change) => {
-                  return (
-                    <>
-                      <Card
-                        size="medium"
-                        title={
-                          <p>
-                            <EditOutlined />
-                            &nbsp; Change Information
-                          </p>
-                        }
-                        style={{
-                          width: "75vw",
-                          borderColor: "darkgray",
-                        }}
-                      >
-                        <p>
-                          <strong>Reason given for change(s) made:</strong>{" "}
-                          {change.ChangeDescription}
-                        </p>
-                        <p>
-                          <strong>Change submitted by:</strong>{" "}
-                          {change.ChangeOwner}
-                        </p>
-                        <p>
-                          <strong>Change was incorporated on: </strong>{" "}
-                          {convertJSTime(change.ChangeDatePublished)}
-                        </p>
-                      </Card>
-                      <hr />
-                    </>
-                  );
-                })}
-              </Space>
             </div>
           </>
         );
