@@ -149,6 +149,7 @@ export const MySingleGuidelineBranch = () => {
                         style={{
                           background: "seagreen",
                           borderColor: "black",
+                          width: "fit-content",
                         }}
                       >
                         View Collaborator Comments

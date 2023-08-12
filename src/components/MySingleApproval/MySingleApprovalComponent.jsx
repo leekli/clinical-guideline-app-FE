@@ -121,6 +121,11 @@ export const MySingleApprovalComponent = () => {
                     approvalName={singleApproval.approvalRequestName}
                     approvalType={singleApproval.type}
                   />
+                </Space>
+              </div>
+              <br />
+              <div>
+                <Space wrap>
                   <MySingleApprovalRejectionComponent
                     branchName={singleApproval.branchName}
                     approvalName={singleApproval.approvalRequestName}
