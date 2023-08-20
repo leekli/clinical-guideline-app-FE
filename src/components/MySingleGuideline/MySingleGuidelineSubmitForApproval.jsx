@@ -74,11 +74,14 @@ export const MySingleGuidelineSubmitForApproval = ({
           icon={<CheckOutlined />}
           style={{
             borderColor: "black",
-            width: "fit-content",
+            margin: "auto",
+            width: "175x",
+            maxWidth: "100%",
+            wordWrap: "break-word",
           }}
           onClick={showModal}
         >
-          Submit Guideline for Approval
+          Submit Guideline
         </Button>
 
         <Modal

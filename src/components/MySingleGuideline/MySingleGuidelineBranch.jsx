@@ -96,7 +96,7 @@ export const MySingleGuidelineBranch = () => {
     } else {
       return (
         <>
-          <Row gutter={16}>
+          <Row gutter={5}>
             <Col span={8}>
               <Card
                 title="Workspace Information"
@@ -152,7 +152,7 @@ export const MySingleGuidelineBranch = () => {
                           width: "fit-content",
                         }}
                       >
-                        View Collaborator Comments
+                        View Comments
                       </Button>
                     </Space>
                   </a>
@@ -163,7 +163,7 @@ export const MySingleGuidelineBranch = () => {
               <Card
                 title="Workspace Tools"
                 bordered={true}
-                style={{ borderColor: "darkgray" }}
+                style={{ borderColor: "darkgray", width: "100%" }}
               >
                 <Space wrap>
                   <div
@@ -171,7 +171,8 @@ export const MySingleGuidelineBranch = () => {
                       borderStyle: "solid",
                       borderColor: "darkgray",
                       backgroundColor: "#F5F5F5",
-                      width: "375px",
+                      width: "90%",
+                      maxWidth: "100%",
                       margin: "3px",
                       padding: "8px",
                       borderRadius: "5px",
