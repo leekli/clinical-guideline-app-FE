@@ -103,7 +103,7 @@ export const MyGuidelinesCreateNewGuidelineButton = () => {
           open={isModalOpen}
           onCancel={handleModalCancel}
           onOk={form.submit}
-          width={"50%"}
+          width={"75vw"}
           closable
           okText="Submit"
         >
