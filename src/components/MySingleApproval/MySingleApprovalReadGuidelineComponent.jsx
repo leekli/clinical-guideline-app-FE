@@ -45,7 +45,7 @@ export const MySingleApprovalReadGuidelineComponent = ({ singleApproval }) => {
         open={isGuidelineModalOpen}
         onCancel={handleGuidelineModalCancel}
         onOk={handleGuidelineModalCancel}
-        width="50%"
+        width="75vw"
         closable
       >
         <Alert
