@@ -73,6 +73,7 @@ export const LoginFormComponent = ({
             placeholder="Enter your password here..."
             allowClear
             required
+            type="password"
             style={{ width: "40vw" }}
             prefix={<KeyOutlined className="site-form-item-icon" />}
             suffix={
