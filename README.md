@@ -25,7 +25,7 @@ This is the Front End Application built with React.js, which connects to an API 
 
 ## Demo video:
 
-<img src="./readme-assets/app-demo.gif" width="60%" style="border: solid black" />
+<img src="./readme-assets/app-demo.gif" width="75%" style="border: solid black" />
 
 <hr>
 
