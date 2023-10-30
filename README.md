@@ -23,6 +23,12 @@ This is the Front End Application built with React.js, which connects to an API 
 
 <hr>
 
+## Demo video:
+
+<img src="./readme-assets/app-demo.gif" width="60%" style="border: solid black" />
+
+<hr>
+
 ### Data Exclusions
 
 > [!WARNING]
